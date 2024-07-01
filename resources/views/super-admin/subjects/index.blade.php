@@ -56,19 +56,19 @@
 									<td>{{ $subject->created_at->format('d-M-Y') }}</td>
 									<td>
 										@if ($subject->status == 1)
-											<span class="btn btn-soft-success btn-sm"><i class="fas fa-check"></i></span>
+											<span class="text-success font-size-18"><i class="fas fa-check-square"></i></span>
 										@else
-											<span class="btn btn-soft-danger btn-sm"><i class="fas fa-times"></i></span>
+											<span class="text-danger font-size-18"><i class="fas fa-window-close"></i></span>
 										@endif
 									</td>
 
 									<td>
 										<div class="d-flex align-items-center gap-1">
-											<a href="{{ route('super-admin.subjects.edit', $subject->id) }}" class="btn btn-success"><i class="fa fa-edit "></i></a>
+											<a href="{{ route('super-admin.subjects.edit', $subject->id) }}" class="btn btn-success font-size-15 btn-sm"><i class="fa fa-edit "></i></a>
 											<form action="{{ route('super-admin.subjects.destroy', $subject->id) }}" method="POST">
 												@csrf
 												@method('DELETE')
-												<button type="button" class="btn btn-danger delete-button"><i class="fa fa-trash "></i></button>
+												<button type="button" class="btn btn-danger delete-button font-size-15 btn-sm"><i class="fa fa-trash "></i></button>
 											</form>
 										</div>
 									</td>

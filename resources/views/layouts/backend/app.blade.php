@@ -52,7 +52,7 @@
 
 	</head>
 
-	<body data-topbar="dark" data-sidebar="dark">
+	<body data-topbar="dark" data-sidebar="dark" data-sidebar-size="lg">
 
 		<!-- <body data-layout="horizontal"> -->
 

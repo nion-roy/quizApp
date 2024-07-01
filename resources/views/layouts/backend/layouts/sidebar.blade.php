@@ -47,8 +47,8 @@
 
 		<hr class="m-0">
 
-		<li>
-			<a href="{{ route('super-admin.users.index') }}">
+		<li class="{{ Request::is($user . '/questions*') ? 'mm-active' : '' }}">
+			<a class="{{ Request::is($user . '/questions*') ? 'mm-active' : '' }}" href="{{ route('super-admin.questions.index') }}">
 				<i class="fas fa-question-circle"></i>
 				<span data-key="t-ecommerce">Question Bank</span>
 			</a>

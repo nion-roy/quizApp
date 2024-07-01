@@ -57,7 +57,7 @@
 			<h6 class="mt-4 mb-3 pt-2 sidebar-setting">Sidebar Size</h6>
 
 			<div class="form-check sidebar-setting">
-				<input class="form-check-input" type="radio" name="sidebar-size" id="sidebar-size-default" value="default" onchange="document.body.setAttribute('data-sidebar-size', 'lg')">
+				<input class="form-check-input" type="radio" name="sidebar-size" id="sidebar-size-default" value="default" onchange="document.body.setAttribute('data-sidebar-size', 'lg')" checked>
 				<label class="form-check-label" for="sidebar-size-default">Default</label>
 			</div>
 			<div class="form-check sidebar-setting">
