@@ -13,7 +13,7 @@ class DepartmentController extends Controller
 
   public function __construct(DepartmentRepositoryInterface $departmentRepository)
   {
-    $this->departmentRepository = $departmentRepository;;
+    $this->departmentRepository = $departmentRepository;
   }
 
   /**

@@ -62,7 +62,7 @@
 						</div>
 
 						<div class="row">
-							<div class="offset-md-6 col-md-3 text-end">
+							<div class="col-md-9 text-end">
 								<div class="form-group">
 									<a href="{{ route('super-admin.departments.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-upload me-2"></i>Update Now</button>

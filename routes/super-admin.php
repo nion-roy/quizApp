@@ -10,6 +10,7 @@ Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' =>
 
   Route::resource('subjects', App\Http\Controllers\SuperAdmin\SubjectController::class);
   Route::resource('departments', App\Http\Controllers\SuperAdmin\DepartmentController::class);
+  Route::resource('questions', App\Http\Controllers\SuperAdmin\QuestionController::class);
   Route::resource('users', App\Http\Controllers\SuperAdmin\UserController::class);
 
 
