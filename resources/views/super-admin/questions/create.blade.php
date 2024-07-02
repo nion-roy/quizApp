@@ -137,7 +137,7 @@
 @endsection
 
 
-{{-- @push('js')
+@push('js')
 	<script>
 		$(document).ready(function() {
 			$('#department_id').on('change', function() {
@@ -165,4 +165,4 @@
 			}).trigger('change'); // Trigger change event on page load to load subjects if a department is pre-selected
 		});
 	</script>
-@endpush --}}
+@endpush

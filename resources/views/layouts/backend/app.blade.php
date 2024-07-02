@@ -212,33 +212,7 @@
 		@stack('js')
 
 
-		<script>
-			$(document).ready(function() {
-				$('#department_id').on('change', function() {
-					var id = $(this).val();
-					var url = "/super-admin/department-wise-subjects/" + id;
 
-					// Clear existing options in subject_id dropdown
-					$('#subject_id').empty().append('<option disabled selected>-- Loading Subjects --</option>');
-
-					$.ajax({
-						type: "GET",
-						url: url,
-						success: function(response) {
-							if (response.length > 0) {
-								// Append options to subject_id dropdown
-								$('#subject_id').empty().append('<option disabled selected>-- Select Subject --</option>');
-								$.each(response, function(key, value) {
-									$('#subject_id').append('<option value="' + value.id + '">' + value.subject_name + '</option>');
-								});
-							} else {
-								$('#subject_id').empty().append('<option disabled selected>-- Subject Not Found --</option>');
-							}
-						},
-					});
-				}).trigger('change'); // Trigger change event on page load to load subjects if a department is pre-selected
-			});
-		</script>
 
 
 	</body>

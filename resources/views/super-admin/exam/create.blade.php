@@ -92,4 +92,5 @@
 			<!-- end col -->
 		</div>
 		<!-- end row -->
-	@endsection
+	</div>
+@endsection
