@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubjectRequest;
+use App\Models\Department;
 use App\Repositories\Interfaces\SubjectRepositoryInterface;
 
 class SubjectController extends Controller
@@ -28,7 +29,8 @@ class SubjectController extends Controller
    */
   public function create()
   {
-    return view('super-admin.subjects.create');
+    $departments = Department::where('status', true)->get();
+    return view('super-admin.subjects.create', compact('departments'));
   }
 
   /**
@@ -53,8 +55,9 @@ class SubjectController extends Controller
    */
   public function edit(string $id)
   {
+    $departments = Department::where('status', true)->get();
     $subject = $this->subjectRepository->getById($id);
-    return view('super-admin.subjects.edit', compact('subject'));
+    return view('super-admin.subjects.edit', compact('subject', 'departments'));
   }
 
   /**

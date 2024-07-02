@@ -6,6 +6,7 @@ use App\Models\Subject;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuestionRequest;
 use App\Models\Department;
+use App\Models\QuestionOption;
 use App\Repositories\Interfaces\QuestionRepositoryInterface;
 
 class QuestionController extends Controller
@@ -50,7 +51,9 @@ class QuestionController extends Controller
    */
   public function show(string $id)
   {
-    //
+    $question = $this->questionRepository->getById($id);
+    $questionOptions = QuestionOption::where('question_id', $question->id)->get();
+    return view('super-admin.questions.show', compact('question', 'questionOptions'));
   }
 
   /**
@@ -58,7 +61,11 @@ class QuestionController extends Controller
    */
   public function edit(string $id)
   {
-    return view('super-admin.questions.edit');
+    $subjects = Subject::where('status', true)->get();
+    $departments = Department::where('status', true)->get();
+    $question = $this->questionRepository->getById($id);
+    $questionOptions = QuestionOption::where('question_id', $question->id)->get();
+    return view('super-admin.questions.edit', compact('subjects', 'departments', 'question', 'questionOptions'));
   }
 
   /**
@@ -77,5 +84,12 @@ class QuestionController extends Controller
   {
     $this->questionRepository->destroy($id);
     return redirect()->back()->with('success', 'You have delete to question successfully.');
+  }
+
+
+  public function getSubject($id)
+  {
+    $subjects = Subject::where('status', true)->where('department_id', $id)->get();
+    return $subjects;
   }
 }

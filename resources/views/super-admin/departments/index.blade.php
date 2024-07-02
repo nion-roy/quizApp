@@ -51,7 +51,7 @@
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
 									<td>{{ $department->department_name }}</td>
-									<td>00</td>
+									<td>{{ getStrPad(getDepartmentCount($department->id)) }}</td>
 									<td>{{ $department->user->name }}</td>
 									<td>{{ $department->created_at->format('d-M-Y') }}</td>
 									<td>

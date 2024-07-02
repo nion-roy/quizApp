@@ -32,50 +32,42 @@ class Question extends Model
     // Create a new Question
     $question = new Question();
     $question->user_id = Auth::id();
-    $question->subject_id = $requestData["subject_id"];
     $question->department_id = $requestData["department_id"];
-    $question->question_name = $requestData["question_name"];
-    $question->correct_answer = $requestData["correct_answer"];
+    $question->subject_id = $requestData["subject_id"];
+    $question->exam_name = $requestData["exam_name"];
+    $question->exam_date = $requestData["exam_date"];
+    $question->exam_duration = $requestData["exam_duration"];
     $question->status = $requestData["status"];
     $question->save();
 
-    // Create associated QuestionOption
-    foreach ($requestData["option"] as $option) {
+
+    foreach ($requestData["question_name"] as $index => $name) {
+      // Create associated QuestionOption
       $questionOption = new QuestionOption();
+      $questionOption->user_id = Auth::id();
       $questionOption->question_id = $question->id;
-      $questionOption->option = $option;
+      $questionOption->question_name = $name;
+      $questionOption->option_1 = $requestData["option_1"][$index];
+      $questionOption->option_2 = $requestData["option_2"][$index];
+      $questionOption->option_3 = $requestData["option_3"][$index];
+      $questionOption->option_4 = $requestData["option_4"][$index];
+      $questionOption->correct_answer = $requestData["correct_answer"][$index];
       $questionOption->save();
     }
 
     // Return both Question and QuestionOption
-    return [$question, $questionOption];
+    return $question;
+    // return [$question, $questionOption];
   }
 
 
   public static function updateQuestion($id, $requestData)
   {
-    // Update a Question
     $question = Question::findOrFail($id);
-    $question->user_id = Auth::id();
-    $question->subject_id = $requestData["subject_id"];
-    $question->department_id = $requestData["department_id"];
     $question->question_name = $requestData["question_name"];
-    $question->correct_answer = $requestData["correct_answer"];
     $question->status = $requestData["status"];
     $question->save();
-
-    QuestionOption::where('question_id', $id)->delete();
-
-    // Update associated QuestionOption
-    foreach ($requestData["option"] as $option) {
-      $questionOption = new QuestionOption();
-      $questionOption->question_id = $question->id;
-      $questionOption->option = $option;
-      $questionOption->save();
-    }
-
-    // Return both Question and QuestionOption
-    return [$question, $questionOption];
+    return $question;
   }
 
   public static function destroyQuestion($id)

@@ -35,17 +35,32 @@
 						@include('alert-message.alert-message')
 
 						<div class="row justify-content-center">
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<div class="form-group mb-3">
-									<label class="form-label" for="name">Subject Name <span class="text-danger">*</span></label>
-									<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Enter subject name" value="{{ old('name') }}">
-									@error('name')
+									<label class="form-label" for="deparment_id">Department <span class="text-danger">*</span></label>
+									<select name="department_id" id="department_id" class="form-control form-select  @error('department_id') is-invalid @enderror">
+										<option disabled selected>-- Selected Department --</option>
+										@foreach ($departments as $department)
+											<option value="{{ $department->id }}">{{ $department->department_name }}</option>
+										@endforeach
+									</select>
+									@error('department_id')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
 							</div>
 
-							<div class="col-md-3">
+							<div class="col-md-4">
+								<div class="form-group mb-3">
+									<label class="form-label" for="subject_name">Subject Name <span class="text-danger">*</span></label>
+									<input type="text" name="subject_name" class="form-control @error('subject_name') is-invalid @enderror" id="subject_name" placeholder="Enter subject name" value="{{ old('subject_name') }}">
+									@error('subject_name')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-4">
 								<div class="form-group mb-3">
 									<label class="form-label" for="status">Status<span class="text-danger">*</span></label>
 									<select name="status" class="form-control form-select @error('status') is-invalid @enderror">
@@ -61,7 +76,7 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-9 text-end">
+							<div class="col-md-12 text-end">
 								<div class="form-group">
 									<a href="{{ route('super-admin.subjects.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>

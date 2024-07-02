@@ -16,11 +16,17 @@ class Subject extends Model
     return $this->belongsTo(User::class);
   }
 
+  public function department()
+  {
+    return $this->belongsTo(Department::class);
+  }
+
   public static function createSubject($requestData)
   {
     $subject = new Subject();
     $subject->user_id = Auth::id();
-    $subject->name = $requestData["name"];
+    $subject->department_id = $requestData["department_id"];
+    $subject->subject_name = $requestData["subject_name"];
     $subject->status = $requestData["status"];
     $subject->save();
     return $subject;
@@ -29,7 +35,8 @@ class Subject extends Model
   public static function updateSubject($id, $requestData)
   {
     $subject = Subject::findOrFail($id);
-    $subject->name = $requestData["name"];
+    $subject->department_id = $requestData["department_id"];
+    $subject->subject_name = $requestData["subject_name"];
     $subject->status = $requestData["status"];
     $subject->save();
     return $subject;
