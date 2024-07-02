@@ -31,7 +31,8 @@
 				<div class="card-body">
 
 
-					<form action="{{ route('super-admin.questionSearch') }}" method="GET">
+					<form action="{{ route('super-admin.questionSearch') }}" method="POST">
+						@csrf
 
 						<div class="row justify-content-center">
 							<div class="col-md-6 mb-3">
@@ -69,7 +70,7 @@
 
 									<div class="col-12">
 										<label class="form-label" for="">MCQ Value<span class="text-danger">*</span></label>
-										<select name="value" class="form-control form-select @error('value') is-invalid @enderror" id="value">
+										<select name="mcq" class="form-control form-select @error('value') is-invalid @enderror" id="value">
 											<option disabled selected>-- Select Value --</option>
 											<option value="5">05</option>
 											<option value="10">10</option>
@@ -98,6 +99,16 @@
 		<!-- end col -->
 	</div>
 	<!-- end row -->
+
+
+	@if (session('questions'))
+		@foreach (session('questions') as $question)
+			<!-- Display each question as needed -->
+			<p>{{ $question->question_name }}</p>
+		@endforeach
+	@endif
+
+
 @endsection
 
 

@@ -14,7 +14,7 @@ Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' =>
   Route::get('department-wise-subjects/{id}', [App\Http\Controllers\SuperAdmin\QuestionController::class, 'getSubject'])->name('department-wise-subjects');
   
   Route::resource('exams', App\Http\Controllers\SuperAdmin\ExamController::class);
-  Route::get('mcq-test', [App\Http\Controllers\SuperAdmin\ExamController::class, 'questionSearch'])->name('questionSearch');
+  Route::post('mcq-exams', [App\Http\Controllers\SuperAdmin\ExamController::class, 'questionSearch'])->name('questionSearch');
 
   Route::resource('users', App\Http\Controllers\SuperAdmin\UserController::class);
 

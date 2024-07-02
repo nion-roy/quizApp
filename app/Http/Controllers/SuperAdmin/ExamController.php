@@ -68,8 +68,8 @@ class ExamController extends Controller
 
   public function questionSearch(Request $request)
   {
-    $questions = Question::where('department_id', $request->department_id)->where('subject_id', $request->subject_id)->where('status', true)->inRandomOrder()->take($request->value)->get();
-    // return $questions;
+    $questions = Question::where('department_id', $request->department_id)->where('subject_id', $request->subject_id)->where('status', true)->inRandomOrder()->take($request->mcq)->get();
     return view('super-admin.exam.create', compact('questions'));
+    // return redirect()->back()->with('questions', $questions);
   }
 }
