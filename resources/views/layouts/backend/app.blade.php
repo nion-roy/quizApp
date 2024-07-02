@@ -99,6 +99,74 @@
 		<!-- END layout-wrapper -->
 
 
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form action="{{ route('super-admin.questionSearch') }}" method="GET">
+
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">MCQ Question Pattern</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+
+							<div class="row">
+
+								@php
+									$departments = App\Models\Department::where('status', true)->get();
+								@endphp
+
+								<div class="col-12 mb-3">
+									<label class="form-label" for="">Department</label>
+									<select name="department_id" class="form-control form-select @error('department_id') is-invalid @enderror" id="department_id">
+										<option disabled selected>-- Select Department --</option>
+										@foreach ($departments as $department)
+											<option value="{{ $department->id }}" @if (old('department_id') == $department->id) selected @endif>{{ $department->department_name }}</option>
+										@endforeach
+									</select>
+								</div>
+
+
+								@php
+									$subjects = App\Models\Subject::where('status', true)->get();
+								@endphp
+
+								<div class="col-12 mb-3">
+									<label class="form-label" for="">Subject</label>
+									<select name="subject_id" class="form-control form-select @error('subject_id') is-invalid @enderror" id="subject_id">
+										<option disabled selected>-- Select Subject --</option>
+										@foreach ($subjects as $subject)
+											<option value="{{ $subject->id }}" @if (old('subject_id') == $subject->id) selected @endif>{{ $subject->subject_name }}</option>
+										@endforeach
+									</select>
+								</div>
+
+
+								<div class="col-12">
+									<label class="form-label" for="">MCQ Value</label>
+									<select name="value" class="form-control form-select @error('value') is-invalid @enderror" id="value">
+										<option disabled selected>-- Select Value --</option>
+										<option value="5">05</option>
+										<option value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+									</select>
+								</div>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-success">Continue</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
 		<!-- Right Sidebar -->
 		@include('layouts.backend.layouts.rightbar')
 		<!-- /Right-bar -->
@@ -141,10 +209,36 @@
 
 		@include('sweetalert::alert')
 
-
-
-
 		@stack('js')
+
+
+		<script>
+			$(document).ready(function() {
+				$('#department_id').on('change', function() {
+					var id = $(this).val();
+					var url = "/super-admin/department-wise-subjects/" + id;
+
+					// Clear existing options in subject_id dropdown
+					$('#subject_id').empty().append('<option disabled selected>-- Loading Subjects --</option>');
+
+					$.ajax({
+						type: "GET",
+						url: url,
+						success: function(response) {
+							if (response.length > 0) {
+								// Append options to subject_id dropdown
+								$('#subject_id').empty().append('<option disabled selected>-- Select Subject --</option>');
+								$.each(response, function(key, value) {
+									$('#subject_id').append('<option value="' + value.id + '">' + value.subject_name + '</option>');
+								});
+							} else {
+								$('#subject_id').empty().append('<option disabled selected>-- Subject Not Found --</option>');
+							}
+						},
+					});
+				}).trigger('change'); // Trigger change event on page load to load subjects if a department is pre-selected
+			});
+		</script>
 
 
 	</body>

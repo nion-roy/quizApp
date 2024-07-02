@@ -36,11 +36,12 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Question</th>
-								<th>Correct Answer</th>
+								<th>Exam Name</th>
 								<th>Department</th>
 								<th>Subject</th>
 								<th>Creation</th>
+                <th>Exam Date</th>
+                <th>Duration</th>
 								<th>Created</th>
 								<th>Status</th>
 								<th>Action</th>
@@ -52,11 +53,12 @@
 							@foreach ($questions as $key => $question)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
-									<td>{{ $question->question_name }}</td>
-									<td>{{ $question->correct_answer }}</td>
+									<td>{{ $question->exam_name }}</td>
 									<td>{{ $question->department->department_name }}</td>
 									<td>{{ $question->subject->subject_name }}</td>
 									<td>{{ $question->user->name }}</td>
+									<td>{{ $question->exam_date }}</td>
+									<td>{{ $question->exam_duration }}</td>
 									<td>{{ $question->created_at->format('d-M-Y') }}</td>
 									<td>
 										@if ($question->status == 1)

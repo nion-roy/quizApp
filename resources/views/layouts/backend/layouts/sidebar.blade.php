@@ -29,19 +29,19 @@
 
 		<hr class="m-0"> --}}
 
-		<li class="{{ Request::is($user . '/subjects*') ? 'mm-active' : '' }}">
-			<a class="{{ Request::is($user . '/subjects*') ? 'mm-active' : '' }}" href="{{ route('super-admin.subjects.index') }}">
+		<li class="{{ Request::is($user . '/departments*') ? 'mm-active' : '' }}">
+			<a class="{{ Request::is($user . '/departments*') ? 'mm-active' : '' }}" href="{{ route('super-admin.departments.index') }}">
 				<i class="fas fa-question-circle"></i>
-				<span data-key="t-ecommerce">Subject</span>
+				<span data-key="t-ecommerce">Department</span>
 			</a>
 		</li>
 
 		<hr class="m-0">
 
-		<li class="{{ Request::is($user . '/departments*') ? 'mm-active' : '' }}">
-			<a class="{{ Request::is($user . '/departments*') ? 'mm-active' : '' }}" href="{{ route('super-admin.departments.index') }}">
+		<li class="{{ Request::is($user . '/subjects*') ? 'mm-active' : '' }}">
+			<a class="{{ Request::is($user . '/subjects*') ? 'mm-active' : '' }}" href="{{ route('super-admin.subjects.index') }}">
 				<i class="fas fa-question-circle"></i>
-				<span data-key="t-ecommerce">Department</span>
+				<span data-key="t-ecommerce">Subject</span>
 			</a>
 		</li>
 
@@ -56,6 +56,22 @@
 
 		<hr class="m-0">
 
+
+		<li>
+			<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				<i class="fas fa-question-circle"></i>
+				<span data-key="t-ecommerce">MCQ Test</span>
+			</a>
+		</li>
+
+		{{-- <li>
+			<a href="{{ route('super-admin.exams.index') }}">
+				<i class="fas fa-question-circle"></i>
+				<span data-key="t-ecommerce">MCQ Test</span>
+			</a>
+		</li> --}}
+
+		<hr class="m-0">
 
 		<li>
 			<a href="{{ route('super-admin.users.index') }}">

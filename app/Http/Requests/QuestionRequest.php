@@ -25,13 +25,17 @@ class QuestionRequest extends FormRequest
     return [
       'subject_id' => ['required'],
       'department_id' => ['required'],
-      'question' => ['required', Rule::unique('questions')->ignore($this->route('question'))],
-      'option_1' => ['required'],
-      'option_2' => ['required'],
-      'option_3' => ['required'],
-      'option_4' => ['required'],
+      'question_name' => ['required', Rule::unique('questions')->ignore($this->route('question'))],
+      'option.*' => 'required',
       'correct_answer' => ['required'],
       'status' => ['required'],
+    ];
+  }
+
+  public function messages()
+  {
+    return [
+      'option.*.required' => 'The option field is required.',
     ];
   }
 }

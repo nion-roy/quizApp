@@ -13,14 +13,11 @@ return new class extends Migration
   {
     Schema::create('question_options', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-      $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete();
-      $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete();
       $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
-      $table->string('option_1');
-      $table->string('option_2');
-      $table->string('option_3');
-      $table->string('option_4');
+      $table->string('option');
+      // $table->string('option_2');
+      // $table->string('option_3');
+      // $table->string('option_4');
       $table->timestamps();
     });
   }

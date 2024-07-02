@@ -36,6 +36,7 @@
 						<thead>
 							<tr>
 								<th>#</th>
+                <th>Department</th>
 								<th>Subject Name</th>
 								<th>Count</th>
 								<th>Creation User</th>
@@ -50,7 +51,8 @@
 							@foreach ($subjects as $key => $subject)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
-									<td>{{ $subject->name }}</td>
+									<td>{{ $subject->department->department_name }}</td>
+									<td>{{ $subject->subject_name }}</td>
 									<td>00</td>
 									<td>{{ $subject->user->name }}</td>
 									<td>{{ $subject->created_at->format('d-M-Y') }}</td>
