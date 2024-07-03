@@ -31,8 +31,10 @@
 				<div class="card-body">
 
 
-					<form action="{{ route('super-admin.questionSearch') }}" method="POST">
-						@csrf
+          @include('alert-message.alert-message')
+
+
+					<form action="{{ route('super-admin.mcq-practice.create') }}" method="GET">
 
 						<div class="row justify-content-center">
 							<div class="col-md-6 mb-3">
@@ -99,15 +101,6 @@
 		<!-- end col -->
 	</div>
 	<!-- end row -->
-
-
-	@if (session('questions'))
-		@foreach (session('questions') as $question)
-			<!-- Display each question as needed -->
-			<p>{{ $question->question_name }}</p>
-		@endforeach
-	@endif
-
 
 @endsection
 
