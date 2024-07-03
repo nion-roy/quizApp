@@ -15,7 +15,7 @@
 		<link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico">
 
 		<!-- Sweet Alert-->
-		<link rel="stylesheet" href="sweetalert2.min.css">
+		<link rel="stylesheet" href="sweetalert2.min.css" type="text/html">
 
 		<!-- DataTables -->
 		<link href="{{ asset('backend') }}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
@@ -101,7 +101,7 @@
 
 
 		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		{{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="{{ route('super-admin.questionSearch') }}" method="GET">
@@ -164,7 +164,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 
 
 		<!-- Right Sidebar -->
@@ -191,17 +191,10 @@
 
 		<!-- Datatable init js -->
 		<script src="{{ asset('backend') }}/assets/js/pages/datatables.init.js"></script>
-
 		<script src="{{ asset('backend') }}/assets/js/pages/allchart.js"></script>
-
-		<!-- dashboard init -->
-		<script src="{{ asset('backend') }}/assets/js/pages/dashboard.init.js"></script>
 
 		<!-- Sweet Alerts js -->
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-		<!-- Sweet alert init js-->
-		<script src="{{ asset('backend') }}/assets/js/pages/sweetalert.init.js"></script>
 
 		<script src="{{ asset('backend') }}/assets/js/script.js"></script>
 

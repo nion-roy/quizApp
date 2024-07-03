@@ -57,22 +57,11 @@
 		<hr class="m-0">
 
 
-		{{-- <li>
-			<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				<i class="fas fa-question-circle"></i>
-				<span data-key="t-ecommerce">MCQ Test</span>
-			</a>
-		</li> --}}
-
 		<li>
-			<a href="javascript: void(0);" class="has-arrow">
-				<i class="fa fa-cog"></i>
-				<span data-key="t-ecommerce">MCQ</span>
+			<a href="{{ route('super-admin.mcq-practice.index') }}">
+				<i class="fas fa-question-circle"></i>
+				<span data-key="t-ecommerce">MCQ Practice</span>
 			</a>
-			<ul class="sub-menu" aria-expanded="false">
-				<li><a href="{{ route('super-admin.exams.index') }}" key="t-products">MCQ Test</a></li>
-				<li><a href="#" key="t-products">MCQ Results</a></li>
-			</ul>
 		</li>
 
 		<hr class="m-0">
