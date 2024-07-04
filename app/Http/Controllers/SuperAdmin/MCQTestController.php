@@ -23,9 +23,15 @@ class MCQTestController extends Controller
    */
   public function create(Request $request)
   {
-    $questions = Question::where('department_id', $request->department_id)->where('subject_id', $request->subject_id)->where('status', true)->inRandomOrder()->take(10)->get();
-    return view('super-admin.mcq.searching', compact('questions'));
+    $validated = $request->validate([
+      'department_id' => 'required',
+      'subject_id' => 'required',
+    ]);
+
+    $questions = Question::where('department_id', $validated['department_id'])->where('subject_id', $validated['subject_id'])->where('status', true)->inRandomOrder()->take(10)->get();
+    return view('super-admin.mcq.create', compact('questions'));
   }
+
 
   /**
    * Store a newly created resource in storage.
@@ -47,7 +53,7 @@ class MCQTestController extends Controller
     }
 
     // Redirect or return a response
-    // return redirect()->json('url' => route('super-admin.mcq-practice.index'));
+    return response()->json(['url' => route('super-admin.mcq-practice.index')]);
   }
 
   /**
@@ -79,7 +85,6 @@ class MCQTestController extends Controller
    */
   public function destroy(string $id)
   {
-    //
+    MCQTest::where('user_id', $id)->delete();
   }
-
 }

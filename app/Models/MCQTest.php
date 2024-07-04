@@ -19,5 +19,10 @@ class MCQTest extends Model
   {
     return $this->belongsTo(Question::class);
   }
- 
+
+
+  public function answer()
+  {
+    return $this->belongsTo(QuestionOption::class);
+  }
 }

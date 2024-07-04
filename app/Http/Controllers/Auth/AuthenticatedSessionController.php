@@ -60,6 +60,7 @@ class AuthenticatedSessionController extends Controller
         Auth::logout();
         return redirect()->back()->with(['warning' => 'Your account has expired.'])->withInput($request->only('email'));
       }
+      
     } catch (\Exception $e) {
       // Handle exceptions here, for example log the error
       return redirect()->route('login')->with('error', 'An error occurred. Please try again later.' . $e)->withInput($request->only('email'));
