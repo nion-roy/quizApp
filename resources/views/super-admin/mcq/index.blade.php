@@ -22,6 +22,9 @@
 	</div>
 	<!-- end page title -->
 
+
+	@include('super-admin.mcq.result-popup')
+
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
@@ -30,9 +33,7 @@
 				</div>
 				<div class="card-body">
 
-
-          @include('alert-message.alert-message')
-
+					@include('alert-message.alert-message')
 
 					<form action="{{ route('super-admin.mcq-practice.create') }}" method="GET">
 
@@ -52,6 +53,10 @@
 												<option value="{{ $department->id }}" @if (old('department_id') == $department->id) selected @endif>{{ $department->department_name }}</option>
 											@endforeach
 										</select>
+
+										@error('department_id')
+											<div class="text-danger">{{ $message }}</div>
+										@enderror
 									</div>
 
 
@@ -67,10 +72,13 @@
 												<option value="{{ $subject->id }}" @if (old('subject_id') == $subject->id) selected @endif>{{ $subject->subject_name }}</option>
 											@endforeach
 										</select>
+										@error('subject_id')
+											<div class="text-danger">{{ $message }}</div>
+										@enderror
 									</div>
 
 
-									<div class="col-12">
+									{{-- <div class="col-12">
 										<label class="form-label" for="">MCQ Value<span class="text-danger">*</span></label>
 										<select name="mcq" class="form-control form-select @error('value') is-invalid @enderror" id="value">
 											<option disabled selected>-- Select Value --</option>
@@ -79,7 +87,7 @@
 											<option value="20">20</option>
 											<option value="30">30</option>
 										</select>
-									</div>
+									</div> --}}
 
 								</div>
 							</div>
@@ -90,8 +98,6 @@
 							</div>
 
 						</div>
-
-
 
 					</form>
 

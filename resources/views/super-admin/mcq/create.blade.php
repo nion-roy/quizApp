@@ -31,7 +31,7 @@
 
 	<div class="row">
 		<div class="col-12">
-			<form id="quizForm" action="{{ route('super-admin.mcq-exams.store') }}" method="POST">
+			<form id="quizForm" action="{{ route('super-admin.mcq-practice.store') }}" method="POST">
 				@csrf
 
 				<div class="card">
@@ -117,7 +117,6 @@
 					clearInterval(timer);
 					// Submit the quiz form when time is up
 					$('#quizForm').submit();
-					window.location.href = window.location.href;
 				}
 			}, 1000);
 
@@ -130,7 +129,8 @@
 					url: url,
 					data: formData,
 					success: function(response) {
-						window.location.href = window.location.href;
+						window.location.href = response.url;
+						window.reload();
 					}
 				});
 			});
