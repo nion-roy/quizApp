@@ -7,6 +7,14 @@
 		#questions:last-child {
 			margin: 0 !important;
 		}
+
+		.form-check-input {
+			display: none;
+		}
+
+		.form-check-input:checked~.options {
+			border: 1px solid #34c38f !important;
+		}
 	</style>
 @endpush
 
@@ -62,11 +70,9 @@
 								<div class="row">
 									@foreach ($questionOptions as $optionKey => $option)
 										<div class="col-md-6 col-xl-3">
-											<div class="border rounded p-3 my-2">
-												<div class="form-check">
-													<input id="option_{{ $option->id }}" class="form-check-input font-size-14" type="radio" name="answer[{{ $question->id }}]" value="{{ $option->id }}">
-													<label for="option_{{ $option->id }}" class="form-check-label font-size-14 fw-normal">{{ $option->option }}</label>
-												</div>
+											<div class="form-check p-0">
+												<input id="option_{{ $option->id }}" class="form-check-input font-size-14" type="radio" name="answer[{{ $question->id }}]" value="{{ $option->id }}">
+												<label for="option_{{ $option->id }}" class="form-check-label font-size-14 fw-normal border rounded p-3 my-2 options w-100"> {{ chr(65 + $optionKey) }}. {{ $option->option }} </label>
 											</div>
 										</div>
 									@endforeach

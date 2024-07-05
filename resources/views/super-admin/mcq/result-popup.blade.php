@@ -22,7 +22,7 @@ $mcqTests = App\Models\MCQTest::where('user_id', Auth::id())
 @endphp
 
 
-@push('js')
+{{-- @push('js')
 	<script>
 		$(document).ready(function() {
 			var mcqTestsCount = {{ $mcqTests->count() }};
@@ -32,7 +32,7 @@ $mcqTests = App\Models\MCQTest::where('user_id', Auth::id())
 			}
 		});
 	</script>
-@endpush
+@endpush --}}
 
 
 <!-- Modal -->

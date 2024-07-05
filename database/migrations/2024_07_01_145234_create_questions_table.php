@@ -14,8 +14,8 @@ return new class extends Migration
     Schema::create('questions', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-      $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete();
       $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete();
+      $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete();
       $table->string('question_name')->unique();
       $table->string('correct_answer');
       $table->boolean('status')->default(true);

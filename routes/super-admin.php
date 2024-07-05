@@ -23,4 +23,5 @@ Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' =>
 
 
   Route::resource('mcq-practice', App\Http\Controllers\SuperAdmin\MCQTestController::class);
+  Route::get('mcq-practice-pdf-download', [App\Http\Controllers\SuperAdmin\MCQTestController::class, 'elt_pdf'])->name('mcq-practice.download');
 });
