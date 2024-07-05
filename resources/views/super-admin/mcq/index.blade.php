@@ -2,7 +2,6 @@
 
 @section('title', 'Subjects')
 
-
 @section('main_content')
 	<!-- start page title -->
 	<div class="row">
@@ -24,6 +23,43 @@
 
 
 	@include('super-admin.mcq.result-popup')
+
+
+	<div class="row">
+		<div class="col-6 mx-auto">
+			<div class="card">
+				<div class="card-body">
+					<div id="pointModal" class="p-4 js-container">
+						<div class="icon">
+							<i class="fas fa-check"></i>
+						</div>
+						<h2>Congratulations!</h2>
+						<hr>
+
+						<div class="d-flex align-items-center justify-content-center mb-1 gap-2 font-size-16">
+							<h5 class="text-info">Total Question:</h5>
+							<span> 10 </span>
+						</div>
+
+						<div class="d-flex align-items-center justify-content-center mb-1 gap-2 font-size-16">
+							<h5 class="text-success">Correct Answer:</h5>
+							<span>08 </span>
+						</div>
+
+						<div class="d-flex align-items-center justify-content-center mb-1 gap-2 font-size-16">
+							<h5 class="text-danger">Wrong Answer:</h5>
+							<span>02 </span>
+						</div>
+
+						<button class="btn btn-danger mt-3" id="success_complete">Close Now</button>
+						<a href="{{ route('super-admin.mcq-practice.download') }}" class="btn btn-success mt-3">Download</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<div class="row">
 		<div class="col-12">
@@ -107,6 +143,7 @@
 		<!-- end col -->
 	</div>
 	<!-- end row -->
+
 
 @endsection
 

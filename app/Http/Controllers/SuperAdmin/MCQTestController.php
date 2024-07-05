@@ -5,8 +5,10 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Models\MCQTest;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class MCQTestController extends Controller
 {
@@ -86,5 +88,24 @@ class MCQTestController extends Controller
   public function destroy(string $id)
   {
     MCQTest::where('user_id', $id)->delete();
+  }
+
+  public function elt_pdf()
+  {
+    $mcqResults = MCQTest::where('user_id', Auth::id())->with(['question', 'answer'])->get();
+    $questions = $mcqResults->pluck('question')->unique();
+    $questionAnswer = $mcqResults->pluck('answer')->unique();
+
+
+    // $html = View::make('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'))->render();
+    // $pdf = PDF::loadHTML($html);
+    // $pdf->setPaper('A4', 'portrait');
+    // return $pdf->download('example.pdf');
+
+
+    $pdf = Pdf::loadView('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'));
+    return $pdf->download(date('d-M-Y') . '.pdf');
+
+    // return view('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'));
   }
 }
