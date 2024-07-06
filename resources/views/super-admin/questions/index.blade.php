@@ -27,7 +27,10 @@
 			<div class="card">
 				<div class="card-header">
 					<div class="d-flex align-items-center justify-content-between">
-						<h4 class="card-title">All Questions <span class="btn btn-success">{{ getStrPad($questions->count()) }}</span></h4>
+						<div>
+							<h4 class="card-title m-0">All Questions <span class="btn btn-success p-1">{{ getStrPad($questions->count()) }}</span></h4>
+							{{-- <a class="btn btn-danger waves-effect waves-light" href="">Add CSV</a> --}}
+						</div>
 						<a class="btn btn-success waves-effect waves-light" href="{{ route('super-admin.questions.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New Question</a>
 					</div>
 				</div>
