@@ -2,6 +2,16 @@
 
 @section('title', 'Subjects')
 
+@push('css')
+	<style>
+		@media only screen and (max-width: 767px) {
+			button.btn {
+				width: 100%;
+			}
+		}
+	</style>
+@endpush
+
 @section('main_content')
 	<!-- start page title -->
 	<div class="row">
@@ -26,42 +36,6 @@
 
 
 	<div class="row">
-		<div class="col-6 mx-auto">
-			<div class="card">
-				<div class="card-body">
-					<div id="pointModal" class="p-4 js-container">
-						<div class="icon">
-							<i class="fas fa-check"></i>
-						</div>
-						<h2>Congratulations!</h2>
-						<hr>
-
-						<div class="d-flex align-items-center justify-content-center mb-1 gap-2 font-size-16">
-							<h5 class="text-info">Total Question:</h5>
-							<span> 10 </span>
-						</div>
-
-						<div class="d-flex align-items-center justify-content-center mb-1 gap-2 font-size-16">
-							<h5 class="text-success">Correct Answer:</h5>
-							<span>08 </span>
-						</div>
-
-						<div class="d-flex align-items-center justify-content-center mb-1 gap-2 font-size-16">
-							<h5 class="text-danger">Wrong Answer:</h5>
-							<span>02 </span>
-						</div>
-
-						<button class="btn btn-danger mt-3" id="success_complete">Close Now</button>
-						<a href="{{ route('super-admin.mcq-practice.download') }}" class="btn btn-success mt-3">Download</a>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="row">
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
@@ -81,7 +55,7 @@
 										$departments = App\Models\Department::where('status', true)->get();
 									@endphp
 
-									<div class="col-12 mb-3">
+									<div class="col-md-12 mb-3">
 										<label class="form-label" for="">Department<span class="text-danger">*</span></label>
 										<select name="department_id" class="form-control form-select @error('department_id') is-invalid @enderror" id="department_id">
 											<option disabled selected>-- Select Department --</option>
@@ -100,7 +74,7 @@
 										$subjects = App\Models\Subject::where('status', true)->get();
 									@endphp
 
-									<div class="col-12 mb-3">
+									<div class="col-md-12 mb-3">
 										<label class="form-label" for="">Subject<span class="text-danger">*</span></label>
 										<select name="subject_id" class="form-control form-select @error('subject_id') is-invalid @enderror" id="subject_id">
 											<option disabled selected>-- Select Subject --</option>
@@ -128,8 +102,7 @@
 								</div>
 							</div>
 
-							<div class="col-12 text-center">
-								<button type="button" class="btn btn-secondary px-5" data-bs-dismiss="modal">Close</button>
+							<div class="col-md-12 text-center">
 								<button type="submit" class="btn btn-success px-5">Continue</button>
 							</div>
 

@@ -57,8 +57,8 @@
 		<hr class="m-0">
 
 
-		<li>
-			<a href="{{ route('super-admin.mcq-practice.index') }}">
+		<li class="{{ Request::is($user . '/mcq-practice*') ? 'mm-active' : '' }}">
+			<a class="{{ Request::is($user . '/mcq-practice*') ? 'active' : '' }}" href="{{ route('super-admin.mcq-practice.index') }}">
 				<i class="fas fa-question-circle"></i>
 				<span data-key="t-ecommerce">MCQ Practice</span>
 			</a>
@@ -66,13 +66,13 @@
 
 		<hr class="m-0">
 
-		<li>
+		<li class="{{ Request::is($user . '/exams*') ? 'mm-active' : '' }}">
 			<a href="javascript: void(0);" class="has-arrow">
 				<i class="fa fa-cog"></i>
 				<span data-key="t-ecommerce">Exams</span>
 			</a>
 			<ul class="sub-menu" aria-expanded="false">
-				<li><a href="ecommerce-products.html" key="t-products">Exam Questions</a></li>
+				<li><a class="{{ Request::is($user . '/exams*') ? 'active' : '' }}" href="{{ route('super-admin.exams.index') }}" key="t-products">Exam Questions</a></li>
 				<li><a href="{{ route('super-admin.clearCache') }}" key="t-products">Exam Results</a></li>
 			</ul>
 		</li>

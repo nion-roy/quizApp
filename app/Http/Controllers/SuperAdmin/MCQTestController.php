@@ -50,6 +50,7 @@ class MCQTestController extends Controller
         'question_id' => $questionId,
         'answer_id' => $answerId,
         'total_time' => $request['total_time'],
+        'use_time' => $request['use_time'],
         'total_questions' => $request['total_questions'],
       ]);
     }
@@ -103,8 +104,8 @@ class MCQTestController extends Controller
     // return $pdf->download('example.pdf');
 
 
-    $pdf = Pdf::loadView('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'));
-    return $pdf->download(date('d-M-Y') . '.pdf');
+    $pdf = Pdf::loadView('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'))->setPaper('a4', 'landscape');
+    return $pdf->download(uniqid() . '.pdf');
 
     // return view('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'));
   }

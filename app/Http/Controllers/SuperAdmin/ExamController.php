@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
-use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\QuestionOption;
+use App\Models\Department;
+use App\Models\Question;
+use App\Models\Subject;
 
 class ExamController extends Controller
 {
@@ -22,7 +23,9 @@ class ExamController extends Controller
    */
   public function create()
   {
-    //
+    $departments = Department::where('status', true)->get();
+    $subjects = Subject::where('status', true)->get();
+    return view('super-admin.exam.create', compact('departments', 'subjects'));
   }
 
   /**
@@ -65,11 +68,12 @@ class ExamController extends Controller
     //
   }
 
-
-  public function questionSearch(Request $request)
+  public function getQuestion($id)
   {
-    $questions = Question::where('department_id', $request->department_id)->where('subject_id', $request->subject_id)->where('status', true)->inRandomOrder()->take($request->mcq)->get();
-    return view('super-admin.exam.create', compact('questions'));
-    // return redirect()->back()->with('questions', $questions);
+
+    // return $id;
+
+    $questions = Question::where('status', true)->where('subject_id', $id)->latest('id')->get();
+    return $questions;
   }
 }

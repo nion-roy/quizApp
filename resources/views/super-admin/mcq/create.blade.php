@@ -54,7 +54,7 @@
 						</div>
 						<div class="d-flex align-items-center justify-content-between">
 							<h5 class="m-0">Total Mark: {{ $questions->count() * 2 }}</h5>
-							<h5 class="m-0">Exam Time: <span id="timer">{{ getStrPad($questions->count() * 1) }}:00</span></h5>
+							<h5 class="m-0">Exam Time: <span id="timer">{{ getStrPad($questions->count() * 2) }}:00</span></h5>
 						</div>
 					</div>
 
@@ -100,68 +100,55 @@
 
 				<!-- Hidden fields to store total time and total questions -->
 				<input type="hidden" name="total_time" value="{{ $questions->count() * 2 }}">
+				<input type="hidden" id="use_time" name="use_time">
 				<input type="hidden" name="total_questions" value="{{ $questions->count() }}">
+
+				@push('js')
+					<script>
+						$(document).ready(function() {
+							// Timer logic
+							var totalMinutes = {{ $questions->count() * 2 }};
+							var totalSeconds = totalMinutes * 60;
+							var startTime = totalSeconds;
+
+							var timer = setInterval(function() {
+								totalSeconds--;
+								var minutes = Math.floor(totalSeconds / 60);
+								var seconds = totalSeconds % 60;
+								$('#timer').text((minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+
+								var elapsedMinutes = Math.floor((startTime - totalSeconds) / 60);
+								var elapsedSeconds = (startTime - totalSeconds) % 60;
+								$('#use_time').val((elapsedMinutes < 10 ? '0' : '') + elapsedMinutes + ':' + (elapsedSeconds < 10 ? '0' : '') + elapsedSeconds);
+
+								if (totalSeconds <= 0) {
+									clearInterval(timer);
+									// Submit the quiz form when time is up
+									$('#quizForm').submit();
+								}
+							}, 1000);
+
+							$('#quizForm').on('submit', function(event) {
+								event.preventDefault();
+								var formData = $(this).serialize();
+								var url = $(this).attr('action');
+								$.ajax({
+									type: "POST",
+									url: url,
+									data: formData,
+									success: function(response) {
+										window.location.href = response.url;
+										window.reload();
+									}
+								});
+							});
+						});
+					</script>
+				@endpush
+
+
 
 			</form>
 		</div>
 	</div>
 @endsection
-
-
-@push('js')
-	<script>
-		$(document).ready(function() {
-			// Timer logic
-			var totalSeconds = {{ $questions->count() * 1 }} * 60;
-			var timer = setInterval(function() {
-				totalSeconds--;
-				var minutes = Math.floor(totalSeconds / 60);
-				var seconds = totalSeconds % 60;
-				$('#timer').text((minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
-
-				if (totalSeconds <= 0) {
-					clearInterval(timer);
-					// Submit the quiz form when time is up
-					$('#quizForm').submit();
-				}
-			}, 1000);
-
-			$('#quizForm').on('submit', function(event) {
-				event.preventDefault();
-				var formData = $(this).serialize();
-				var url = $(this).attr('action');
-				$.ajax({
-					type: "POST",
-					url: url,
-					data: formData,
-					success: function(response) {
-						window.location.href = response.url;
-						window.reload();
-					}
-				});
-			});
-		});
-	</script>
-@endpush
-
-
-{{-- @push('js')
-	<script>
-		$(document).ready(function() {
-			// Timer logic
-			var totalSeconds = {{ $questions->count() * 1 }} * 60;
-			var timer = setInterval(function() {
-				totalSeconds--;
-				var minutes = Math.floor(totalSeconds / 60);
-				var seconds = totalSeconds % 60;
-				$('#timer').text((minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
-
-				if (totalSeconds <= 0) {
-					clearInterval(timer);
-					// Submit the quiz form when time is up
-					$('#quizForm').submit();
-				}
-			}, 1000);
-		});
-	</script>
-@endpush --}}
