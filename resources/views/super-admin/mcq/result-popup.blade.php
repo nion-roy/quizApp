@@ -8,19 +8,22 @@ $mcqTests = App\Models\MCQTest::where('user_id', Auth::id())
     ->with(['question', 'answer'])
 	    ->get();
 
-	// Initialize counters for correct and wrong answers
+	// Initialize counters for correct, wrong, and unanswered answers
 	$correctAnswersCount = 0;
 	$wrongAnswersCount = 0;
+	$unansweredCount = 0;
 
 	foreach ($mcqTests as $test) {
-	    if ($test->question->correct_answer == $test->answer->option) {
+	    if ($test->answer === null) {
+	        $unansweredCount++;
+	    } elseif ($test->question->correct_answer == $test->answer->option) {
 	        $correctAnswersCount++;
 	    } else {
 	        $wrongAnswersCount++;
 	    }
 	}
-
 @endphp
+
 
 
 @push('js')
@@ -67,7 +70,7 @@ $mcqTests = App\Models\MCQTest::where('user_id', Auth::id())
 
 								<div class="d-flex align-items-center justify-content-between mb-1 gap-2 font-size-16">
 									<h5 class="text-danger">Wrong Answers:</h5>
-									<span> {{ getStrPad($wrongAnswersCount) }} </span>
+									<span> {{ getStrPad($wrongAnswersCount + $unansweredCount) }} </span>
 								</div>
 							</div>
 						</div>
@@ -125,7 +128,6 @@ $mcqTests = App\Models\MCQTest::where('user_id', Auth::id())
 		});
 	</script>
 @endpush
-
 
 @push('css')
 	<style>
