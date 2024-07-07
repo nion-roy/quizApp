@@ -97,13 +97,6 @@ class MCQTestController extends Controller
     $questions = $mcqResults->pluck('question')->unique();
     $questionAnswer = $mcqResults->pluck('answer')->unique();
 
-
-    // $html = View::make('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'))->render();
-    // $pdf = PDF::loadHTML($html);
-    // $pdf->setPaper('A4', 'portrait');
-    // return $pdf->download('example.pdf');
-
-
     $pdf = Pdf::loadView('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'))->setPaper('a4', 'landscape');
     return $pdf->download(uniqid() . '.pdf');
 

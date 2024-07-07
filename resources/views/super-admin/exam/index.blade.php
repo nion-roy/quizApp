@@ -38,10 +38,12 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>Department Name</th>
-								<th>Count</th>
-								<th>Creation User</th>
-								<th>Created</th>
+								<th>Exam Name</th>
+								<th>Department</th>
+								<th>Subject</th>
+								<th>Exam Date</th>
+								<th>Start Time</th>
+								<th>Exam Time</th>
 								<th>Status</th>
 								<th>Action</th>
 							</tr>
@@ -49,15 +51,42 @@
 
 
 						<tbody>
-							<tr>
-								<th>#</th>
-								<th>Department Name</th>
-								<th>Count</th>
-								<th>Creation User</th>
-								<th>Created</th>
-								<th>Status</th>
-								<th>Action</th>
-							</tr>
+							@foreach ($exams as $key => $exam)
+								<tr>
+									<td>{{ getStrPad($key + 1) }}</td>
+									<td>{{ $exam->exam_name }}</td>
+									<td>{{ $exam->department->department_name }}</td>
+									<td>{{ $exam->subject->subject_name }}</td>
+									<td>{{ $exam->exam_date }}</td>
+									<td>{{ $exam->exam_start }}</td>
+									<td>{{ $exam->exam_time }}</td>
+
+									<td>
+										@if ($exam->status == 1)
+											<span class="text-success font-size-18"><i class="fas fa-check-square"></i></span>
+										@else
+											<span class="text-danger font-size-18"><i class="fas fa-window-close"></i></span>
+										@endif
+									</td>
+
+									<td>
+										<div class="btn-group">
+											<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+											<div class="dropdown-menu" style="">
+												{{-- <a href="{{ route('super-admin.exams.edit', $exam->id) }}" class="dropdown-item">Edit</a> --}}
+												<a href="{{ route('super-admin.exams.show', $exam->id) }}" class="dropdown-item">View</a>
+
+												<form action="{{ route('super-admin.exams.destroy', $exam->id) }}" method="POST">
+													@csrf
+													@method('DELETE')
+													<button type="button" class="dropdown-item delete-button">Delete</button>
+												</form>
+											</div>
+										</div>
+									</td>
+
+								</tr>
+							@endforeach
 						</tbody>
 
 					</table>

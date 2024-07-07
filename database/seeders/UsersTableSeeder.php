@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder
   {
     DB::table("users")->insert([
       [
-        'user_id' => 1,
         'name'    => 'Super Admin',
         'slug' => 'superadmin',
         'username' => 'superadmin',
@@ -31,7 +30,6 @@ class UsersTableSeeder extends Seeder
         'updated_at'  => Carbon::now(),
       ],
       [
-        'user_id' => 1,
         'name'    => 'Admin',
         'slug' => 'admin',
         'username' => 'admin',
@@ -45,7 +43,6 @@ class UsersTableSeeder extends Seeder
         'updated_at'  => Carbon::now(),
       ],
       [
-        'user_id' => 1,
         'name'    => 'User',
         'slug' => 'user',
         'username' => 'user',

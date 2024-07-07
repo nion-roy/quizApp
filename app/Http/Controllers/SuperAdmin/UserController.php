@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +36,6 @@ class UserController extends Controller
   {
     $user = new User();
     $user->name = $request->name;
-    $user->user_id = Auth::id();
     $user->username = $request->username;
     $user->slug = Str::slug($request->username);
     $user->email = $request->email;

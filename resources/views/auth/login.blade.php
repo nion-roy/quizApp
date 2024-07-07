@@ -143,35 +143,27 @@
 										<form class="mt-4 pt-2" method="POST" action="{{ route('login.store') }}">
 											@csrf
 
-											<div class="form-floating form-floating-custom mb-4">
+											<div class="form-group mb-3">
+                        <label for="email">Email</label>
 												<input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter Email" value="{{ old('email') }}">
 												@error('email')
-													<div class="text-danger">{{ $message }}</div>
-												@enderror
-												<label for="email">Email</label>
-												<div class="form-floating-icon">
-													<i data-feather="users"></i>
-												</div>
+                        <div class="text-danger">{{ $message }}</div>
+												@enderror  
 											</div>
-
-											<div class="form-floating form-floating-custom mb-4">
+                      
+											<div class="form-group mb-3">
+                        <label for="password">Password</label>
 												<input type="password" name="password" class="form-control pe-5 @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
-												@error('password')
+												@error('password') 
 													<div class="text-danger">{{ $message }}</div>
-												@enderror
-												<label for="password">Password</label>
-												<div class="form-floating-icon">
-													<i data-feather="lock"></i>
-												</div>
+												@enderror 
 											</div>
 
 											<div class="row mb-4">
 												<div class="col">
 													<div class="form-check font-size-15">
 														<input class="form-check-input" type="checkbox" id="remember-check">
-														<label class="form-check-label font-size-13" for="remember-check">
-															Remember me
-														</label>
+														<label class="form-check-label font-size-13" for="remember-check"> Remember me </label>
 													</div>
 												</div>
 
@@ -220,7 +212,7 @@
 
 		<!-- JAVASCRIPT -->
 		<script src="{{ asset('backend') }}/assets/libs/jquery/jquery.min.js"></script>
-		<script src="{{ asset('backend') }}/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script> 
+		<script src="{{ asset('backend') }}/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="{{ asset('backend') }}/assets/libs/node-waves/waves.min.js"></script>
 		<script src="{{ asset('backend') }}/assets/libs/feather-icons/feather.min.js"></script>
 
