@@ -41,11 +41,10 @@
 	<div class="row">
 		<div class="col-12">
 
-			<form action="{{ route('super-admin.questions.store') }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('super-admin.exams.store') }}" method="POST" enctype="multipart/form-data">
 				@csrf
 
 				@include('alert-message.alert-message')
-
 
 				<div class="row">
 					<div class="col-md-7">
@@ -95,9 +94,9 @@
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
-											<label class="form-label start_exam" for="start_exam">Start Date Exam <span class="text-danger">*</span></label>
-											<input type="text" name="start_exam" class="form-control @error('start_exam') is-invalid @enderror" id="start_exam" placeholder="Enter start exam" value="{{ old('start_exam') }}">
-											@error('start_exam')
+											<label class="form-label exam_date" for="exam_date">Start Date Exam <span class="text-danger">*</span></label>
+											<input type="text" name="exam_date" class="form-control @error('exam_date') is-invalid @enderror" id="exam_date" placeholder="Enter start exam" value="{{ old('exam_date') }}">
+											@error('exam_date')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -105,9 +104,9 @@
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
-											<label class="form-label end_exam" for="end_exam">Start Time Exam <span class="text-danger">*</span></label>
-											<input type="text" name="end_exam" class="form-control @error('end_exam') is-invalid @enderror" id="end_exam" placeholder="Enter end exam" value="{{ old('end_exam') }}">
-											@error('end_exam')
+											<label class="form-label exam_start" for="exam_start">Start Time Exam <span class="text-danger">*</span></label>
+											<input type="text" name="exam_start" class="form-control @error('exam_start') is-invalid @enderror" id="exam_start" placeholder="Enter end exam" value="{{ old('exam_start') }}">
+											@error('exam_start')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -175,68 +174,6 @@
 						</div>
 					</div>
 
-					@push('js')
-						<script>
-							$(document).ready(function() {
-								// Handler for subject selection change
-								$('#subject_id').on('change', function() {
-									var id = $(this).val();
-									var url = "/super-admin/exam-question-search/" + id;
-
-									// Clear previous content and reset total count
-									$('.question').empty();
-									$('#selectionQuestion').text('0');
-
-									// Ajax request to fetch questions
-									$.ajax({
-										type: "GET",
-										url: url,
-										success: function(response) {
-
-											if (response.length > 0) {
-												$.each(response, function(index, value) {
-													// Append each checkbox option
-													var serialNumber = index + 1;
-													$('.question').append(
-														'<div class="form-check p-0">' +
-														'<input class="form-check-input question_input" type="checkbox" value="' + value.id + '" id="question' + value.id + '">' +
-														'<label class="form-check-label font-size-14 w-100 border rounded p-3 my-1 question_label" for="question' + value.id + '">' +
-														serialNumber + '. ' + value.question_name +
-														'</label>' +
-														'</div>'
-													);
-												});
-
-												// Update total count of checkboxes
-												updateCheckboxCount();
-												$("#question_wrap").css("display", "block");
-												$(".question").css("height", "360px");
-												$("#question_count").css("display", "block");
-											} else {
-												// If no questions found
-												$('.question').empty().append('<span class="bg-danger text-white p-3 rounded w-100 d-block text-center m-0 font-size-14">Question Not Found!</span>');
-												$("#question_wrap").css("display", "block");
-												$("#question_count").css("display", "none");
-												$(".question").css("height", "auto");
-											}
-										}
-									});
-								});
-
-								// Function to update checked checkbox count
-								function updateCheckboxCount() {
-									var checkedCount = $('.question_input:checked').length;
-									$('#selectionQuestion').text(checkedCount);
-								}
-
-								// Event listener for checkbox change
-								$(document).on('change', '.question_input', function() {
-									updateCheckboxCount();
-								});
-							});
-						</script>
-					@endpush
-
 
 					<div class="col-12 text-center mb-3">
 						<a href="{{ route('super-admin.questions.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
@@ -252,6 +189,93 @@
 	</div>
 	<!-- end row -->
 @endsection
+
+@push('css')
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endpush
+
+@push('js')
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script>
+		flatpickr('#exam_date', {
+			enableTime: false,
+			allowInput: true,
+			dateFormat: "m/d/Y",
+		});
+
+		flatpickr('#exam_start', {
+			enableTime: true,
+			noCalendar: true,
+			dateFormat: "H:i",
+		});
+	</script>
+@endpush
+
+
+
+@push('js')
+	<script>
+		$(document).ready(function() {
+			// Handler for subject selection change
+			$('#subject_id').on('change', function() {
+				var id = $(this).val();
+				var url = "/super-admin/exam-question-search/" + id;
+
+				// Clear previous content and reset total count
+				$('.question').empty();
+				$('#selectionQuestion').text('0');
+
+				// Ajax request to fetch questions
+				$.ajax({
+					type: "GET",
+					url: url,
+					success: function(response) {
+
+						if (response.length > 0) {
+							$.each(response, function(index, value) {
+								// Append each checkbox option
+								var serialNumber = index + 1;
+								$('.question').append(
+									'<div class="form-check p-0">' +
+									'<input class="form-check-input question_input" type="checkbox" name="question_id[]" value="' + value.id + '" id="question' + value.id + '">' +
+									'<label class="form-check-label font-size-14 w-100 border rounded p-3 my-1 question_label" for="question' + value.id + '">' +
+									serialNumber + '. ' + value.question_name +
+									'</label>' +
+									'</div>'
+								);
+							});
+
+							// Update total count of checkboxes
+							updateCheckboxCount();
+							$("#question_wrap").css("display", "block");
+							$(".question").css("height", "360px");
+							$("#question_count").css("display", "block");
+						} else {
+							// If no questions found
+							$('.question').empty().append('<span class="bg-danger text-white p-3 rounded w-100 d-block text-center m-0 font-size-14">Question Not Found!</span>');
+							$("#question_wrap").css("display", "block");
+							$("#question_count").css("display", "none");
+							$(".question").css("height", "auto");
+						}
+					}
+				});
+			});
+
+			// Function to update checked checkbox count
+			function updateCheckboxCount() {
+				var checkedCount = $('.question_input:checked').length;
+				$('#selectionQuestion').text(checkedCount);
+			}
+
+			// Event listener for checkbox change
+			$(document).on('change', '.question_input', function() {
+				updateCheckboxCount();
+			});
+		});
+	</script>
+@endpush
+
+
 
 @push('js')
 	<script>

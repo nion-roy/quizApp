@@ -79,11 +79,16 @@
 
 		<hr class="m-0">
 
+
 		<li class="{{ Request::is($user . '/users*') ? 'mm-active' : '' }}">
-			<a class="{{ Request::is($user . '/users*') ? 'active' : '' }}" href="{{ route('super-admin.users.index') }}">
-				<i class="fas fa-users"></i>
+			<a href="javascript: void(0);" class="has-arrow">
+				<i data-feather="users"></i>
 				<span data-key="t-ecommerce">Users</span>
 			</a>
+			<ul class="sub-menu" aria-expanded="false">
+				<li><a href="{{ route('super-admin.roles-permissions.index') }}" key="t-products">Roles & Permissions</a></li>
+				<li><a class="{{ Request::is($user . '/users*') ? 'active' : '' }}" href="{{ route('super-admin.users.index') }}" key="t-products">All Users</a></li>
+			</ul>
 		</li>
 
 		<hr class="m-0">

@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\SuperAdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
@@ -17,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
       'super-admin' => SuperAdminMiddleware::class,
       'admin' => AdminMiddleware::class,
       'user' => UserMiddleware::class,
+
+      'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+      'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+      'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
     ]);
   })
   ->withExceptions(function (Exceptions $exceptions) {

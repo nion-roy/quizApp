@@ -14,12 +14,14 @@ Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' =>
   Route::get('department-wise-subjects/{id}', [App\Http\Controllers\SuperAdmin\QuestionController::class, 'getSubject'])->name('department-wise-subjects');
 
   Route::resource('users', App\Http\Controllers\SuperAdmin\UserController::class);
+  Route::resource('roles-permissions', App\Http\Controllers\SuperAdmin\RolePermissionController::class);
 
   Route::get('clear-cache', [App\Http\Controllers\SuperAdmin\ClearCacheController::class, 'clearCache'])->name('clearCache');
 
   Route::resource('mcq-practice', App\Http\Controllers\SuperAdmin\MCQTestController::class);
   Route::get('mcq-practice-pdf-download', [App\Http\Controllers\SuperAdmin\MCQTestController::class, 'elt_pdf'])->name('mcq-practice.download');
-
+  
   Route::resource('exams', App\Http\Controllers\SuperAdmin\ExamController::class);
   Route::get('exam-question-search/{id}', [App\Http\Controllers\SuperAdmin\ExamController::class, 'getQuestion'])->name('question-search');
+  Route::get('exam-question-pdf-download/{id}', [App\Http\Controllers\SuperAdmin\ExamController::class, 'elt_pdf_question'])->name('exam-question.download');
 });
