@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +18,8 @@ class AdminMiddleware
   public function handle(Request $request, Closure $next): Response
   {
     if (Auth::check()) {
-      if (Auth::user()->status == 1 && Auth::user()->role == 'admin') {
+      // $userRoles = DB::table('model_has_roles')->join('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('model_has_roles.model_id', '=', Auth::id())->first();
+      if (Auth::user()->status == 1) {
         return $next($request);
       } elseif (Auth::user()->status == 2) {
         Auth::logout();
@@ -29,8 +31,7 @@ class AdminMiddleware
         Auth::logout();
         return redirect()->route('login')->with('warning ', 'Your account is blocked.');
       } else {
-        Auth::logout();
-        return redirect()->route('login')->with('error', 'Your account is unknown. Please contact administrator.');
+        abort(404);
       }
     } else {
       abort(404);

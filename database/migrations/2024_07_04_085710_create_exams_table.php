@@ -16,8 +16,9 @@ return new class extends Migration
       $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
       $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete();
       $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete();
-      $table->string('exam_name');
-      $table->string('exam_date'); 
+      $table->string('exam_name')->unique();
+      $table->string('slug')->unique();
+      $table->string('exam_date');
       $table->string('exam_start');
       $table->string('exam_mark');
       $table->string('exam_time');

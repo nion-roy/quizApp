@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -31,36 +32,26 @@ class AuthenticatedSessionController extends Controller
     $user = Auth::user();
 
     try {
-      $expireDate = Carbon::createFromFormat('d-m-Y', $user->expire);
-
-      if ($expireDate >= Carbon::now()) {
-        if (Auth::user()->status == 1 && Auth::user()->role == 'super-admin') {
-          Alert::success("Success", "Your Account Login Successfull.");
-          return redirect()->route('super-admin.dashboard');
-        } elseif (Auth::user()->status == 1 && Auth::user()->role == 'admin') {
-          Alert::success("Success", "Your Account Login Successfull.");
-          return redirect()->route('admin.dashboard');
-        } elseif (Auth::user()->status == 1 && Auth::user()->role == 'user') {
-          Alert::success("Success", "Your Account Login Successfull.");
-          return redirect()->route('user.dashboard');
-        } elseif ($user->status == 2) {
-          Auth::logout();
-          return redirect()->back()->with(['warning' => 'Your account is pending.'])->withInput($request->only('email'));
-        } elseif ($user->status == 3) {
-          Auth::logout();
-          return redirect()->back()->with(['warning' => 'Your account is suspended.'])->withInput($request->only('email'));
-        } elseif ($user->status == 4) {
-          Auth::logout();
-          return redirect()->back()->with(['error' => 'Your account is blocked.'])->withInput($request->only('email'));
-        } else {
-          Auth::logout();
-          return redirect()->back()->with(['error' => 'Invalid account status'])->withInput($request->only('email'));
-        }
+      $userRoles = DB::table('model_has_roles')->join('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('model_has_roles.model_id', '=', Auth::id())->first();
+      if ($userRoles->name == (Auth::user()->role == 'super-admin') && Auth::user()->status == 1) {
+        Alert::success("Success", "Your Account Login Successfull.");
+        return redirect()->route('super-admin.dashboard');
+      } elseif (Auth::user()->status == 1 && $userRoles->name == Auth::user()->role) {
+        Alert::success("Success", "Your Account Login Successfull.");
+        return redirect()->route('dashboard');
+      } elseif ($user->status == 2) {
+        Auth::logout();
+        return redirect()->back()->with(['warning' => 'Your account is pending.'])->withInput($request->only('email'));
+      } elseif ($user->status == 3) {
+        Auth::logout();
+        return redirect()->back()->with(['warning' => 'Your account is suspended.'])->withInput($request->only('email'));
+      } elseif ($user->status == 4) {
+        Auth::logout();
+        return redirect()->back()->with(['error' => 'Your account is blocked.'])->withInput($request->only('email'));
       } else {
         Auth::logout();
-        return redirect()->back()->with(['warning' => 'Your account has expired.'])->withInput($request->only('email'));
+        return redirect()->back()->with(['error' => 'Invalid account status'])->withInput($request->only('email'));
       }
-      
     } catch (\Exception $e) {
       // Handle exceptions here, for example log the error
       return redirect()->route('login')->with('error', 'An error occurred. Please try again later.' . $e)->withInput($request->only('email'));

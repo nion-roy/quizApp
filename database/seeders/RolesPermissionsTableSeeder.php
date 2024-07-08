@@ -16,12 +16,13 @@ class RolesPermissionsTableSeeder extends Seeder
    */
   public function run(): void
   {
-    // Create Permissions
+    // Create Role Permissions
     Permission::create(['name' => 'view role']);
     Permission::create(['name' => 'create role']);
     Permission::create(['name' => 'update role']);
     Permission::create(['name' => 'delete role']);
 
+    // Create User Permissions
     Permission::create(['name' => 'view user']);
     Permission::create(['name' => 'create user']);
     Permission::create(['name' => 'update user']);

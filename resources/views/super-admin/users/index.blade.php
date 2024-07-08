@@ -40,7 +40,6 @@
 								<th>Username</th>
 								<th>Email</th>
 								<th>Create Account</th>
-								<th>Account Status</th>
 								<th>Role</th>
 								<th>Status</th>
 								<th>Action</th>
@@ -66,16 +65,7 @@
 									<td>{{ $user->username }}</td>
 									<td>{{ $user->email }}</td>
 									<td>{{ $user->created_at->format('d-M-Y') }}</td>
-									<td>{{ $user->expire }}</td>
-									<td>
-										@if ($user->role == 'super-admin')
-											<span class="btn btn-success btn-sm">Super Admin</span>
-										@elseif ($user->role == 'admin')
-											<span class="btn btn-info btn-sm">Admin</span>
-										@elseif ($user->role == 'user')
-											<span class="btn btn-warning btn-sm">User</span>
-										@endif
-									</td>
+									<td> <span class="btn btn-success btn-sm">{{ $user->role }}</span> </td>
 									<td>
 										@if ($user->status == 1)
 											<span class="btn btn-success btn-sm">Active</span>
@@ -84,7 +74,7 @@
 										@elseif ($user->status == 3)
 											<span class="btn btn-warning btn-sm">Susspend</span>
 										@elseif ($user->status == 4)
-											<span class="btn btn-soft-danger btn-sm">Block</span>
+											<span class="btn btn-danger btn-sm">Blocked</span>
 										@endif
 									</td>
 
