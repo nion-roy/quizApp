@@ -23,9 +23,9 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-body">
-					<h4 class="card-title mb-4">Roles & Permission Managments</h4>
+					<h4 class="card-title mb-4">Permissions Managments</h4>
 
-					<form action="{{ route('super-admin.roles.store') }}" method="POST">
+					<form action="{{ route('super-admin.permissions.store') }}" method="POST">
 						@csrf
 
 						@include('alert-message.alert-message')
@@ -33,37 +33,16 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group mb-3">
-									<label for="name" class="form-label">Role Name</label>
+									<label for="name" class="form-label">Permission Name</label>
 									<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Enter role name">
 									@error('name')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
 							</div>
-						</div>
-
-						<hr>
-
-						<h4 class="card-title mb-4">Permissions</h4>
-
-						<div class="form-group mb-3">
-							<input type="checkbox" id="selectAll" class="form-input">
-							<label for="selectAll" id="selectLabel" class="form-label">Select All</label>
-						</div>
-
-						<div class="row mb-3">
-							@foreach ($permissions as $permission)
-								<div class="col-lg-3">
-									<div class="form-group">
-										<input type="checkbox" name="permission[]" id="{{ $permission->id }}" value="{{ $permission->name }}">
-										<label for="{{ $permission->id }}" class="form-label">{{ $permission->name }}</label>
-									</div>
-								</div>
-							@endforeach
-						</div>
-
+						</div> 
 						<div class="form-group">
-							<a class="btn btn-danger waves-effect" href="{{ route('super-admin.roles.index') }}"><i class="fas fa-arrow-left me-2"></i>Back Now</a>
+							<a class="btn btn-danger waves-effect" href="{{ route('super-admin.permissions.index') }}"><i class="fas fa-arrow-left me-2"></i>Back Now</a>
 							<button class="btn btn-success waves-effect"><i class="fas fa-save me-2"></i>Add Now</button>
 						</div>
 					</form>

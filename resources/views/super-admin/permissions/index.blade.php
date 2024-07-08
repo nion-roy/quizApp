@@ -28,8 +28,8 @@
 
 
 					<div class="d-flex align-items-center justify-content-between mb-3">
-						<h4>User Roles & Permissions</h4>
-						<a href="{{ route('super-admin.roles.create') }}" class="btn btn-success waves-effect"><i class="fas fa-plus-circle me-2"></i>Add New Role</a>
+						<h4>User Permissions & Permissions</h4>
+						<a href="{{ route('super-admin.permissions.create') }}" class="btn btn-success waves-effect"><i class="fas fa-plus-circle me-2"></i>Add New Permission</a>
 					</div>
 
 
@@ -39,7 +39,7 @@
 						<thead>
 							<tr>
 								<th>SL</th>
-								<th>Role Name</th>
+								<th>Permission Name</th>
 								<th>Guard Name</th>
 								<th>Create Date</th>
 								<th>Action</th>
@@ -47,16 +47,16 @@
 						</thead>
 
 						<tbody>
-							@foreach ($roles as $key => $role)
+							@foreach ($permissions as $key => $permission)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
-									<td>{{ $role->name }}</td>
-									<td>{{ $role->guard_name }}</td>
-									<td>{{ $role->created_at->format('d-M-Y h:i A') }}</td>
+									<td>{{ $permission->name }}</td>
+									<td>{{ $permission->guard_name }}</td>
+									<td>{{ $permission->created_at->format('d-M-Y h:i A') }}</td>
 
 									<td class="d-flex align-items-center gap-2">
-										<a href="{{ route('super-admin.roles.edit', $role->id) }}" class="btn btn-success btn-sm fa-1x waves-effect"><i class="fas fa-edit"></i></a>
-										<form action="{{ route('super-admin.roles.destroy', $role->id) }}" method="post">
+										<a href="{{ route('super-admin.permissions.edit', $permission->id) }}" class="btn btn-success btn-sm fa-1x waves-effect"><i class="fas fa-edit"></i></a>
+										<form action="{{ route('super-admin.permissions.destroy', $permission->id) }}" method="post">
 											@csrf
 											@method('DELETE')
 											<button type="submit" class="btn btn-danger btn-sm fa-1x waves-effect"><i class="fas fa-trash"></i></button>

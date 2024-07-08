@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' => ['super-admin']], function () {
+Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' => ['auth', 'admin']], function () {
   Route::get('dashboard', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'elt_index'])->name('dashboard');
   Route::get('logout', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'elt_logout'])->name('logout');
 
@@ -14,7 +14,8 @@ Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' =>
   Route::get('department-wise-subjects/{id}', [App\Http\Controllers\SuperAdmin\QuestionController::class, 'getSubject'])->name('department-wise-subjects');
 
   Route::resource('users', App\Http\Controllers\SuperAdmin\UserController::class);
-  Route::resource('roles-permissions', App\Http\Controllers\SuperAdmin\RolePermissionController::class);
+  Route::resource('roles', App\Http\Controllers\SuperAdmin\RolePermissionController::class);
+  Route::resource('permissions', App\Http\Controllers\SuperAdmin\PermissionController::class);
 
   Route::get('clear-cache', [App\Http\Controllers\SuperAdmin\ClearCacheController::class, 'clearCache'])->name('clearCache');
 

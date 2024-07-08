@@ -16,7 +16,7 @@ class RolePermissionController extends Controller
    */
   public function index()
   {
-    $roles = Role::latest('id')->get();
+    $roles = Role::latest('id')->where('name', '!=', 'super-admin')->get();
     return view('super-admin.roles_permissions.index', compact('roles'));
   }
 
@@ -40,7 +40,7 @@ class RolePermissionController extends Controller
 
     $role = new Role();
     $role->name = Str::slug($validated['name']);
-    $role->syncPermissions($validated['permission']);
+    $role->syncPermissions($request->permission);
     $role->save();
 
     return redirect()->back()->withSuccess('Role create successfully.');

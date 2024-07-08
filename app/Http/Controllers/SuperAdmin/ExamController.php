@@ -8,14 +8,15 @@ use App\Models\Exam;
 use App\Models\Subject;
 use App\Models\Question;
 use App\Models\Department;
+use Illuminate\Support\Str;
 use App\Models\ExamQuestion;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
 {
+
   /**
    * Display a listing of the resource.
    */
@@ -57,6 +58,7 @@ class ExamController extends Controller
     $exam->department_id = $validated['department_id'];
     $exam->subject_id = $validated['subject_id'];
     $exam->exam_name = $validated['exam_name'];
+    $exam->slug = Str::slug($validated['exam_name']);
     $exam->exam_date = $validated['exam_date'];
     $exam->exam_start = $validated['exam_start'];
     $exam->exam_time = $validated['exam_time'];

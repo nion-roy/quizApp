@@ -1,6 +1,8 @@
 <header id="page-topbar">
 	<div class="navbar-header">
 		<div class="d-flex">
+
+      
 			<!-- LOGO -->
 			<div class="navbar-brand-box">
 				<a href="{{ route('super-admin.dashboard') }}" class="logo logo-dark">
@@ -72,7 +74,7 @@
 			<div class="dropdown d-inline-block">
 				<button type="button" class="btn header-item bg-light-subtle border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<img class="rounded-circle header-profile-user" src="{{ asset('backend') }}/assets/images/users/avatar-1.jpg" alt="Header Avatar">
-					<span class="d-none d-xl-inline-block ms-1 fw-medium">Paul K.</span>
+					<span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->username }}</span>
 					<i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
 				</button>
 				<div class="dropdown-menu dropdown-menu-end">
