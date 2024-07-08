@@ -40,7 +40,6 @@ class RolesPermissionsTableSeeder extends Seeder
     $superAdminRole->givePermissionTo($allPermissionNames);
 
     // Let's Create User and assign Role to it.
-
     $superAdminUser = User::firstOrCreate([
       'email' => 'superadmin@gmail.com',
     ], [

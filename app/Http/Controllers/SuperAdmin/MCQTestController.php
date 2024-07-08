@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\MCQTest;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -97,8 +99,29 @@ class MCQTestController extends Controller
     $questions = $mcqResults->pluck('question')->unique();
     $questionAnswer = $mcqResults->pluck('answer')->unique();
 
-    $pdf = Pdf::loadView('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'))->setPaper('a4', 'landscape');
-    return $pdf->download(uniqid() . '.pdf');
+
+    // Create Dompdf instance
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'kalpurush');
+    $dompdf = new Dompdf($pdfOptions);
+
+    // Load HTML content (Blade view)
+    $html = view('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'))->render();
+
+    // Load HTML into Dompdf
+    $dompdf->loadHtml($html);
+
+    // Set paper size and orientation
+    $dompdf->setPaper('A4', 'portrait');
+
+    // Render PDF (important for fonts and styles to be applied)
+    $dompdf->render();
+
+    // Output the generated PDF to Browser (stream)
+    return $dompdf->stream(uniqid() . '.pdf');
+
+    // $pdf = Pdf::loadView('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'))->setPaper('a4', 'landscape');
+    // return $pdf->download(uniqid() . '.pdf');
 
     // return view('super-admin.mcq.pdf', compact('mcqResults', 'questions', 'questionAnswer'));
   }
