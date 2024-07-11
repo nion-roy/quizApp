@@ -126,12 +126,8 @@
 		<ul class="metismenu list-unstyled" id="side-menu">
 			<li class="menu-title" data-key="t-menu">Menu</li>
 
-			@php
-				$user = request()->segment(1);
-			@endphp
-
-			<li class="{{ Request::is($user . '/dashboard') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is($user . '/dashboard') ? 'active' : '' }}" href="{{ route('super-admin.dashboard') }}">
+			<li class="{{ Request::is('dashboard') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('dashboard') ? 'active' : '' }}" href="{{ route('user.dashboard') }}">
 					<i data-feather="home"></i>
 					<span data-key="t-dashboard">Dashboard</span>
 				</a>
@@ -140,8 +136,8 @@
 			<li class="menu-title" data-key="t-apps">Apps</li>
 
 
-			<li class="{{ Request::is($user . '/mcq-practice*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is($user . '/mcq-practice*') ? 'active' : '' }}" href="{{ route('super-admin.mcq-practice.index') }}">
+			<li class="{{ Request::is('practice*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('practice*') ? 'active' : '' }}" href="{{ route('user.practice.index') }}">
 					<i class="fas fa-question-circle"></i>
 					<span data-key="t-ecommerce">MCQ Practice</span>
 				</a>
@@ -159,7 +155,7 @@
 
 			<hr class="m-0">
 			<li>
-				<a href="{{ route('super-admin.logout') }}">
+				<a href="{{ route('user.logout') }}">
 					<i class="fas fa-sign-out-alt"></i>
 					<span data-key="t-ecommerce">Logout</span>
 				</a>

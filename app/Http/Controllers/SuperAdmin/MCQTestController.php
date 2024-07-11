@@ -7,10 +7,8 @@ use Dompdf\Options;
 use App\Models\MCQTest;
 use App\Models\Question;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 
 class MCQTestController extends Controller
 {
@@ -32,7 +30,14 @@ class MCQTestController extends Controller
       'subject_id' => 'required',
     ]);
 
-    $questions = Question::where('department_id', $validated['department_id'])->where('subject_id', $validated['subject_id'])->where('status', true)->inRandomOrder()->take(10)->get();
+    if ($request->practice_label == 2) {
+      $questions = Question::where('department_id', $validated['department_id'])->where('subject_id', $validated['subject_id'])->where('status', true)->inRandomOrder()->take(10)->get();
+    } elseif ($request->practice_label == 3) {
+      $questions = Question::where('department_id', $validated['department_id'])->where('subject_id', $validated['subject_id'])->where('status', true)->inRandomOrder()->take(10)->get();
+    } else {
+      $questions = Question::where('department_id', $validated['department_id'])->where('subject_id', $validated['subject_id'])->where('status', true)->inRandomOrder()->take(10)->get();
+    }
+
     return view('super-admin.mcq.create', compact('questions'));
   }
 

@@ -15,13 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
   )
   ->withMiddleware(function (Middleware $middleware) {
     $middleware->alias([
-      // 'super-admin' => SuperAdminMiddleware::class,
       'admin' => AdminMiddleware::class,
-      // 'user' => UserMiddleware::class,
-
-      'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
-      'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
-      'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+      'user' => UserMiddleware::class,
     ]);
   })
   ->withExceptions(function (Exceptions $exceptions) {
