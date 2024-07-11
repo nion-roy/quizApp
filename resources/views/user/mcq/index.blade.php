@@ -39,7 +39,7 @@
 
 	<div class="row">
 		<div class="col-12">
-			<form id="quizForm" action="{{ route('super-admin.mcq-practice.store') }}" method="POST">
+			<form id="quizForm" action="{{ route('user.practice.store') }}" method="POST">
 				@csrf
 
 				<div class="card">
@@ -53,8 +53,8 @@
 							</div>
 						</div>
 						<div class="d-flex align-items-center justify-content-between">
-							<h5 class="m-0">Total Mark: {{ $questions->count() * 2 }}</h5>
-							<h5 class="m-0">Exam Time: <span id="timer">{{ getStrPad($questions->count() * 2) }}:00</span></h5>
+							<h5 class="m-0">Total Mark: {{ $questions->count() * 1 }}</h5>
+							<h5 class="m-0">Exam Time: <span id="timer">{{ getStrPad($questions->count() * 1) }}:00</span></h5>
 						</div>
 					</div>
 
@@ -99,7 +99,7 @@
 				</div>
 
 				<!-- Hidden fields to store total time and total questions -->
-				<input type="hidden" name="total_time" value="{{ $questions->count() * 2 }}">
+				<input type="hidden" name="total_time" value="{{ $questions->count() * 1 }}">
 				<input type="hidden" id="use_time" name="use_time">
 				<input type="hidden" name="total_questions" value="{{ $questions->count() }}">
 
@@ -113,11 +113,8 @@
 	<script>
 		$(document).ready(function() {
 
-			var getValue = {{ Request::segment(1) }};
-			alert(getValue);
-
 			// Timer logic
-			var totalMinutes = {{ $questions->count() * 2 }};
+			var totalMinutes = {{ $questions->count() * 1 }};
 			var totalSeconds = totalMinutes * 60;
 			var startTime = totalSeconds;
 

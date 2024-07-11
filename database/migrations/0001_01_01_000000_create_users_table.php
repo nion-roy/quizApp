@@ -19,9 +19,10 @@ return new class extends Migration
       $table->string('email')->unique();
       $table->timestamp('email_verified_at')->nullable();
       $table->string('password');
-      $table->string('role')->default('user');
+      $table->enum('role', ['super-admin', 'admin', 'teacher', 'user'])->default('user');
       $table->enum('status', [1, 2, 3, 4])->default(1);
       $table->string('image')->default('user.png');
+      $table->string('expire')->default('01-01-2026');
       $table->timestamp('last_activity')->nullable();
       $table->rememberToken();
       $table->timestamps();

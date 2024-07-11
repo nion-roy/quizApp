@@ -56,7 +56,7 @@
 									@endphp
 
 									<div class="col-md-12 mb-3">
-										<label class="form-label" for="">Department<span class="text-danger">*</span></label>
+										<label class="form-label" for="department_id">Department<span class="text-danger">*</span></label>
 										<select name="department_id" class="form-control form-select @error('department_id') is-invalid @enderror" id="department_id">
 											<option disabled selected>-- Select Department --</option>
 											@foreach ($departments as $department)
@@ -75,7 +75,7 @@
 									@endphp
 
 									<div class="col-md-12 mb-3">
-										<label class="form-label" for="">Subject<span class="text-danger">*</span></label>
+										<label class="form-label" for="subject_id">Subject<span class="text-danger">*</span></label>
 										<select name="subject_id" class="form-control form-select @error('subject_id') is-invalid @enderror" id="subject_id">
 											<option disabled selected>-- Select Subject --</option>
 											@foreach ($subjects as $subject)
@@ -87,6 +87,16 @@
 										@enderror
 									</div>
 
+
+									{{-- <div class="col-12">
+										<label class="form-label" for="practice_label">MCQ Practice Lavel<span class="text-danger">*</span></label>
+										<select name="practice_label" class="form-control form-select @error('value') is-invalid @enderror" id="practice_label">
+											<option disabled selected>-- Select Practice Lavel --</option>
+											<option value="esay">Esay</option>
+											<option value="midium">Midium</option>
+											<option value="hard">Hard</option>
+										</select>
+									</div> --}}
 
 									{{-- <div class="col-12">
 										<label class="form-label" for="">MCQ Value<span class="text-danger">*</span></label>

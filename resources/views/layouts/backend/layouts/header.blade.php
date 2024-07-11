@@ -2,27 +2,51 @@
 	<div class="navbar-header">
 		<div class="d-flex">
 
-      
-			<!-- LOGO -->
-			<div class="navbar-brand-box">
-				<a href="{{ route('super-admin.dashboard') }}" class="logo logo-dark">
-					<span class="logo-sm">
-						<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="30">
-					</span>
-					<span class="logo-lg">
-						<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">QuizApp</span>
-					</span>
-				</a>
 
-				<a href="{{ route('super-admin.dashboard') }}" class="logo logo-light">
-					<span class="logo-sm">
-						<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="30">
-					</span>
-					<span class="logo-lg">
-						<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">QuizApp</span>
-					</span>
-				</a>
-			</div>
+			@if (Auth::user()->role == 'super-admin')
+				<!-- LOGO -->
+				<div class="navbar-brand-box">
+					<a href="{{ route('super-admin.dashboard') }}" class="logo logo-dark">
+						<span class="logo-sm">
+							<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="30">
+						</span>
+						<span class="logo-lg">
+							<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">QuizApp</span>
+						</span>
+					</a>
+
+					<a href="{{ route('super-admin.dashboard') }}" class="logo logo-light">
+						<span class="logo-sm">
+							<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="30">
+						</span>
+						<span class="logo-lg">
+							<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">QuizApp</span>
+						</span>
+					</a>
+				</div>
+			@else
+				<!-- LOGO -->
+				<div class="navbar-brand-box">
+					<a href="{{ route('user.dashboard') }}" class="logo logo-dark">
+						<span class="logo-sm">
+							<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="30">
+						</span>
+						<span class="logo-lg">
+							<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">QuizApp</span>
+						</span>
+					</a>
+
+					<a href="{{ route('user.dashboard') }}" class="logo logo-light">
+						<span class="logo-sm">
+							<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="30">
+						</span>
+						<span class="logo-lg">
+							<img src="{{ asset('backend') }}/assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">QuizApp</span>
+						</span>
+					</a>
+				</div>
+			@endif
+
 
 			<button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn">
 				<i class="fa fa-fw fa-bars"></i>
@@ -82,7 +106,13 @@
 					<a class="dropdown-item" href="apps-contacts-profile.html"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
 					<a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock screen</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="{{ route('super-admin.logout') }}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
+
+					@if (Auth::user()->role == 'super-admin')
+						<a class="dropdown-item" href="{{ route('super-admin.logout') }}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
+					@else
+						<a class="dropdown-item" href="{{ route('user.logout') }}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
+					@endif
+
 				</div>
 			</div>
 

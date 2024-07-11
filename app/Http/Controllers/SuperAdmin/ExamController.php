@@ -17,6 +17,14 @@ use Illuminate\Support\Facades\Auth;
 class ExamController extends Controller
 {
 
+  // function __construct()
+  // {
+  //   $this->middleware('permission:permission-index|permission-create|permission-edit|permission-delete', ['only' => ['index']]);
+  //   $this->middleware('permission:permission-create', ['only' => ['create', 'store']]);
+  //   $this->middleware('permission:permission-edit', ['only' => ['edit', 'update']]);
+  //   $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
+  // }
+
   /**
    * Display a listing of the resource.
    */

@@ -32,11 +32,10 @@ class AuthenticatedSessionController extends Controller
     $user = Auth::user();
 
     try {
-      $userRoles = DB::table('model_has_roles')->join('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('model_has_roles.model_id', '=', Auth::id())->first();
-      if ($userRoles->name == (Auth::user()->role == 'super-admin') && Auth::user()->status == 1) {
+      if (Auth::user()->role == 'super-admin' && Auth::user()->status == 1) {
         Alert::success("Success", "Your Account Login Successfull.");
         return redirect()->route('super-admin.dashboard');
-      } elseif (Auth::user()->status == 1 && $userRoles->name == Auth::user()->role) {
+      } elseif (Auth::user()->status == 1 && Auth::user()->role) {
         Alert::success("Success", "Your Account Login Successfull.");
         return redirect()->route('dashboard');
       } elseif ($user->status == 2) {

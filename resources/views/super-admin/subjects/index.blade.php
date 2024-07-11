@@ -36,7 +36,7 @@
 						<thead>
 							<tr>
 								<th>#</th>
-                <th>Department</th>
+								<th>Department</th>
 								<th>Subject Name</th>
 								<th>Count</th>
 								<th>Creation User</th>
@@ -87,3 +87,17 @@
 	</div>
 	<!-- end row -->
 @endsection
+
+
+{{-- @push('js') 
+
+	<script>
+		$(document).ready(function() {
+			new DataTable('#datatable', {
+				ajax: 'http://127.0.0.1:8000/super-admin/questions',
+				processing: true,
+				serverSide: true
+			});
+		});
+	</script>
+@endpush --}}
