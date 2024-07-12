@@ -104,21 +104,6 @@
 				</a>
 			</li>
 
-
-			{{-- <li>
-			<a href="javascript: void(0);" class="has-arrow">
-				<i data-feather="shopping-cart"></i>
-				<span data-key="t-ecommerce">Users</span>
-			</a>
-			<ul class="sub-menu" aria-expanded="false">
-				<li><a href="ecommerce-products.html" key="t-products">A</a></li>
-			</ul>
-		</li>
-
-		<hr class="m-0"> --}}
-
-
-
 	</div>
 @else
 	<div id="sidebar-menu">
@@ -136,14 +121,25 @@
 			<li class="menu-title" data-key="t-apps">Apps</li>
 
 
-			<li class="{{ Request::is('practice*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('practice*') ? 'active' : '' }}" href="{{ route('user.practice.index') }}">
+			<li class="{{ Request::routeIs('user.practice.index') ? 'mm-active' : '' }}">
+				<a class="{{ Request::routeIs('user.practice.index') ? 'active' : '' }}" href="{{ route('user.practice.index') }}">
 					<i class="fas fa-question-circle"></i>
 					<span data-key="t-ecommerce">MCQ Practice</span>
 				</a>
 			</li>
-      
+
 			<hr class="m-0">
+
+			<li class="{{ Request::is('mcq-practice/result*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('mcq-practice/result*') ? 'active' : '' }}" href="{{ route('user.practice.result') }}">
+					<i class="fas fa-question-circle"></i>
+					<span data-key="t-ecommerce">Practice Results</span>
+				</a>
+			</li>
+
+			<hr class="m-0">
+
+
 
 			<li class="{{ Request::is('exams*') ? 'mm-active' : '' }}">
 				<a class="{{ Request::is('exams*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">

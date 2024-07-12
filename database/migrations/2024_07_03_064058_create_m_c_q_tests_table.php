@@ -16,7 +16,6 @@ return new class extends Migration
       $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
       $table->string('total_time')->nullable();
       $table->string('use_time')->nullable();
-      $table->string('total_questions');
       $table->timestamps();
     });
   }

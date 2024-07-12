@@ -13,8 +13,9 @@ return new class extends Migration
   {
     Schema::create('m_c_q_test_results', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('question_id')->nullable()->constrained('questions')->cascadeOnDelete();
-      $table->foreignId('answer_id')->nullable()->constrained('question_options')->cascadeOnDelete();
+      $table->foreignId('mcq_test_id')->constrained('m_c_q_tests')->cascadeOnDelete();
+      $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
+      $table->foreignId('option_id')->nullable()->constrained('question_options')->cascadeOnDelete();
       $table->timestamps();
     });
   }
