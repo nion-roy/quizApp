@@ -39,7 +39,7 @@
 
 	<div class="row">
 		<div class="col-12">
-			<form id="quizForm" action="{{ route('super-admin.mcq-practice.store') }}" method="POST">
+			<form id="quizForm" action="{{ route('user.practice.store') }}" method="POST">
 				@csrf
 
 				<div class="card">
@@ -53,26 +53,26 @@
 							</div>
 						</div>
 						<div class="d-flex align-items-center justify-content-between">
-							<h5 class="m-0">Total Mark: {{ $questions->count() * 2 }}</h5>
-							<h5 class="m-0">Exam Time: <span id="timer">{{ getStrPad($questions->count() * 2) }}:00</span></h5>
+							<h5 class="m-0">Total Mark: {{ $questions->count() * 1 }}</h5>
+							<h5 class="m-0">Exam Time: <span id="timer">{{ getStrPad($questions->count() * 1) }}:00</span></h5>
 						</div>
 					</div>
 
 					<div class="card-body">
 						@foreach ($questions as $key => $question)
-							<div class="col-12 mb-3" id="questions">
+							<div class="col-12 mb-4" id="questions">
 								<h4 class="font-size-17 mb-1">{{ str_pad($key + 1, 2, '0', STR_PAD_LEFT) }}. {{ $question->question_name }}</h4>
 								<input type="hidden" name="question_id[]" value="{{ $question->id }}">
 
 								@php
-									$questionOptions = App\Models\QuestionOption::where('question_id', $question->id)->get();
+									$questionOptions = App\Models\QuestionOption::where('question_id', $question->id)->inRandomOrder()->get();
 								@endphp
 								<div class="row">
 									@foreach ($questionOptions as $optionKey => $option)
-										<div class="col-md-6 col-xl-3">
+										<div class="col-md-6 col-lg-6 col-xxl-3">
 											<div class="form-check p-0">
-												<input id="option_{{ $option->id }}" class="form-check-input font-size-14" type="radio" name="answer[{{ $question->id }}]" value="{{ $option->id }}">
-												<label for="option_{{ $option->id }}" class="form-check-label font-size-14 fw-normal border rounded p-3 my-2 options w-100"> {{ chr(65 + $optionKey) }}. {{ $option->option }} </label>
+												<input id="option_{{ $option->id }}" class="form-check-input font-size-14" type="radio" name="option[{{ $question->id }}]" value="{{ $option->id }}">
+												<label for="option_{{ $option->id }}" class="form-check-label font-size-14 fw-normal border rounded p-3 my-2 options w-100"> {{ chr(65 + $optionKey) }}. {{ $option->option }}</label>
 											</div>
 										</div>
 									@endforeach
@@ -99,7 +99,7 @@
 				</div>
 
 				<!-- Hidden fields to store total time and total questions -->
-				<input type="hidden" name="total_time" value="{{ $questions->count() * 2 }}">
+				<input type="hidden" name="total_time" value="{{ $questions->count() * 1 }}">
 				<input type="hidden" id="use_time" name="use_time">
 				<input type="hidden" name="total_questions" value="{{ $questions->count() }}">
 
@@ -113,11 +113,8 @@
 	<script>
 		$(document).ready(function() {
 
-			var getValue = {{ Request::segment(1) }};
-			alert(getValue);
-
 			// Timer logic
-			var totalMinutes = {{ $questions->count() * 2 }};
+			var totalMinutes = {{ $questions->count() * 1 }};
 			var totalSeconds = totalMinutes * 60;
 			var startTime = totalSeconds;
 

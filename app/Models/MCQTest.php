@@ -21,7 +21,7 @@ class MCQTest extends Model
   }
 
 
-  public function answer()
+  public function option()
   {
     return $this->belongsTo(QuestionOption::class);
   }

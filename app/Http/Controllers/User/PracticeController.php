@@ -5,9 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Models\MCQTest;
 use App\Models\Question;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\MCQTestResult;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PracticeController extends Controller
 {
@@ -15,37 +16,54 @@ class PracticeController extends Controller
   public function elt_index()
   {
     $questions = Question::where('status', true)->inRandomOrder()->take(10)->get();
-    return view('user.mcq.index', compact('questions'));
+    return view('user.mcq.create', compact('questions'));
   }
 
 
   public function elt_store(Request $request)
   {
-    // Iterate through the submitted questions and answers
-    foreach ($request['question_id'] as $questionId) {
-      $answerId = $request['answer'][$questionId] ?? null;
+    // Create a new MCQTest instance
+    $MCQTest = new MCQTest();
+    $MCQTest->user_id = Auth::id();
+    $MCQTest->total_time = $request->total_time;
+    $MCQTest->use_time = $request->use_time;
+    $MCQTest->save();
 
-      // Save the result to the database
-      MCQTest::create([
-        'user_id' => Auth::id(),
-        'question_id' => $questionId,
-        'answer_id' => $answerId,
-        'total_time' => $request['total_time'],
-        'use_time' => $request['use_time'],
-        'total_questions' => $request['total_questions'],
-      ]);
+    foreach ($request->question_id as $question_id) {
+      $selected_option_id = $request->input('option.' . $question_id);
+      $MCQTestResult = new MCQTestResult();
+      $MCQTestResult->mcq_test_id = $MCQTest->id;
+      $MCQTestResult->question_id = $question_id;
+      $MCQTestResult->option_id = $selected_option_id;
+      $MCQTestResult->save();
     }
 
     // Redirect or return a response
-    return response()->json(['url' => route('user.practice.result')]);
+    return response()->json(['url' => route('user.practice.index')]);
   }
+
 
   public function elt_result()
   {
-    $questions = DB::table('users')
-      ->leftJoin('m_c_q_tests', 'user_id', '=', 'users.id')->get();
-    return $questions;
-    // return view('user.mcq.result', compact('questions'));
+    $results = MCQTest::latest('id')->get();
+    // return $questions;
+    return view('user.mcq.index', compact('results'));
+  }
+
+
+  public function elt_result_show($id)
+  {
+    $mcqTest = MCQTest::findOrFail($id);
+
+    // Check if the authenticated user is the owner of the test
+    if ($mcqTest->user_id !== Auth::id()) {
+      Alert::error('You are not authorized to access these results');
+      return redirect()->back();
+    }
+
+    $results = MCQTestResult::where('mcq_test_id', $mcqTest->id)->get();
+
+    return view('user.mcq.result', compact('mcqTest', 'results'));
   }
 
   public function elt_destroy(string $id)
