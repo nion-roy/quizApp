@@ -4,16 +4,21 @@
 
 
 @section('main_content')
+
+
+
+
+
 	<!-- start page title -->
 	<div class="row">
 		<div class="col-12">
 			<div class="page-title-box d-sm-flex align-items-center justify-content-between">
-				<h4 class="mb-sm-0 font-size-18">MCQ Question Pattern !</h4>
+				<h4 class="mb-sm-0 font-size-18">Exam Schedules !</h4>
 
 				<div class="page-title-right">
 					<ol class="breadcrumb m-0">
 						<li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-						<li class="breadcrumb-item active">MCQ Question Pattern</li>
+						<li class="breadcrumb-item active">Exam Schedules</li>
 					</ol>
 				</div>
 
@@ -31,40 +36,67 @@
 
 				<div class="card-body">
 
-					<table id="datatable" class="table table-bordered dt-responsive nowrap w-100 align-middle">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Exam Name</th>
-								<th>Department</th>
-								<th>Subject</th>
-								<th>Exam Date</th>
-								<th>Start Time</th>
-								<th>Exam Time</th>
-								<th>Action</th>
-							</tr>
-						</thead>
+					@foreach ($exams as $key => $exam)
+						<div class="card shadow-none">
+							<div class="card-body border rounded">
+								<div class="row align-items-center">
+									<div class=" col-md-9 col-xxl-10">
+										<h4>{{ str_pad($key + 1, 2, '0', STR_PAD_LEFT) }}. {{ $exam->exam_name }}</h4>
+										<div class="countdown" id="countdown-{{ $key }}"></div>
+										<input type="hidden" id="exam-date-{{ $key }}" value="{{ $exam->exam_date }} {{ $exam->exam_start }}">
+									</div>
+									<div class=" col-md-3 col-xxl-2 mt-3 mt-lg-0">
+										@php
+											$examDateTime = \Carbon\Carbon::parse($exam->exam_date . ' ' . $exam->exam_start);
+											$now = \Carbon\Carbon::now();
+										@endphp
+
+										@if ($now->gte($examDateTime))
+											<a href="#" class="btn btn-success w-100 py-3 font-size-16">Exam Now</a>
+										@else
+											<button class="btn btn-secondary w-100 py-3 font-size-16">Exam Now</button>
+										@endif
+
+									</div>
+								</div>
+							</div>
+						</div>
+					@endforeach
 
 
-						<tbody>
-							@foreach ($exams as $key => $exam)
-								<tr>
-									<td>{{ getStrPad($key + 1) }}</td>
-									<td>{{ $exam->exam_name }}</td>
-									<td>{{ $exam->department->department_name }}</td>
-									<td>{{ $exam->subject->subject_name }}</td>
-									<td>{{ $exam->exam_date }}</td>
-									<td>{{ $exam->exam_start }}</td>
-									<td>{{ $exam->exam_time }}</td>
-									<td>
-										<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Start Exam</button>
-										<a href="" class="btn btn-success">Results</a>
-									</td>
-								</tr>
-							@endforeach
-						</tbody>
+					@push('js')
+						<script>
+							$(document).ready(function() {
+								function updateCountdown(elementId, examDate) {
+									const countdownElement = document.getElementById(elementId);
+									const examTime = new Date(examDate).getTime();
 
-					</table>
+									const interval = setInterval(() => {
+										const now = new Date().getTime();
+										const distance = examTime - now;
+
+										if (distance < 0) {
+											clearInterval(interval);
+											countdownElement.innerHTML = "Exam has started";
+											return;
+										}
+
+										const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+										const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+										const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+										const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+										countdownElement.innerHTML = `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+									}, 1000);
+								}
+
+								@foreach ($exams as $key => $exam)
+									updateCountdown('countdown-{{ $key }}', document.getElementById('exam-date-{{ $key }}').value);
+								@endforeach
+							});
+						</script>
+					@endpush
+
 
 				</div>
 
@@ -73,27 +105,5 @@
 		<!-- end col -->
 	</div>
 	<!-- end row -->
-
-	<!-- Modal -->
-	@if (isset($exam))
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						...
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-						<a href="{{ route('user.exams.show', $exam->slug) }}" type="button" class="btn btn-success">Continue</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	@endif
-
 
 @endsection

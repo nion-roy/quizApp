@@ -38,8 +38,15 @@ class PracticeController extends Controller
       $MCQTestResult->save();
     }
 
+    $MCQTestResult = MCQTestResult::where('mcq_test_id', $MCQTest->id)->get();
     // Redirect or return a response
-    return response()->json(['url' => route('user.practice.index')]);
+    return response()->json(['url' => route('user.practice.success')]);
+  }
+
+
+  public function elt_success()
+  {
+    return view('user.mcq.success-message');
   }
 
 
@@ -68,6 +75,7 @@ class PracticeController extends Controller
 
   public function elt_destroy(string $id)
   {
-    MCQTest::where('user_id', $id)->delete();
+    MCQTest::findOrFail($id)->delete();
+    return redirect()->back()->with('success', 'You have delete to practice mcq successfully.');
   }
 }

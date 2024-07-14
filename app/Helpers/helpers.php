@@ -21,32 +21,12 @@ if (!function_exists('getDepartmentCount')) {
 // Department wise Subject Count Function
 
 
-// Department wise Subject Count Function
-if (!function_exists('getMCQCorrectAnswer')) {
-  function getMCQCorrectAnswer($id)
+// Percentage Calculation Function
+if (!function_exists('getPercentage')) {
+  function getPercentage($percentage, $total)
   {
-    $correctAnswer = App\Models\MCQTestResult::where('option_id', '=', $id)->count();
-    return $correctAnswer;
+    $percentages = ($percentage * 100) / $total;
+    return $percentages;
   }
 }
-// Department wise Subject Count Function
-
-// Department wise Subject Count Function
-if (!function_exists('getMCQWrongAnswer')) {
-  function getMCQWrongAnswer($id)
-  {
-    $subject = App\Models\Subject::where('department_id', $id)->count();
-    return $subject;
-  }
-}
-// Department wise Subject Count Function
-
-// Department wise Subject Count Function
-if (!function_exists('getMCQUncheck')) {
-  function getMCQUncheck($id)
-  {
-    $subject = App\Models\Subject::where('department_id', $id)->count();
-    return $subject;
-  }
-}
-// Department wise Subject Count Function
+// Percentage Calculation Function

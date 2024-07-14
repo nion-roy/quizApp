@@ -206,10 +206,12 @@
 		flatpickr('#exam_start', {
 			enableTime: true,
 			noCalendar: true,
-			dateFormat: "H:i",
+			dateFormat: "h:i K", // K for AM/PM format
+			time_24hr: false, // Set to false to use 12-hour format
 		});
 	</script>
 @endpush
+
 
 
 

@@ -54,7 +54,7 @@
 						</div>
 						<div class="d-flex align-items-center justify-content-between">
 							<h5 class="m-0">Total Mark: {{ $questions->count() * 1 }}</h5>
-							<h5 class="m-0">Exam Time: <span id="timer">{{ getStrPad($questions->count() * 1) }}:00</span></h5>
+							<h5 class="m-0">Exam Time: <span id="timer">{{ getStrPad($questions->count() * 1) }}:00</span> Minutes</h5>
 						</div>
 					</div>
 
@@ -65,7 +65,9 @@
 								<input type="hidden" name="question_id[]" value="{{ $question->id }}">
 
 								@php
-									$questionOptions = App\Models\QuestionOption::where('question_id', $question->id)->inRandomOrder()->get();
+									$questionOptions = App\Models\QuestionOption::where('question_id', $question->id)
+									    ->inRandomOrder()
+									    ->get();
 								@endphp
 								<div class="row">
 									@foreach ($questionOptions as $optionKey => $option)
@@ -106,6 +108,7 @@
 			</form>
 		</div>
 	</div>
+
 @endsection
 
 
@@ -145,13 +148,13 @@
 					data: formData,
 					success: function(response) {
 						window.location.href = response.url;
-						window.reload();
 					}
 				});
 			});
 		});
 	</script>
 @endpush
+
 
 @push('js')
 	<script>
