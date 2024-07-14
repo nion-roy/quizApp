@@ -40,22 +40,26 @@
 						<div class="card shadow-none">
 							<div class="card-body border rounded">
 								<div class="row align-items-center">
-									<div class=" col-md-9 col-xxl-10">
-										<h4>{{ str_pad($key + 1, 2, '0', STR_PAD_LEFT) }}. {{ $exam->exam_name }}</h4>
-										<div class="countdown" id="countdown-{{ $key }}"></div>
-										<input type="hidden" id="exam-date-{{ $key }}" value="{{ $exam->exam_date }} {{ $exam->exam_start }}">
+									<div class="col-md-9 col-xxl-10">
+										<h4 class="m-0">{{ str_pad($key + 1, 2, '0', STR_PAD_LEFT) }}. {{ $exam->exam_name }}</h4>
+										{{-- <span class="countdown" data-exam-start="{{ $exam->exam_start }}" data-exam-end="{{ $exam->exam_end }}"></span> --}}
 									</div>
-									<div class=" col-md-3 col-xxl-2 mt-3 mt-lg-0">
+									<div class="col-md-3 col-xxl-2 mt-3 mt-lg-0">
+
 										@php
-											$examDateTime = \Carbon\Carbon::parse($exam->exam_date . ' ' . $exam->exam_start);
+											$examStartTime = \Carbon\Carbon::parse($exam->exam_start);
+											$examEndTime = \Carbon\Carbon::parse($exam->exam_end);
 											$now = \Carbon\Carbon::now();
 										@endphp
 
-										@if ($now->gte($examDateTime))
-											<a href="#" class="btn btn-success w-100 py-3 font-size-16">Exam Now</a>
+										@if ($now < $examStartTime)
+											<span class="countdown btn btn-primary font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}"></span>
+										@elseif ($now >= $examStartTime && $now <= $examEndTime)
+											<a href="" class="countdown btn btn-success font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}">Exam has started</a>
 										@else
-											<button class="btn btn-secondary w-100 py-3 font-size-16">Exam Now</button>
+											<span class="countdown btn btn-danger font-size-14">Exam has expried</span>
 										@endif
+
 
 									</div>
 								</div>
@@ -63,43 +67,7 @@
 						</div>
 					@endforeach
 
-
-					@push('js')
-						<script>
-							$(document).ready(function() {
-								function updateCountdown(elementId, examDate) {
-									const countdownElement = document.getElementById(elementId);
-									const examTime = new Date(examDate).getTime();
-
-									const interval = setInterval(() => {
-										const now = new Date().getTime();
-										const distance = examTime - now;
-
-										if (distance < 0) {
-											clearInterval(interval);
-											countdownElement.innerHTML = "Exam has started";
-											return;
-										}
-
-										const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-										const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-										const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-										const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-										countdownElement.innerHTML = `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
-									}, 1000);
-								}
-
-								@foreach ($exams as $key => $exam)
-									updateCountdown('countdown-{{ $key }}', document.getElementById('exam-date-{{ $key }}').value);
-								@endforeach
-							});
-						</script>
-					@endpush
-
-
 				</div>
-
 			</div>
 		</div>
 		<!-- end col -->
@@ -107,3 +75,35 @@
 	<!-- end row -->
 
 @endsection
+
+@push('js')
+	<script src="https://cdn.jsdelivr.net/npm/jquery-countdown@2.2.0/dist/jquery.countdown.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.countdown').each(function() {
+				var $countdown = $(this);
+				var examStart = new Date($countdown.data('exam-start'));
+				var examEnd = new Date($countdown.data('exam-end'));
+
+				function updateCountdown() {
+					var now = new Date();
+					if (now < examStart) {
+						$countdown.countdown(examStart, function(event) {
+							$(this).html(event.strftime('%D Days %H Hours %M Minutes %S Seconds'));
+						});
+					} else if (now >= examStart && now <= examEnd) {
+						$countdown.html('Exam has started'); // Modify this message as needed
+					} else {
+						$countdown.html('Exam has expried'); // Modify this message as needed
+					}
+				}
+
+				// Update countdown initially
+				updateCountdown();
+
+				// Update countdown every second to keep it accurate
+				setInterval(updateCountdown, 1000);
+			});
+		});
+	</script>
+@endpush

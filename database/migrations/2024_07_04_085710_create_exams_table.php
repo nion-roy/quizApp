@@ -18,10 +18,9 @@ return new class extends Migration
       $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete();
       $table->string('exam_name')->unique();
       $table->string('slug')->unique();
-      $table->string('exam_date');
       $table->string('exam_start');
+      $table->string('exam_end');
       $table->string('exam_mark');
-      $table->string('exam_time');
       $table->string('question_type');
       $table->boolean('status')->default(false);
       $table->timestamps();

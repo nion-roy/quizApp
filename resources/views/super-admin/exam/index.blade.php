@@ -41,9 +41,8 @@
 								<th>Exam Name</th>
 								<th>Department</th>
 								<th>Subject</th>
-								<th>Exam Date</th>
-								<th>Start Time</th>
-								<th>Exam Time</th>
+								<th>Exam Start</th>
+								<th>Exam End</th>
 								<th>Status</th>
 								<th>Action</th>
 							</tr>
@@ -57,9 +56,8 @@
 									<td>{{ $exam->exam_name }}</td>
 									<td>{{ $exam->department->department_name }}</td>
 									<td>{{ $exam->subject->subject_name }}</td>
-									<td>{{ $exam->exam_date }}</td>
 									<td>{{ $exam->exam_start }}</td>
-									<td>{{ $exam->exam_time }}</td>
+									<td>{{ $exam->exam_end }}</td> 
 
 									<td>
 										@if ($exam->status == 1)
