@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Exam;
@@ -21,7 +22,7 @@ class ExamController extends Controller
    */
   public function index()
   {
-    $exams = Exam::orderBy('exam_date')->get();
+    $exams = Exam::orderBy('exam_start')->get();
     return view('super-admin.exam.index', compact('exams'));
   }
 
@@ -44,9 +45,8 @@ class ExamController extends Controller
       'department_id' => 'required',
       'subject_id' => 'required',
       'exam_name' => 'required',
-      'exam_date' => 'required',
       'exam_start' => 'required',
-      'exam_time' => 'required',
+      'exam_end' => 'required',
       'exam_mark' => 'required',
       'question_type' => 'required',
       'status' => 'required',
@@ -58,9 +58,8 @@ class ExamController extends Controller
     $exam->subject_id = $validated['subject_id'];
     $exam->exam_name = $validated['exam_name'];
     $exam->slug = Str::slug($validated['exam_name']);
-    $exam->exam_date = $validated['exam_date'];
-    $exam->exam_start = $validated['exam_start'];
-    $exam->exam_time = $validated['exam_time'];
+    $exam->exam_start = Carbon::parse($validated['exam_start']);
+    $exam->exam_end = Carbon::parse($validated['exam_end']);
     $exam->exam_mark = $validated['exam_mark'];
     $exam->question_type = $validated['question_type'];
     $exam->status = $validated['status'];

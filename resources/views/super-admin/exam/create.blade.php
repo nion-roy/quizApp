@@ -94,9 +94,9 @@
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
-											<label class="form-label exam_date" for="exam_date">Start Date Exam <span class="text-danger">*</span></label>
-											<input type="text" name="exam_date" class="form-control @error('exam_date') is-invalid @enderror" id="exam_date" placeholder="Enter start exam" value="{{ old('exam_date') }}">
-											@error('exam_date')
+											<label class="form-label exam_start" for="exam_start">Start Exam Date & Time <span class="text-danger">*</span></label>
+											<input type="text" name="exam_start" class="form-control @error('exam_start') is-invalid @enderror" id="exam_start" placeholder="Enter start exam date & Time" value="{{ old('exam_start') }}">
+											@error('exam_start')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -104,13 +104,23 @@
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
+											<label class="form-label exam_end" for="exam_end">End Exam Date & Time <span class="text-danger">*</span></label>
+											<input type="text" name="exam_end" class="form-control @error('exam_end') is-invalid @enderror" id="exam_end" placeholder="Enter end exam date & Time" value="{{ old('exam_end') }}">
+											@error('exam_end')
+												<div class="text-danger">{{ $message }}</div>
+											@enderror
+										</div>
+									</div>
+
+									{{-- <div class="col-md-6">
+										<div class="form-group mb-3">
 											<label class="form-label exam_start" for="exam_start">Start Time Exam <span class="text-danger">*</span></label>
 											<input type="text" name="exam_start" class="form-control @error('exam_start') is-invalid @enderror" id="exam_start" placeholder="Enter end exam" value="{{ old('exam_start') }}">
 											@error('exam_start')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
-									</div>
+									</div> --}}
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
@@ -122,7 +132,7 @@
 										</div>
 									</div>
 
-									<div class="col-md-6">
+									{{-- <div class="col-md-6">
 										<div class="form-group mb-3">
 											<label class="form-label exam_time" for="exam_time">Total Times <span class="text-danger">*</span></label>
 											<input type="text" name="exam_time" class="form-control @error('exam_time') is-invalid @enderror" id="exam_time" placeholder="Enter end exam" value="{{ old('exam_time') }}">
@@ -130,7 +140,7 @@
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
-									</div>
+									</div> --}}
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
@@ -175,7 +185,7 @@
 					</div>
 
 
-					<div class="col-12 text-center mb-3">
+					<div class="col-md-7 text-end mb-3">
 						<a href="{{ route('super-admin.questions.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 						<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
 					</div>
@@ -197,18 +207,18 @@
 @push('js')
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script>
-		flatpickr('#exam_date', {
-			enableTime: false,
+		flatpickr('#exam_start, #exam_end', {
+			enableTime: true,
 			allowInput: true,
-			dateFormat: "m/d/Y",
+			dateFormat: "m/d/Y h:i K",
 		});
 
-		flatpickr('#exam_start', {
-			enableTime: true,
-			noCalendar: true,
-			dateFormat: "h:i K", // K for AM/PM format
-			time_24hr: false, // Set to false to use 12-hour format
-		});
+		// flatpickr('#exam_start', {
+		// 	enableTime: true,
+		// 	noCalendar: true,
+		// 	dateFormat: "h:i K", // K for AM/PM format
+		// 	time_24hr: false, // Set to false to use 12-hour format
+		// });
 	</script>
 @endpush
 
@@ -321,7 +331,7 @@
 				var url = "/super-admin/department-wise-subjects/" + id;
 
 				// Clear existing options in subject_id dropdown
-				$('#subject_id').empty().append('<option disabled selected>-- Loading Subjects --</option>');
+				$('#subject_id').html('<option disabled selected>-- Loading Subjects --</option>');
 
 				$.ajax({
 					type: "GET",
@@ -329,12 +339,12 @@
 					success: function(response) {
 						if (response.length > 0) {
 							// Append options to subject_id dropdown
-							$('#subject_id').empty().append('<option disabled selected>-- Select Subject --</option>');
+							$('#subject_id').html('<option disabled selected>-- Select Subject --</option>');
 							$.each(response, function(key, value) {
 								$('#subject_id').append('<option value="' + value.id + '">' + value.subject_name + '</option>');
 							});
 						} else {
-							$('#subject_id').empty().append('<option disabled selected>-- Subject Not Found --</option>');
+							$('#subject_id').html('<option disabled selected>-- Subject Not Found --</option>');
 						}
 					},
 				});
