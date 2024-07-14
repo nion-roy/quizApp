@@ -121,8 +121,8 @@
 			<li class="menu-title" data-key="t-apps">Apps</li>
 
 
-			<li class="{{ Request::routeIs('user.practice.index') ? 'mm-active' : '' }}">
-				<a class="{{ Request::routeIs('user.practice.index') ? 'active' : '' }}" href="{{ route('user.practice.index') }}">
+			<li class="{{ Request::routeIs('user.practice.index') || Request::is('mcq-practice/success') ? 'mm-active' : '' }}">
+				<a class="{{ Request::routeIs('user.practice.index') || Request::is('mcq-practice/success') ? 'active' : '' }}" href="{{ route('user.practice.index') }}">
 					<i class="fas fa-question-circle"></i>
 					<span data-key="t-ecommerce">MCQ Practice</span>
 				</a>
@@ -145,6 +145,15 @@
 				<a class="{{ Request::is('exams*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">
 					<i class="fas fa-question-circle"></i>
 					<span data-key="t-ecommerce">Exams</span>
+				</a>
+			</li>
+
+			<hr class="m-0">
+
+			<li class="{{ Request::is('exams*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('exams*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">
+					<i class="fas fa-question-circle"></i>
+					<span data-key="t-ecommerce">Exam Results</span>
 				</a>
 			</li>
 

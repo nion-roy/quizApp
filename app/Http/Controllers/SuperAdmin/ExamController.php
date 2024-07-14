@@ -16,21 +16,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
 {
-
-  // function __construct()
-  // {
-  //   $this->middleware('permission:permission-index|permission-create|permission-edit|permission-delete', ['only' => ['index']]);
-  //   $this->middleware('permission:permission-create', ['only' => ['create', 'store']]);
-  //   $this->middleware('permission:permission-edit', ['only' => ['edit', 'update']]);
-  //   $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
-  // }
-
   /**
    * Display a listing of the resource.
    */
   public function index()
   {
-    $exams = Exam::latest('id')->get();
+    $exams = Exam::orderBy('exam_date')->get();
     return view('super-admin.exam.index', compact('exams'));
   }
 
@@ -85,12 +76,24 @@ class ExamController extends Controller
         $examQuestion->save();
       }
     } else {
-      foreach ($request->question_id as $index) {
-        $examQuestion = new ExamQuestion();
-        $examQuestion->user_id = Auth::id();
-        $examQuestion->exam_id = $exam->id;
-        $examQuestion->question_id = $index;
-        $examQuestion->save();
+
+      if (isset($request->question_id)) {
+        foreach ($request->question_id as $index) {
+          $examQuestion = new ExamQuestion();
+          $examQuestion->user_id = Auth::id();
+          $examQuestion->exam_id = $exam->id;
+          $examQuestion->question_id = $index;
+          $examQuestion->save();
+        }
+      } else {
+        $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
+        foreach ($questions as $question) {
+          $examQuestion = new ExamQuestion();
+          $examQuestion->user_id = Auth::id();
+          $examQuestion->exam_id = $exam->id;
+          $examQuestion->question_id = $question->id;
+          $examQuestion->save();
+        }
       }
     }
 
