@@ -49,46 +49,46 @@
 						$date2 = \Carbon\Carbon::today()->toDateString();
 					@endphp
 
-					@foreach ($exams as $key => $exam)
+					@php
+						$counter = 1;
+					@endphp
+
+					@foreach ($exams as $exam)
 						@php
 							$examStartTime = \Carbon\Carbon::parse($exam->exam_start);
 							$examEndTime = \Carbon\Carbon::parse($exam->exam_end);
 							$now = \Carbon\Carbon::now();
 						@endphp
 
-
-						<div class="border p-3 rounded shadow mb-3">
-							<div class="row align-items-center">
-								<div class="col-md-9 col-xxl-9">
-									<div class="d-flex align-items-center gap-2">
-										<div class="bg-success text-white fw-bold p-3 rounded">{{ str_pad($key + 1, 2, '0', STR_PAD_LEFT) }}</div>
-										<div>
-											<h4 class="mb-1">{{ $exam->exam_name }}</h4>
-											@php
-												$examStartDateTime = new DateTime($exam->exam_start);
-												// <span>{{ $examStartDateTime->format('d-M-Y') }}</span>
-											@endphp
-											<span class="me-3"><strong>Department:</strong> {{ $exam->department->department_name }} </span>
-											<span class="me-3"><strong>Subject:</strong> {{ $exam->subject->subject_name }} </span>
-											<span class="me-3"><strong>Total Marks:</strong> {{ $exam->exam_mark }} </span>
+						@if ($now <= $examEndTime)
+							<div class="border p-3 rounded shadow mb-3">
+								<div class="row align-items-center">
+									<div class="col-md-9 col-xxl-9">
+										<div class="d-flex align-items-center gap-2">
+											<div class="bg-success text-white fw-bold p-3 rounded">{{ getStrPad($counter++) }}</div>
+											<div>
+												<h4 class="mb-1">{{ $exam->exam_name }}</h4>
+												<span class="me-3"><strong>Department:</strong> {{ $exam->department->department_name }} </span>
+												<span class="me-3"><strong>Subject:</strong> {{ $exam->subject->subject_name }} </span>
+												<span class="me-3"><strong>Total Marks:</strong> {{ $exam->exam_mark }} </span>
+											</div>
 										</div>
+										
 									</div>
+									<div class="col-md-3 col-xxl-3 mt-3 mt-lg-0 text-end">
 
-									{{-- <span class="countdown" data-exam-start="{{ $exam->exam_start }}" data-exam-end="{{ $exam->exam_end }}"></span> --}}
-								</div>
-								<div class="col-md-3 col-xxl-3 mt-3 mt-lg-0 text-end">
+										@if ($now < $examStartTime)
+											<button type="button" class="countdown btn btn-primary font-size-14 disabled" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}"></button>
+										@elseif ($now >= $examStartTime && $now <= $examEndTime)
+											<a href="" class="countdown btn btn-success font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}">Exam has started</a>
+										@else
+											<button type="button" class="countdown btn btn-danger font-size-14" disabled>Exam has expried</button>
+										@endif
 
-									@if ($now < $examStartTime)
-										<button type="button" class="countdown btn btn-primary font-size-14 disabled" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}"></button>
-									@elseif ($now >= $examStartTime && $now <= $examEndTime)
-										<a href="" class="countdown btn btn-success font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}">Exam has started</a>
-									@else
-										<button type="button" class="countdown btn btn-danger font-size-14" disabled>Exam has expried</button>
-									@endif
-
+									</div>
 								</div>
 							</div>
-						</div>
+						@endif
 					@endforeach
 
 				</div>
