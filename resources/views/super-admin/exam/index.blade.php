@@ -51,19 +51,24 @@
 
 						<tbody>
 							@foreach ($exams as $key => $exam)
+								@php
+									$examStartDateTime = new DateTime($exam->exam_start);
+									$examEndDateTime = new DateTime($exam->exam_end);
+								@endphp
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
 									<td>{{ $exam->exam_name }}</td>
 									<td>{{ $exam->department->department_name }}</td>
 									<td>{{ $exam->subject->subject_name }}</td>
-									<td>{{ $exam->exam_start }}</td>
-									<td>{{ $exam->exam_end }}</td> 
-
+									<td>{{ $examStartDateTime->format('d F Y') }} - {{ $examStartDateTime->format('H:s A') }}</td>
+									<td>{{ $examEndDateTime->format('d F Y') }} - {{ $examEndDateTime->format('H:s A') }}</td>
 									<td>
 										@if ($exam->status == 1)
-											<span class="text-success font-size-18"><i class="fas fa-check-square"></i></span>
+											<span class="text-white bg-success px-2 py-1 rounded">Active</span>
+										@elseif ($exam->status == 2)
+											<span class="text-white bg-success px-2 py-1 rounded">Complete</span>
 										@else
-											<span class="text-danger font-size-18"><i class="fas fa-window-close"></i></span>
+											<span class="texwhtext-white bg-success px-2 py-1 rounded">Inactive</span>
 										@endif
 									</td>
 
