@@ -168,4 +168,14 @@ class ExamController extends Controller
     // Output the generated PDF to Browser (stream)
     return $dompdf->stream(uniqid() . '.pdf');
   }
+
+
+  public function elt_status_question($examId)
+  {
+    $exam = Exam::findOrFail($examId);
+    $exam->status = 2;
+    $exam->save();
+
+    return response()->json(['success' => true]);
+  }
 }

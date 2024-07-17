@@ -52,9 +52,10 @@
 						<tbody>
 							@foreach ($exams as $key => $exam)
 								@php
-									$examStartDateTime = new DateTime($exam->exam_start);
-									$examEndDateTime = new DateTime($exam->exam_end);
+									$examStartDateTime = \Carbon\Carbon::parse($exam->exam_start);
+									$examEndDateTime = \Carbon\Carbon::parse($exam->exam_end);
 								@endphp
+
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
 									<td>{{ $exam->exam_name }}</td>
