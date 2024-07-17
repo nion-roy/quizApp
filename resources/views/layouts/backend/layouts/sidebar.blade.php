@@ -144,7 +144,16 @@
 			<li class="{{ Request::is('exams*') ? 'mm-active' : '' }}">
 				<a class="{{ Request::is('exams*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">
 					<i class="fas fa-question-circle"></i>
-					<span data-key="t-ecommerce">Exams</span>
+					<span data-key="t-ecommerce">Exam</span>
+				</a>
+			</li>
+
+			<hr class="m-0">
+
+			<li class="{{ Request::is('exams*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('exams*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">
+					<i class="fas fa-question-circle"></i>
+					<span data-key="t-ecommerce">Exams Expried</span>
 				</a>
 			</li>
 

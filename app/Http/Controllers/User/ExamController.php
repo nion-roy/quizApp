@@ -13,7 +13,8 @@ class ExamController extends Controller
    */
   public function index()
   {
-    $exams = Exam::latest('id')->get();
+    $toDate = \Carbon\Carbon::today()->toDateString();
+    $exams = Exam::orderBy('exam_start', 'asc')->get();
     return view('user.exam.index', compact('exams'));
   }
 

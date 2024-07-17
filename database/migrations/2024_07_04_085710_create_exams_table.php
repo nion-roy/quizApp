@@ -22,7 +22,7 @@ return new class extends Migration
       $table->string('exam_end');
       $table->string('exam_mark');
       $table->string('question_type');
-      $table->boolean('status')->default(false);
+      $table->enum('status',[1,2,3])->default(1);
       $table->timestamps();
     });
   }
