@@ -12,6 +12,11 @@ class Question extends Model
 
   protected $guarded = [];
 
+  public function options()
+  {
+    return $this->hasMany(QuestionOption::class);
+  }
+
   public function user()
   {
     return $this->belongsTo(User::class);
@@ -26,6 +31,9 @@ class Question extends Model
   {
     return $this->belongsTo(Department::class);
   }
+
+
+
 
   public static function createQuestion($requestData)
   {
