@@ -39,7 +39,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title">All Exams</h4>
+					<h4 class="card-title">All Exam Schedules </h4>
 				</div>
 
 				<div class="card-body">
@@ -73,14 +73,14 @@
 												<span class="me-3"><strong>Total Marks:</strong> {{ $exam->exam_mark }} </span>
 											</div>
 										</div>
-										
+
 									</div>
 									<div class="col-md-3 col-xxl-3 mt-3 mt-lg-0 text-end">
 
 										@if ($now < $examStartTime)
 											<button type="button" class="countdown btn btn-primary font-size-14 disabled" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}"></button>
 										@elseif ($now >= $examStartTime && $now <= $examEndTime)
-											<a href="" class="countdown btn btn-success font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}">Exam has started</a>
+											<a href="{{ route('user.exams.create', $exam->slug) }}" class="countdown btn btn-success font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}">Exam has started</a>
 										@else
 											<button type="button" class="countdown btn btn-danger font-size-14" disabled>Exam has expried</button>
 										@endif

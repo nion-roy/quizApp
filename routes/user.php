@@ -19,5 +19,7 @@ Route::group(['as' => 'user.', 'middleware' => ['auth']], function () {
 
 
 
-  Route::resource('exams', App\Http\Controllers\User\ExamController::class);
+  Route::get('exams', [App\Http\Controllers\User\ExamController::class,'index'])->name('exams.index');
+  Route::get('exam-question/{slug}', [App\Http\Controllers\User\ExamController::class,'elt_exam'])->name('exams.create');
+  Route::post('exam-question-store', [App\Http\Controllers\User\ExamController::class,'elt_store'])->name('exams.store');
 });

@@ -5,12 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Models\Exam;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ExamResult;
 
 class ExamController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   */
   public function index()
   {
     $toDate = \Carbon\Carbon::today()->toDateString();
@@ -18,52 +16,33 @@ class ExamController extends Controller
     return view('user.exam.index', compact('exams'));
   }
 
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create()
-  {
-    //
-  }
 
-  /**
-   * Store a newly created resource in storage.
-   */
-  public function store(Request $request)
+  public function elt_exam($slug)
   {
-    //
-  }
-
-  /**
-   * Display the specified resource.
-   */
-  public function show($slug)
-  {
-    $exam = Exam::where('slug', $slug)->first();
+    $exam = Exam::where('slug', $slug)->with('questions')->first();
+    // $examQuestions = $exam->questions;
     return view('user.exam.show', compact('exam'));
   }
 
-  /**
-   * Show the form for editing the specified resource.
-   */
-  public function edit(string $id)
+  public function elt_store(Request $request)
   {
-    //
-  }
+    $examExists = ExamResult::where('exam_id', $request->exam_id)->where('user_id', auth()->id())->first();
 
-  /**
-   * Update the specified resource in storage.
-   */
-  public function update(Request $request, string $id)
-  {
-    //
-  }
+    if ($examExists) {
+      return 'Yor are already submitted exam question.!';
+    } else {
+      
+      foreach ($request->question_id as $question_id) {
+        $selected_option_id = $request->input('option.' . $question_id);
+        $examResult = new ExamResult();
+        $examResult->user_id = auth()->id();
+        $examResult->exam_id = $request->exam_id;
+        $examResult->question_id = $question_id;
+        $examResult->option_id = $selected_option_id;
+        $examResult->save();
+      }
 
-  /**
-   * Remove the specified resource from storage.
-   */
-  public function destroy(string $id)
-  {
-    //
+      return response()->json(['url' => route('user.practice.success')]);
+    }
   }
 }
