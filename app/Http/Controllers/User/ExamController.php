@@ -16,24 +16,25 @@ class ExamController extends Controller
     return view('user.exam.index', compact('exams'));
   }
 
-
   public function elt_exam($slug)
   {
-    $exam = Exam::where('slug', $slug)->with('questions')->first();
-    // $examQuestions = $exam->questions;
-    return view('user.exam.show', compact('exam'));
+    $exam = Exam::where('slug', $slug)->with('question')->first();
+    // $examQuestions = $exam->question;
+    return view('user.exam.paper', compact('exam'));
   }
 
   public function elt_store(Request $request)
   {
+    // return response()->json($request);
+
     $examExists = ExamResult::where('exam_id', $request->exam_id)->where('user_id', auth()->id())->first();
 
     if ($examExists) {
       return 'Yor are already submitted exam question.!';
     } else {
-      
+
       foreach ($request->question_id as $question_id) {
-        $selected_option_id = $request->input('option.' . $question_id);
+        $selected_option_id = $request->input('answer.' . $question_id);
         $examResult = new ExamResult();
         $examResult->user_id = auth()->id();
         $examResult->exam_id = $request->exam_id;
@@ -44,5 +45,22 @@ class ExamController extends Controller
 
       return response()->json(['url' => route('user.practice.success')]);
     }
+  }
+
+
+
+  public function elt_expired()
+  {
+    $toDate = \Carbon\Carbon::today()->toDateString();
+    $exams = Exam::orderBy('exam_start', 'asc')->get();
+    return view('user.exam.expired', compact('exams'));
+  }
+
+
+  public function elt_result()
+  {
+    $exam = Exam::with(['examResults'])->get();
+    return response()->json($exam);
+    // return view('user.exam.result', compact('exam'));
   }
 }
