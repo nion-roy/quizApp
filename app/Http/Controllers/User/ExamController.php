@@ -19,8 +19,8 @@ class ExamController extends Controller
   public function elt_exam($slug)
   {
     $exam = Exam::where('slug', $slug)->with('question')->first();
-    // $examQuestions = $exam->question;
-    return view('user.exam.paper', compact('exam'));
+    $examQuestions = $exam->question;
+    return view('user.exam.paper', compact('exam', 'examQuestions'));
   }
 
   public function elt_store(Request $request)
@@ -57,10 +57,10 @@ class ExamController extends Controller
   }
 
 
-  public function elt_result()
+  public function elt_result($id)
   {
-    $exam = Exam::with(['examResults'])->get();
-    return response()->json($exam);
-    // return view('user.exam.result', compact('exam'));
+    $exam = Exam::where('id', $id)->with(['examAnswer'])->first();
+    // return response()->json($exam);
+    return view('user.exam.result', compact('exam'));
   }
 }

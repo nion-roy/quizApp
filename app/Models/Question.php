@@ -22,7 +22,7 @@ class Question extends Model
     return $this->belongsToMany(Exam::class, ExamQuestion::class);
   }
 
-  public function examQuestion()
+  public function examResults()
   {
     return $this->belongsToMany(Exam::class, ExamResult::class);
   }
