@@ -60,7 +60,7 @@
 
 					<div class="card-body">
 
-						@foreach ($exam->question as $key => $question)
+						@foreach ($examQuestions as $key => $question)
 							<input type="hidden" name="question_id[]" value="{{ $question->id }}">
 
 							<div class="question mb-3">

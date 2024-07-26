@@ -150,8 +150,8 @@
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('exams*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('exams*') ? 'active' : '' }}" href="{{ route('user.exams.expired') }}">
+			<li class="{{ Request::is('exam-expired*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('exam-expired*') ? 'active' : '' }}" href="{{ route('user.exams.expired') }}">
 					<i class="fas fa-question-circle"></i>
 					<span data-key="t-ecommerce">Exams Expired</span>
 				</a>

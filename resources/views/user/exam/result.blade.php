@@ -57,7 +57,6 @@
 				<div class="card-body">
 
 					@foreach ($exam->question as $key => $question)
-						<input type="hidden" name="question_id[]" value="{{ $question->id }}">
 
 						<div class="question mb-3">
 							<div class="row">
@@ -65,11 +64,14 @@
 									<h5>{{ getStrPad($key + 1) }}. {{ $question->question_name ?? null }}</h5>
 								</div> 
 
+                @foreach ($exam->examAnswer as $answer)
+                    <span>{{ $answer->option_id }}</span>
+                @endforeach
+
 								@foreach ($question->options as $key => $option)
 									<div class="col-md-6 col-xl-3">
 										<div class="form-check p-0">
-											<input id="option_{{ $option->id }}" class="form-check-input font-size-14" type="radio" name="answer[{{ $question->id }}]" value="{{ $option->id }}">
-											<label for="option_{{ $option->id }}" class="form-check-label font-size-14 fw-normal border rounded p-3 my-2 options w-100"> {{ chr(65 + $key) }}. {{ $option->option }} </label>
+											<label class="form-check-label font-size-14 fw-normal border rounded p-3 my-2 options w-100"> {{ chr(65 + $key) }}. {{ $option->option }} </label>
 										</div>
 									</div>
 								@endforeach
