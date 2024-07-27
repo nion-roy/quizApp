@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'New Question Cerate')
+@section('title', 'Question Edit')
 
 
 @push('css')
@@ -24,12 +24,13 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="page-title-box d-sm-flex align-items-center justify-content-between">
-				<h4 class="mb-sm-0 font-size-18">New Question Create !</h4>
+				<h4 class="mb-sm-0 font-size-18">Question Edit !</h4>
 
 				<div class="page-title-right">
 					<ol class="breadcrumb m-0">
 						<li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-						<li class="breadcrumb-item active">New Question Create</li>
+						<li class="breadcrumb-item"><a href="{{ route('super-admin.exams.index') }}">Questions</a></li>
+						<li class="breadcrumb-item active">Question Edit</li>
 					</ol>
 				</div>
 
@@ -41,8 +42,9 @@
 	<div class="row">
 		<div class="col-12">
 
-			<form action="{{ route('super-admin.exams.store') }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('super-admin.exams.update', $exam->id) }}" method="POST" enctype="multipart/form-data">
 				@csrf
+				@method('PUT')
 
 				@include('alert-message.alert-message')
 
@@ -92,20 +94,16 @@
 										</div>
 									</div>
 
-									<div class="col-md-6">
-										<div class="form-group mb-3">
-											<label class="form-label exam_date" for="exam_date">Start Date Exam <span class="text-danger">*</span></label>
-											<input type="text" name="exam_date" class="form-control @error('exam_date') is-invalid @enderror" id="exam_date" placeholder="Enter start exam" value="{{ $exam->exam_date }}">
-											@error('exam_date')
-												<div class="text-danger">{{ $message }}</div>
-											@enderror
-										</div>
-									</div>
+									@php
+										$examStartDate = new DateTime($exam->exam_start);
+										$examEndDate = new DateTime($exam->exam_end); 
+									@endphp
+
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
-											<label class="form-label exam_start" for="exam_start">Start Time Exam <span class="text-danger">*</span></label>
-											<input type="text" name="exam_start" class="form-control @error('exam_start') is-invalid @enderror" id="exam_start" placeholder="Enter end exam" value="{{ $exam->exam_start }}">
+											<label class="form-label exam_start" for="exam_start">Start Exam Date & Time <span class="text-danger">*</span></label>
+											<input type="text" name="exam_start" class="form-control @error('exam_start') is-invalid @enderror" id="exam_start" placeholder="Enter start exam date & Time" value="{{ $examStartDate->format('m/d/Y H:i A') }}">
 											@error('exam_start')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
@@ -114,9 +112,9 @@
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
-											<label class="form-label exam_mark" for="exam_mark">Total Marks <span class="text-danger">*</span></label>
-											<input type="text" name="exam_mark" class="form-control @error('exam_mark') is-invalid @enderror" id="exam_mark" placeholder="Enter start exam" value="{{ $exam->exam_mark }}">
-											@error('exam_mark')
+											<label class="form-label exam_end" for="exam_end">End Exam Date & Time <span class="text-danger">*</span></label>
+											<input type="text" name="exam_end" class="form-control @error('exam_end') is-invalid @enderror" id="exam_end" placeholder="Enter end exam date & Time" value="{{ $examEndDate->format('m/d/Y H:i A') }}">
+											@error('exam_end')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -124,9 +122,9 @@
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
-											<label class="form-label exam_time" for="exam_time">Total Times <span class="text-danger">*</span></label>
-											<input type="text" name="exam_time" class="form-control @error('exam_time') is-invalid @enderror" id="exam_time" placeholder="Enter end exam" value="{{ $exam->exam_time }}">
-											@error('exam_time')
+											<label class="form-label exam_mark" for="exam_mark">Total Marks <span class="text-danger">*</span></label>
+											<input type="text" name="exam_mark" class="form-control @error('exam_mark') is-invalid @enderror" id="exam_mark" placeholder="Enter exam mark" value="{{ $exam->exam_mark }}">
+											@error('exam_mark')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -176,8 +174,8 @@
 
 
 					<div class="col-12 text-center mb-3">
-						<a href="{{ route('super-admin.questions.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
-						<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
+						<a href="{{ route('super-admin.exams.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+						<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-upload me-2"></i>Update Now</button>
 					</div>
 
 				</div>
@@ -197,16 +195,10 @@
 @push('js')
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script>
-		flatpickr('#exam_date', {
-			enableTime: false,
-			allowInput: true,
-			dateFormat: "m/d/Y",
-		});
-
-		flatpickr('#exam_start', {
+		flatpickr('#exam_start, #exam_end', {
 			enableTime: true,
-			noCalendar: true,
-			dateFormat: "H:i",
+			allowInput: true,
+			dateFormat: "m/d/Y h:i K",
 		});
 	</script>
 @endpush

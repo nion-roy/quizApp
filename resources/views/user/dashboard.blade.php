@@ -1,5 +1,7 @@
 @extends('layouts.backend.app')
 
+@section('title', 'Dashboard')
+
 @section('main_content')
 	<!-- start page title -->
 	<div class="row">

@@ -30,3 +30,25 @@ if (!function_exists('getPercentage')) {
   }
 }
 // Percentage Calculation Function
+
+
+// Exam Exist Function
+if (!function_exists('getExamExist')) {
+  function getExamExist($id)
+  {
+    $examExist = App\Models\ExamResult::where('exam_id', $id)->where('user_id', auth()->id())->first();
+    return $examExist;
+  }
+}
+// Exam Exist Function
+
+
+// All Department Function
+if (!function_exists('getDepartments')) {
+  function getDepartments()
+  {
+    $departments = App\Models\Department::where('status', true)->get();
+    return $departments;
+  }
+}
+// All Department Function

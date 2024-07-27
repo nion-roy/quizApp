@@ -8,12 +8,14 @@
 			margin: 0 !important;
 		}
 
-		.form-check-input {
-			display: none;
+		.correct_answer {
+			background: rgba(25, 135, 84, .05) !important;
+			border-color: rgba(25, 135, 84, .4) !important;
 		}
 
-		.form-check-input:checked~.options {
-			border: 1px solid #34c38f !important;
+		.wrong_answer {
+			background: rgba(255, 0, 0, .05) !important;
+			border-color: rgba(255, 0, 0, .4) !important;
 		}
 	</style>
 @endpush
@@ -23,12 +25,12 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="page-title-box d-sm-flex align-items-center justify-content-between">
-				<h4 class="mb-sm-0 font-size-18">New Question Create !</h4>
+				<h4 class="mb-sm-0 font-size-18">Exam Result !</h4>
 
 				<div class="page-title-right">
 					<ol class="breadcrumb m-0">
 						<li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-						<li class="breadcrumb-item active">New Question Create</li>
+						<li class="breadcrumb-item active">Exam Result</li>
 					</ol>
 				</div>
 
@@ -40,64 +42,84 @@
 	<div class="row">
 		<div class="col-12">
 
-			<div class="card">
 
+			<div class="card">
 				<div class="card-header text-center">
 					<h4>E-Learning & Earning Ltd.</h4>
 					<h5>Department of {{ $exam->department->department_name }}</h5>
 					<h5>{{ $exam->exam_name }}</h5>
 					<h5>Course Title: {{ $exam->subject->subject_name }}</h5>
 
+					<br>
+
 					<div class="d-flex align-items-center justify-content-between">
-						<h5>Total Time: <span class="fw-normal" id="timer"></span></h5>
-						<h5>Total Marks: <span class="fw-normal">{{ $exam->exam_mark }}</span></h5>
+						<h5 class="m-0">Correct Answer: <span id="correct-count"></span></h5>
+						<h5 class="m-0">Wrong Answer: <span id="wrong-count"></span></h5>
+						<h5 class="m-0">Not Selected Answer: <span id="not-selected-count"></span></h5>
 					</div>
+
 				</div>
 
+
 				<div class="card-body">
+					@php
+						$results = App\Models\ExamResult::where('exam_id', $exam->id)
+						    ->where('user_id', auth()->id())
+						    ->get();
+						$correctCount = 0;
+						$wrongCount = 0;
+						$notSelectedCount = 0;
+					@endphp
 
-					@foreach ($exam->question as $key => $question)
+					@foreach ($results as $resultKey => $result)
+						@php
+							$resultOptions = App\Models\QuestionOption::where('question_id', $result->question->id)->get();
+							$correctAnswer = $result->question->correct_answer;
+							$selectedOption = $result->option->option ?? null;
 
-						<div class="question mb-3">
+							if ($selectedOption === null) {
+							    $notSelectedCount++;
+							} elseif ($selectedOption === $correctAnswer) {
+							    $correctCount++;
+							} else {
+							    $wrongCount++;
+							}
+						@endphp
+						<div class="col-12 mb-4" id="questions">
+							<h4 class="font-size-17 mb-1">
+								{{ str_pad($resultKey + 1, 2, '0', STR_PAD_LEFT) }}. {{ $result->question->question_name }}
+								@if ($selectedOption === null)
+									<p class="text-warning m-0 font-size-14 fw-bold d-inline-block">(Option not selected)</p>
+								@endif
+							</h4>
+
 							<div class="row">
-								<div class="col-12">
-									<h5>{{ getStrPad($key + 1) }}. {{ $question->question_name ?? null }}</h5>
-								</div> 
-
-                @foreach ($exam->examAnswer as $answer)
-                    <span>{{ $answer->option_id }}</span>
-                @endforeach
-
-								@foreach ($question->options as $key => $option)
-									<div class="col-md-6 col-xl-3">
-										<div class="form-check p-0">
-											<label class="form-check-label font-size-14 fw-normal border rounded p-3 my-2 options w-100"> {{ chr(65 + $key) }}. {{ $option->option }} </label>
+								@foreach ($resultOptions as $optionKey => $option)
+									<div class="col-md-6 col-lg-6 col-xxl-3">
+										<div class="font-size-14 fw-normal border rounded p-3 my-2 options w-100 
+                            {{ $option->option === $correctAnswer ? 'correct_answer' : '' }} 
+                            @if ($selectedOption === $option->option) {{ $option->option === $correctAnswer ? 'correct_answer' : 'wrong_answer' }} @endif">
+											{{ chr(65 + $optionKey) }}. {{ $option->option }}
 										</div>
 									</div>
 								@endforeach
-
 							</div>
 						</div>
 					@endforeach
-
 				</div>
-
-				<div class="card-footer">
-					<div class="row">
-						<div class="col-md-8">
-							<p><strong>Note: </strong> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia voluptate facere quas est veniam laboriosam in voluptas, saepe magnam animi alias nostrum dignissimos suscipit accusantium consequatur ratione sint iste eveniet?</p>
-						</div>
-						<div class="col-md-4 text-end">
-							<a href="{{ route('user.exams.expired') }}" class="btn btn-danger waves-effect waves-light w-md"> <i class="fas fa-arrow-left me-2"></i>Back Now </a>
-						</div>
-					</div>
-				</div>
-
 			</div>
-
 
 		</div>
 		<!-- end col -->
 	</div>
 	<!-- end row -->
 @endsection
+
+
+@push('js')
+	<script>
+		document.getElementById('correct-count').innerText = '{{ getStrPad($correctCount) }}';
+		document.getElementById('wrong-count').innerText = '{{ getStrPad($wrongCount) }}';
+		document.getElementById('not-selected-count').innerText = '{{ getStrPad($notSelectedCount) }}';
+	</script>
+@endpush

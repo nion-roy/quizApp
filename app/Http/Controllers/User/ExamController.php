@@ -23,16 +23,14 @@ class ExamController extends Controller
     return view('user.exam.paper', compact('exam', 'examQuestions'));
   }
 
+
   public function elt_store(Request $request)
   {
-    // return response()->json($request);
-
     $examExists = ExamResult::where('exam_id', $request->exam_id)->where('user_id', auth()->id())->first();
 
     if ($examExists) {
-      return 'Yor are already submitted exam question.!';
+      return response()->json(['status' => 'error', 'message' => 'You have already submitted the exam questions.']);
     } else {
-
       foreach ($request->question_id as $question_id) {
         $selected_option_id = $request->input('answer.' . $question_id);
         $examResult = new ExamResult();
@@ -43,10 +41,9 @@ class ExamController extends Controller
         $examResult->save();
       }
 
-      return response()->json(['url' => route('user.practice.success')]);
+      return response()->json(['status' => 'success', 'url' => route('user.exams.index')]);
     }
   }
-
 
 
   public function elt_expired()
@@ -59,8 +56,7 @@ class ExamController extends Controller
 
   public function elt_result($id)
   {
-    $exam = Exam::where('id', $id)->with(['examAnswer'])->first();
-    // return response()->json($exam);
+    $exam = Exam::where('id', $id)->first();
     return view('user.exam.result', compact('exam'));
   }
 }

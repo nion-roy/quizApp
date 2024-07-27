@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models; 
+namespace App\Models;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,6 +10,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
   use HasFactory, Notifiable;
+
+  public function isOnline()
+  {
+    return Cache::has('user-is-online-' . $this->id);
+  }
+
 
   /**
    * The attributes that are mass assignable.

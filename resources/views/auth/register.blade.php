@@ -140,66 +140,51 @@
 										<form class="mt-4 pt-2" method="POST" action="{{ route('register') }}">
 											@csrf
 
-											<div class="form-floating form-floating-custom mb-4">
-												<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Enter Full Name" value="{{ old('name') }}">
+											<div class="form-group mb-4">
+												<select class="form-control form-select py-3 @error('department_id') is-invalid @enderror" name="department_id">
+													<option disabled selected>-- Selected Department --</option>
+													@foreach (getDepartments() as $department)
+														<option value="{{ $department->id }}">{{ $department->department_name }}</option>
+													@endforeach
+												</select>
+												@error('department_id')
+													<div class="text-danger">{{ $message }}</div>
+												@enderror
+											</div>
+
+											<div class="form-group mb-4">
+												<input type="text" name="name" class="form-control py-3 @error('name') is-invalid @enderror" id="name" placeholder="Enter Full Name" value="{{ old('name') }}">
 												@error('name')
 													<div class="text-danger">{{ $message }}</div>
 												@enderror
-												<label for="name">Full Name</label>
-												<div class="form-floating-icon">
-													<i data-feather="mail"></i>
-												</div>
 											</div>
 
-                      <div class="form-floating form-floating-custom mb-4">
-                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Enter User Name" value="{{ old('username') }}">
-                        @error('username')
-                          <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                        <label for="username">Username</label>
-                        <div class="form-floating-icon">
-                          <i data-feather="users"></i>
-                        </div>
-                      </div>
+											<div class="form-group mb-4">
+												<input type="text" name="username" class="form-control py-3 @error('username') is-invalid @enderror" id="username" placeholder="Enter User Name" value="{{ old('username') }}">
+												@error('username')
+													<div class="text-danger">{{ $message }}</div>
+												@enderror
+											</div>
 
-											<div class="form-floating form-floating-custom mb-4">
-												<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter Email" value="{{ old('email') }}">
+											<div class="form-group mb-4">
+												<input type="email" name="email" class="form-control py-3 @error('email') is-invalid @enderror" id="email" placeholder="Enter Email" value="{{ old('email') }}">
 												@error('email')
 													<div class="text-danger">{{ $message }}</div>
 												@enderror
-												<label for="email">Email</label>
-												<div class="form-floating-icon">
-													<i data-feather="mail"></i>
-												</div>
 											</div>
 
-
-											<div class="form-floating form-floating-custom mb-4">
-												<input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
+											<div class="form-group mb-4">
+												<input type="password" name="password" class="form-control py-3 @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
 												@error('password')
 													<div class="text-danger">{{ $message }}</div>
 												@enderror
-												<label for="password">Password</label>
-												<div class="form-floating-icon">
-													<i data-feather="lock"></i>
-												</div>
 											</div>
 
-											<div class="form-floating form-floating-custom mb-4">
-												<input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" placeholder="Enter Confirmation  Password">
-												@error('password_confirmation')
-													<div class="text-danger">{{ $message }}</div>
-												@enderror
-												<label for="password">Confirmation Password</label>
-												<div class="form-floating-icon">
-													<i data-feather="lock"></i>
-												</div>
-											</div>
 											<div class="mb-4">
 												<p class="mb-0">By registering you agree to the Dason <a href="#" class="text-primary">Terms of Use</a></p>
 											</div>
 											<div class="mb-3">
-												<button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Register</button>
+												<button class="btn btn-primary w-100 waves-effect waves-light py-3" type="submit">Register</button>
 											</div>
 										</form>
 
@@ -208,10 +193,7 @@
 										</div>
 									</div>
 									<div class="mt-4 mt-md-5 text-center">
-										<p class="mb-0">©
-											<script>
-												document.write(new Date().getFullYear())
-											</script> Dason . Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+										<p class="mb-0">© {{ date('Y') }} Dason . Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
 										</p>
 									</div>
 								</div>

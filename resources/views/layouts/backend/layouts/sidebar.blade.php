@@ -141,8 +141,8 @@
 
 
 
-			<li class="{{ Request::is('exams*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('exams*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">
+			<li class="{{ Request::is('exams*') || Request::is('exam-question*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('exams*') || Request::is('exam-question*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">
 					<i class="fas fa-question-circle"></i>
 					<span data-key="t-ecommerce">Exam</span>
 				</a>
@@ -150,22 +150,12 @@
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('exam-expired*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('exam-expired*') ? 'active' : '' }}" href="{{ route('user.exams.expired') }}">
+			<li class="{{ Request::is('exam-expired*') || Request::is('exam-result*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('exam-expired*') || Request::is('exam-result*') ? 'active' : '' }}" href="{{ route('user.exams.expired') }}">
 					<i class="fas fa-question-circle"></i>
 					<span data-key="t-ecommerce">Exams Expired</span>
 				</a>
 			</li>
-
-			<hr class="m-0">
-
-			<li class="{{ Request::is('exams*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('exams*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">
-					<i class="fas fa-question-circle"></i>
-					<span data-key="t-ecommerce">Exam Results</span>
-				</a>
-			</li>
-
 
 			<hr class="m-0">
 			<li>

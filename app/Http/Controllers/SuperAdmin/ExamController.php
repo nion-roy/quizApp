@@ -126,8 +126,74 @@ class ExamController extends Controller
    */
   public function update(Request $request, string $id)
   {
-    //
+    // Validate the incoming request data
+    $validated = $request->validate([
+      'department_id' => 'required',
+      'subject_id' => 'required',
+      'exam_name' => 'required',
+      'exam_start' => 'required',
+      'exam_end' => 'required',
+      'exam_mark' => 'required|numeric',
+      'question_type' => 'required|boolean',
+      'status' => 'required|boolean',
+      'question_id' => 'nullable|array'
+    ]);
+
+    // Find the exam or fail if it doesn't exist
+    $exam = Exam::findOrFail($id);
+
+    // Update exam details
+    $exam->user_id = Auth::id();
+    $exam->department_id = $validated['department_id'];
+    $exam->subject_id = $validated['subject_id'];
+    $exam->exam_name = $validated['exam_name'];
+    $exam->slug = Str::slug($validated['exam_name']);
+    $exam->exam_start = Carbon::parse($validated['exam_start']);
+    $exam->exam_end = Carbon::parse($validated['exam_end']);
+    $exam->exam_mark = $validated['exam_mark'];
+    $exam->question_type = $validated['question_type'];
+    $exam->status = $validated['status'];
+    $exam->save();
+    
+    // Delete existing questions associated with the exam
+    ExamQuestion::where('exam_id', $exam->id)->delete();
+
+    // Add new questions based on the question_type
+    if ($validated['question_type'] == 1) {
+      $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
+      foreach ($questions as $question) {
+        $examQuestion = new ExamQuestion();
+        $examQuestion->user_id = Auth::id();
+        $examQuestion->exam_id = $exam->id;
+        $examQuestion->question_id = $question->id;
+        $examQuestion->save();
+      }
+    } else {
+      if (isset($validated['question_id']) && is_array($validated['question_id'])) {
+        foreach ($validated['question_id'] as $index) {
+          $examQuestion = new ExamQuestion();
+          $examQuestion->user_id = Auth::id();
+          $examQuestion->exam_id = $exam->id;
+          $examQuestion->question_id = $index;
+          $examQuestion->save();
+        }
+      } else {
+        // Default behavior if no questions are provided
+        $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
+        foreach ($questions as $question) {
+          $examQuestion = new ExamQuestion();
+          $examQuestion->user_id = Auth::id();
+          $examQuestion->exam_id = $exam->id;
+          $examQuestion->question_id = $question->id;
+          $examQuestion->save();
+        }
+      }
+    }
+
+    // Redirect back with a success message
+    return redirect()->back()->with('success', 'Exam and questions updated successfully.');
   }
+
 
   /**
    * Remove the specified resource from storage.
