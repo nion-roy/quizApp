@@ -2,7 +2,6 @@
 
 @section('title', 'Users')
 
-
 @section('main_content')
 	<!-- start page title -->
 	<div class="row">
@@ -40,6 +39,7 @@
 								<th>Username</th>
 								<th>Email</th>
 								<th>Create Account</th>
+								<th>Active</th>
 								<th>Role</th>
 								<th>Status</th>
 								<th>Action</th>
@@ -53,19 +53,36 @@
 									<td>{{ getStrPad($key + 1) }}</td>
 									<td>
 
-										@if ($user->image == 'user.png' || $user->image == null)
-											<img src="{{ asset('default/user.png') }}" alt="{{ $user->name }}" class="img-fluid rounded-circle img-thumbnail me-2" style="width: 40px; height: 40px;">
-										@else
-											<img src="{{ asset('storage/users/' . $user->image) }}" alt="{{ $user->name }}" class="img-fluid rounded-circle img-thumbnail me-2" style="width: 40px; height: 40px;">
-										@endif
+										<div class="user_info">
+											@if ($user->image == 'user.png' || $user->image == null)
+												<img src="{{ asset('default/user.png') }}" alt="{{ $user->name }}" class="img-fluid rounded-circle img-thumbnail me-2" style="width: 40px; height: 40px;">
+											@else
+												<img src="{{ asset('storage/users/' . $user->image) }}" alt="{{ $user->name }}" class="img-fluid rounded-circle img-thumbnail me-2" style="width: 40px; height: 40px;">
+											@endif
 
-										{{ $user->name }}
+											{{ $user->name }}
+										</div>
 
 									</td>
 									<td>{{ $user->username }}</td>
 									<td>{{ $user->email }}</td>
 									<td>{{ $user->created_at->format('d-M-Y') }}</td>
+
+									<td>
+										@if ($user->isOnline())
+											<span class="text-success fw-bold">Online</span>
+										@else
+											@if ($user->last_activity)
+												{{ Carbon\Carbon::parse($user->last_activity)->diffForHumans() }}
+											@else
+												<span class="text-danger fw-bold">Offline</span>
+											@endif
+										@endif
+									</td>
+
+
 									<td> <span class="btn btn-success btn-sm">{{ $user->role }}</span> </td>
+
 									<td>
 										@if ($user->status == 1)
 											<span class="btn btn-success btn-sm">Active</span>

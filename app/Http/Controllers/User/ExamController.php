@@ -18,8 +18,8 @@ class ExamController extends Controller
 
   public function elt_exam($slug)
   {
-    $exam = Exam::where('slug', $slug)->with('question')->first();
-    $examQuestions = $exam->question;
+    $exam = Exam::where('slug', $slug)->with('question.options')->first();
+    $examQuestions = $exam->question->shuffle(); // Shuffle the questions randomly
     return view('user.exam.paper', compact('exam', 'examQuestions'));
   }
 

@@ -118,8 +118,10 @@ class ExamController extends Controller
     $exam = Exam::findOrFail($id);
     $departments = Department::where('status', true)->get();
     $subjects = Subject::where('status', true)->get();
-    return view('super-admin.exam.edit', compact('exam', 'departments', 'subjects'));
+    $examQuestions = ExamQuestion::where('exam_id', $id)->pluck('question_id')->toArray();
+    return view('super-admin.exam.edit', compact('exam', 'departments', 'subjects', 'examQuestions'));
   }
+
 
   /**
    * Update the specified resource in storage.
@@ -136,7 +138,6 @@ class ExamController extends Controller
       'exam_mark' => 'required|numeric',
       'question_type' => 'required|boolean',
       'status' => 'required|boolean',
-      'question_id' => 'nullable|array'
     ]);
 
     // Find the exam or fail if it doesn't exist
@@ -154,11 +155,11 @@ class ExamController extends Controller
     $exam->question_type = $validated['question_type'];
     $exam->status = $validated['status'];
     $exam->save();
-    
+
     // Delete existing questions associated with the exam
     ExamQuestion::where('exam_id', $exam->id)->delete();
 
-    // Add new questions based on the question_type
+    // Add new questions based on the question_type == random
     if ($validated['question_type'] == 1) {
       $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
       foreach ($questions as $question) {
@@ -169,8 +170,9 @@ class ExamController extends Controller
         $examQuestion->save();
       }
     } else {
-      if (isset($validated['question_id']) && is_array($validated['question_id'])) {
-        foreach ($validated['question_id'] as $index) {
+      //Question selected
+      if (isset($request->question_id)) {
+        foreach ($request->question_id as $index) {
           $examQuestion = new ExamQuestion();
           $examQuestion->user_id = Auth::id();
           $examQuestion->exam_id = $exam->id;
@@ -178,7 +180,7 @@ class ExamController extends Controller
           $examQuestion->save();
         }
       } else {
-        // Default behavior if no questions are provided
+        //Question random
         $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
         foreach ($questions as $question) {
           $examQuestion = new ExamQuestion();
