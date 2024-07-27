@@ -27,7 +27,7 @@
 			<div class="card">
 				<div class="card-header">
 					<div class="d-flex align-items-center justify-content-between">
-						<h4 class="card-title">All Exam Questions <span class="btn btn-success p-1"></span></h4>
+						<h4 class="card-title">All Exam Questions <span class="btn btn-success">{{ getStrPad($exams->count()) }}</span></h4>
 						<a class="btn btn-success waves-effect waves-light" href="{{ route('super-admin.exams.create') }}"><i class="fa fa-plus-circle me-2"></i> Add Exam Question</a>
 					</div>
 				</div>

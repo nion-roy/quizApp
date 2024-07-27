@@ -95,8 +95,8 @@
 									</div>
 
 									@php
-										$examStartDate = new DateTime($exam->exam_start);
-										$examEndDate = new DateTime($exam->exam_end); 
+										$examStartDate = \Carbon\Carbon::parse($exam->exam_start);
+										$examEndDate = \Carbon\Carbon::parse($exam->exam_end);
 									@endphp
 
 
@@ -222,14 +222,17 @@
 					type: "GET",
 					url: url,
 					success: function(response) {
-
 						if (response.length > 0) {
+							var examQuestions = @json($examQuestions);
+
 							$.each(response, function(index, value) {
 								// Append each checkbox option
 								var serialNumber = index + 1;
+								var isChecked = examQuestions.includes(value.id) ? 'checked' : '';
+
 								$('.question').append(
 									'<div class="form-check p-0">' +
-									'<input class="form-check-input question_input" type="checkbox" name="question_id[]" value="' + value.id + '" id="question' + value.id + '">' +
+									'<input class="form-check-input question_input" type="checkbox" name="question_id[]" value="' + value.id + '" id="question' + value.id + '" ' + isChecked + '>' +
 									'<label class="form-check-label font-size-14 w-100 border rounded p-3 my-1 question_label" for="question' + value.id + '">' +
 									serialNumber + '. ' + value.question_name +
 									'</label>' +
@@ -251,7 +254,7 @@
 						}
 					}
 				});
-			});
+			}).trigger('change');
 
 			// Function to update checked checkbox count
 			function updateCheckboxCount() {
@@ -266,6 +269,7 @@
 		});
 	</script>
 @endpush
+
 
 
 
