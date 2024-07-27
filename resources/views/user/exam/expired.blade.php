@@ -77,7 +77,13 @@
 										</div>
 									</div>
 									<div class="col-md-3 col-xxl-3 mt-3 mt-lg-0 text-end">
-										<a href="{{ route('user.exams.result', $exam->id) }}" class="btn btn-success font-size-14"><i class="fas fa-poll me-2"></i>Result</a>
+
+										@if (getExamExist($exam->id))
+											<a href="{{ route('user.exams.result', $exam->id) }}" class="btn btn-success font-size-14"><i class="fas fa-poll me-2"></i>Result</a>
+										@else
+											<button type="button" class="btn btn-danger font-size-14">No Attendanted</button>
+										@endif
+
 									</div>
 								</div>
 							</div>

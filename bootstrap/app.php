@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\SuperAdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
     commands: __DIR__ . '/../routes/console.php',
     health: '/up',
   )
+
   ->withMiddleware(function (Middleware $middleware) {
     $middleware->alias([
       'admin' => AdminMiddleware::class,

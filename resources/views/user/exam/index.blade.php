@@ -78,11 +78,15 @@
 									</div>
 									<div class="col-md-3 col-xxl-3 mt-3 mt-lg-0 text-end">
 										@if ($now < $examStartTime)
-											<button type="button" class="countdown btn btn-primary font-size-14 disabled" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}"></button>
+											<button type="button" class="countdown btn btn-primary font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}"></button>
 										@elseif ($now >= $examStartTime && $now <= $examEndTime)
-											<a href="{{ route('user.exams.create', $exam->slug) }}" class="countdown btn btn-success font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}">Exam has started</a>
+											@if (getExamExist($exam->id))
+												<button type="button" class="btn btn-success font-size-14">Already Attendant</button>
+											@else
+												<a href="{{ route('user.exams.create', $exam->slug) }}" class="countdown btn btn-success font-size-14" data-exam-start="{{ $examStartTime->toIso8601String() }}" data-exam-end="{{ $examEndTime->toIso8601String() }}">Exam has started</a>
+											@endif
 										@else
-											<button type="button" class="countdown btn btn-danger font-size-14" disabled>Exam has expired</button>
+											<button type="button" class="countdown btn btn-danger font-size-14">Exam has expired</button>
 										@endif
 									</div>
 								</div>

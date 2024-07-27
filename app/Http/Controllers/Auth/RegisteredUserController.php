@@ -34,7 +34,11 @@ class RegisteredUserController extends Controller
       'name' => ['required', 'string', 'max:255'],
       'username' => ['required', 'string', 'regex:/\w*$/', 'max:10', 'unique:users'],
       'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-      'password' => ['required', 'confirmed', Rules\Password::defaults()],
+      'password' => ['required'],
+      'department_id' => ['required'],
+      // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ], [
+      'department_id' => 'The department field is required.',
     ]);
 
 

@@ -77,7 +77,7 @@
 										<div class="btn-group">
 											<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
 											<div class="dropdown-menu" style="">
-												{{-- <a href="{{ route('super-admin.exams.edit', $exam->id) }}" class="dropdown-item">Edit</a> --}}
+												<a href="{{ route('super-admin.exams.edit', $exam->id) }}" class="dropdown-item">Edit</a>
 												<a href="{{ route('super-admin.exams.show', $exam->id) }}" class="dropdown-item">View</a>
 
 												<form action="{{ route('super-admin.exams.destroy', $exam->id) }}" method="POST">

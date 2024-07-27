@@ -143,17 +143,15 @@
 										<form class="mt-4 pt-2" method="POST" action="{{ route('login.store') }}">
 											@csrf
 
-											<div class="form-group mb-3">
-                        <label for="email">Email</label>
-												<input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter Email" value="{{ old('email') }}">
+											<div class="form-group mb-3"> 
+												<input type="text" name="email" class="form-control py-3 @error('email') is-invalid @enderror" id="email" placeholder="Enter Email" value="{{ old('email') }}">
 												@error('email')
                         <div class="text-danger">{{ $message }}</div>
 												@enderror  
 											</div>
                       
-											<div class="form-group mb-3">
-                        <label for="password">Password</label>
-												<input type="password" name="password" class="form-control pe-5 @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
+											<div class="form-group mb-3"> 
+												<input type="password" name="password" class="form-control py-3 pe-5 @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
 												@error('password') 
 													<div class="text-danger">{{ $message }}</div>
 												@enderror 
@@ -169,7 +167,7 @@
 
 											</div>
 											<div class="mb-3">
-												<button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log In</button>
+												<button class="btn btn-primary w-100 waves-effect waves-light py-3" type="submit">Log In</button>
 											</div>
 										</form>
 

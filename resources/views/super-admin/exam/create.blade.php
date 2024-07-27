@@ -110,37 +110,17 @@
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
-									</div>
-
-									{{-- <div class="col-md-6">
-										<div class="form-group mb-3">
-											<label class="form-label exam_start" for="exam_start">Start Time Exam <span class="text-danger">*</span></label>
-											<input type="text" name="exam_start" class="form-control @error('exam_start') is-invalid @enderror" id="exam_start" placeholder="Enter end exam" value="{{ old('exam_start') }}">
-											@error('exam_start')
-												<div class="text-danger">{{ $message }}</div>
-											@enderror
-										</div>
-									</div> --}}
+									</div> 
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
 											<label class="form-label exam_mark" for="exam_mark">Total Marks <span class="text-danger">*</span></label>
-											<input type="text" name="exam_mark" class="form-control @error('exam_mark') is-invalid @enderror" id="exam_mark" placeholder="Enter start exam" value="{{ old('exam_mark') }}">
+											<input type="text" name="exam_mark" class="form-control @error('exam_mark') is-invalid @enderror" id="exam_mark" placeholder="Enter exam mark" value="{{ old('exam_mark') }}">
 											@error('exam_mark')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
-									</div>
-
-									{{-- <div class="col-md-6">
-										<div class="form-group mb-3">
-											<label class="form-label exam_time" for="exam_time">Total Times <span class="text-danger">*</span></label>
-											<input type="text" name="exam_time" class="form-control @error('exam_time') is-invalid @enderror" id="exam_time" placeholder="Enter end exam" value="{{ old('exam_time') }}">
-											@error('exam_time')
-												<div class="text-danger">{{ $message }}</div>
-											@enderror
-										</div>
-									</div> --}}
+									</div> 
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
@@ -186,7 +166,7 @@
 
 
 					<div class="col-md-7 text-end mb-3">
-						<a href="{{ route('super-admin.questions.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+						<a href="{{ route('super-admin.exams.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 						<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
 					</div>
 

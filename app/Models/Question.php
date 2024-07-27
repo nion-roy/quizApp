@@ -22,11 +22,6 @@ class Question extends Model
     return $this->belongsToMany(Exam::class, ExamQuestion::class);
   }
 
-  public function examResults()
-  {
-    return $this->belongsToMany(Exam::class, ExamResult::class);
-  }
-
   public function user()
   {
     return $this->belongsTo(User::class);
