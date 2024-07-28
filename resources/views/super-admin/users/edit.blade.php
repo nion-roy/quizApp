@@ -80,9 +80,9 @@
 											<label class="form-label" for="role">Role<span class="text-danger">*</span></label>
 											<select name="role" class="form-control form-select @error('role') is-invalid @enderror" id="role">
 												<option disabled selected>-- Selected Role --</option>
-												<option value="super-admin" {{ $user->role == 'super-admin' ? 'selected' : '' }}>Super Admin</option>
-												<option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-												<option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+												@foreach ($roles as $role)
+													<option value="{{ $role->id }}" {{ $role->id == $user->role_id ? 'selected' : '' }}>{{ $role->name }}</option>
+												@endforeach
 											</select>
 											@error('role')
 												<div class="text-danger">{{ $message }}</div>

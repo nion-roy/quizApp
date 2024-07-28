@@ -3,7 +3,7 @@
 		<div class="d-flex">
 
 
-			@if (Auth::user()->role == 'super-admin')
+			@if (!Auth::user()->hasRole('user'))
 				<!-- LOGO -->
 				<div class="navbar-brand-box">
 					<a href="{{ route('super-admin.dashboard') }}" class="logo logo-dark">

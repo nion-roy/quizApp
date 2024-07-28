@@ -32,10 +32,10 @@ class AuthenticatedSessionController extends Controller
     $user = Auth::user();
 
     try {
-      if (Auth::user()->role == 'super-admin' && Auth::user()->status == 1) {
+      if (Auth::user()->hasRole('super-admin') && Auth::user()->status == 1) {
         Alert::success("Success", "Your Account Login Successfull.");
         return redirect()->route('super-admin.dashboard');
-      } elseif (Auth::user()->status == 1 && Auth::user()->role) {
+      } elseif (Auth::user()->hasRole('user') && Auth::user()->status == 1) {
         Alert::success("Success", "Your Account Login Successfull.");
         return redirect()->route('dashboard');
       } elseif ($user->status == 2) {

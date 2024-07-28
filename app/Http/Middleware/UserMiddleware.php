@@ -17,13 +17,9 @@ class UserMiddleware
   public function handle(Request $request, Closure $next): Response
   {
     if (Auth::check()) {
-      if (Auth::user()->status == 1 && Auth::user()->role == 'admin') {
+      if (Auth::user()->status == 1 && Auth::user()->hasRole('user')) {
         return $next($request);
-      } elseif (Auth::user()->status == 1 && Auth::user()->role == 'teacher') {
-        return $next($request);
-      } elseif (Auth::user()->status == 1 && Auth::user()->role == 'user') {
-        return $next($request);
-      } elseif (Auth::user()->status == 2) {
+      }elseif (Auth::user()->status == 2) {
         Auth::logout();
         return redirect()->route('login')->with('warning ', 'Your account is pending.');
       } elseif (Auth::user()->status == 3) {

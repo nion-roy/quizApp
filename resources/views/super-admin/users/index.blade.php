@@ -66,10 +66,10 @@
 									</td>
 									<td>{{ $user->username }}</td>
 									<td>{{ $user->email }}</td>
-									<td>{{ $user->created_at->format('d-M-Y') }}</td>
+									<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-M-Y') }} <span class="m-0 font-size-11">{{ Carbon\Carbon::parse($user->created_at)->format('g:i a') }}</span></td>
 
 									<td>
-										@if ($user->isOnline())
+										@if (Cache::has('user-is-online-' . $user->id))
 											<span class="text-success fw-bold">Online</span>
 										@else
 											@if ($user->last_activity)
@@ -80,8 +80,7 @@
 										@endif
 									</td>
 
-
-									<td> <span class="btn btn-success btn-sm">{{ $user->role }}</span> </td>
+									<td> <span class="btn btn-success btn-sm">{{ $user->role_name }} </span> </td>
 
 									<td>
 										@if ($user->status == 1)

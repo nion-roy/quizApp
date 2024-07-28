@@ -66,7 +66,7 @@ class ExamController extends Controller
     $exam->save();
 
     if ($validated['question_type'] == 1) {
-      $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
+      $questions = Question::where('status', true)->where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
       foreach ($questions as $question) {
         $examQuestion = new ExamQuestion();
         $examQuestion->user_id = Auth::id();
@@ -85,7 +85,7 @@ class ExamController extends Controller
           $examQuestion->save();
         }
       } else {
-        $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
+        $questions = Question::where('status', true)->where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
         foreach ($questions as $question) {
           $examQuestion = new ExamQuestion();
           $examQuestion->user_id = Auth::id();
@@ -161,7 +161,7 @@ class ExamController extends Controller
 
     // Add new questions based on the question_type == random
     if ($validated['question_type'] == 1) {
-      $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
+      $questions = Question::where('status', true)->where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
       foreach ($questions as $question) {
         $examQuestion = new ExamQuestion();
         $examQuestion->user_id = Auth::id();
@@ -181,7 +181,7 @@ class ExamController extends Controller
         }
       } else {
         //Question random
-        $questions = Question::where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
+        $questions = Question::where('status', true)->where('subject_id', $exam->subject_id)->inRandomOrder()->take(10)->get();
         foreach ($questions as $question) {
           $examQuestion = new ExamQuestion();
           $examQuestion->user_id = Auth::id();
