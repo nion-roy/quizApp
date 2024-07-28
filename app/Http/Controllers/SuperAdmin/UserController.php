@@ -5,7 +5,10 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +20,11 @@ class UserController extends Controller
    */
   public function index()
   {
-    $users = User::latest('id')->get();
+
+    // $users = User::with('roles')->get();
+    // return $users;
+
+    $users = DB::table('users')->join('roles', 'users.role_id', '=', 'roles.id')->select('users.*', 'roles.name as role_name')->where('email', '!=', 'superadmin@gmail.com')->latest('id')->get();
     return view('super-admin.users.index', compact('users'));
   }
 
@@ -26,7 +33,9 @@ class UserController extends Controller
    */
   public function create()
   {
-    return view('super-admin.users.create');
+    $roles = Role::get();
+    $departments = Department::where('status', true)->get();
+    return view('super-admin.users.create', compact('roles', 'departments'));
   }
 
   /**
@@ -34,14 +43,8 @@ class UserController extends Controller
    */
   public function store(Request $request)
   {
+
     $user = new User();
-    $user->name = $request->name;
-    $user->username = $request->username;
-    $user->slug = Str::slug($request->username);
-    $user->email = $request->email;
-    $user->password = Hash::make($request->password);
-    $user->role = $request->role;
-    $user->status = $request->status;
 
     // user image
     $image = $request->file('image');
@@ -61,6 +64,14 @@ class UserController extends Controller
     }
     // user image
 
+
+    $user->name = $request->name;
+    $user->username = $request->username;
+    $user->slug = Str::slug($request->username);
+    $user->email = $request->email;
+    $user->password = Hash::make($request->password);
+    $user->role_id = $request->role;
+    $user->status = $request->status;
     $user->image = $imageName;
     $user->save();
 
@@ -81,7 +92,9 @@ class UserController extends Controller
   public function edit(string $id)
   {
     $user = User::find($id);
-    return view('super-admin.users.edit', compact('user'));
+    $roles = Role::get();
+    $departments = Department::where('status', true)->get();
+    return view('super-admin.users.edit', compact('user', 'roles', 'departments'));
   }
 
   /**
@@ -90,13 +103,6 @@ class UserController extends Controller
   public function update(Request $request, string $id)
   {
     $user = User::findOrFail($id);
-    $user->name = $request->name;
-    $user->username = $request->username;
-    $user->slug = Str::slug($request->username);
-    $user->email = $request->email;
-    $user->password = Hash::make($request->password);
-    $user->role = $request->role;
-    $user->status = $request->status;
 
     // user image
     $image = $request->file('image');
@@ -122,9 +128,16 @@ class UserController extends Controller
     }
     // user image
 
+    $user->name = $request->name;
+    $user->username = $request->username;
+    $user->slug = Str::slug($request->username);
+    $user->email = $request->email;
+    $user->password = Hash::make($request->password);
+    $user->role_id = $request->role;
+    $user->status = $request->status;
     $user->image = $imageName;
-
     $user->update();
+
     return redirect()->back()->with('success', 'You have update to user account successfully.');
   }
 

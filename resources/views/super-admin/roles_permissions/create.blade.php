@@ -34,7 +34,7 @@
 							<div class="col-md-6">
 								<div class="form-group mb-3">
 									<label for="name" class="form-label">Role Name</label>
-									<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Enter role name">
+									<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Enter role name" value="{{ old('name') }}">
 									@error('name')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror

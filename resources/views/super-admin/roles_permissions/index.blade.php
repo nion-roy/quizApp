@@ -59,7 +59,7 @@
 										<form action="{{ route('super-admin.roles.destroy', $role->id) }}" method="post">
 											@csrf
 											@method('DELETE')
-											<button type="submit" class="btn btn-danger btn-sm fa-1x waves-effect"><i class="fas fa-trash"></i></button>
+											<button type="submit" class="btn btn-danger btn-sm fa-1x waves-effect delete-button"><i class="fas fa-trash"></i></button>
 										</form>
 									</td>
 

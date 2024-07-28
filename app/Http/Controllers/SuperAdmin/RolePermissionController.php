@@ -38,9 +38,9 @@ class RolePermissionController extends Controller
       'name' => 'required|string|unique:roles,name'
     ]);
 
-    $role = new Role();
-    $role->name = Str::slug($validated['name']);
-    $role->syncPermissions($request->permission);
+    $role = Role::create(['name' => Str::slug($validated['name'])]);
+    $role->givePermissionTo($request->permission);
+    // $role->syncPermissions($request->permission);
     $role->save();
 
     return redirect()->back()->withSuccess('Role create successfully.');

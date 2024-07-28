@@ -79,9 +79,9 @@
 											<label class="form-label" for="role">Role<span class="text-danger">*</span></label>
 											<select name="role" class="form-control form-select @error('role') is-invalid @enderror" id="role">
 												<option disabled selected>-- Selected Role --</option>
-												<option value="super-admin">Super Admin</option>
-												<option value="admin">Admin</option>
-												<option value="user">User</option>
+												@foreach ($roles as $role)
+													<option value="{{ $role->id }}">{{ $role->name }}</option>
+												@endforeach
 											</select>
 											@error('role')
 												<div class="text-danger">{{ $message }}</div>
@@ -104,7 +104,6 @@
 										</div>
 									</div>
 								</div>
-
 
 								<div class="form-group mb-3">
 									<label class="form-label" for="image">User Image</label> <br>

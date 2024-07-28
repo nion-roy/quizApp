@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' => ['auth', 'admin']], function () {
-  Route::get('dashboard', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'elt_index'])->name('dashboard');
+Route::group(['as' => 'super-admin.',  'middleware' => ['auth', 'admin']], function () {
+  Route::get('dashboards', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'elt_index'])->name('dashboard');
   Route::get('logout', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'elt_logout'])->name('logout');
 
 
@@ -18,9 +18,6 @@ Route::group(['as' => 'super-admin.', 'prefix' => 'super-admin', 'middleware' =>
   Route::resource('permissions', App\Http\Controllers\SuperAdmin\PermissionController::class);
 
   Route::get('clear-cache', [App\Http\Controllers\SuperAdmin\ClearCacheController::class, 'clearCache'])->name('clearCache');
-
-  Route::resource('mcq-practice', App\Http\Controllers\SuperAdmin\MCQTestController::class);
-  Route::get('mcq-practice-pdf-download', [App\Http\Controllers\SuperAdmin\MCQTestController::class, 'elt_pdf'])->name('mcq-practice.download');
   
   Route::resource('exams', App\Http\Controllers\SuperAdmin\ExamController::class);
   Route::get('exam-question-search/{id}', [App\Http\Controllers\SuperAdmin\ExamController::class, 'getQuestion'])->name('question-search');
