@@ -64,9 +64,9 @@
 								<div class="form-group mb-3">
 									<label class="form-label" for="status">Status<span class="text-danger">*</span></label>
 									<select name="status" class="form-control form-select @error('status') is-invalid @enderror">
-										<option disabled selected>-- Selected Status --</option>
-										<option value="1">Active</option>
-										<option value="2">Inactive</option>
+										<option value="" disabled {{ old('status') === null ? 'selected' : '' }}>-- Selected Status --</option>
+										<option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+										<option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
 									</select>
 									@error('status')
 										<div class="text-danger">{{ $message }}</div>

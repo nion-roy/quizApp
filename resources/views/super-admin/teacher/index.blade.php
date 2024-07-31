@@ -24,26 +24,14 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
-
 				<div class="card-header">
-					<div class="row align-items-center justify-content-between">
-						<div class="col-md-2 d-flex align-items-center gap-2">
-							<span class="m-0">Filter</span>
-							<select name="role" id="role" class="form-select text-capitalize">
-								<option value="0" selected>All</option>
-								@foreach ($roles as $role)
-									<option value="{{ $role->id }}">{{ $role->name }}</option>
-								@endforeach
-							</select>
-						</div>
-						<div class="col-md-2">
-							@can('create role')
-								<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.users.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New User</a>
-							@endcan
-						</div>
+					<div class="d-flex align-items-center justify-content-between">
+						<h4 class="card-title">All Users <span class="btn btn-success">{{ getStrPad($users->count()) }}</span></h4>
+						@can('create role')
+							<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.users.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New User</a>
+						@endcan
 					</div>
 				</div>
-
 				<div class="card-body">
 					<table id="datatable" class="table table-bordered dt-responsive nowrap w-100 align-middle">
 						<thead>
