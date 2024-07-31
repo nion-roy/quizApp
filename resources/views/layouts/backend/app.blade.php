@@ -45,6 +45,10 @@
 				flex-direction: row-reverse;
 				gap: 8px;
 			}
+
+			hr {
+				border-color: red;
+			}
 		</style>
 
 

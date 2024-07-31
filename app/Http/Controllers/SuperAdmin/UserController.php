@@ -20,12 +20,9 @@ class UserController extends Controller
    */
   public function index()
   {
-
-    // $users = User::with('roles')->get();
-    // return $users;
-
-    $users = DB::table('users')->join('roles', 'users.role_id', '=', 'roles.id')->select('users.*', 'roles.name as role_name')->where('email', '!=', 'superadmin@gmail.com')->latest('id')->get();
-    return view('super-admin.users.index', compact('users'));
+    $users = DB::table('users')->join('roles', 'users.role_id', '=', 'roles.id')->select('users.*', 'roles.name as role_name')->latest('id')->get();
+    $roles = Role::get();
+    return view('super-admin.users.index', compact('users', 'roles'));
   }
 
   /**

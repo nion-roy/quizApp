@@ -35,6 +35,15 @@
 				<hr class="m-0">
 			@endcan
 
+			<li class="{{ Request::is('admin/batches*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/batches*') ? 'mm-active' : '' }}" href="{{ route('admin.batches.index') }}">
+					<i class="far fa-bookmark"></i>
+					<span data-key="t-ecommerce">Batch</span>
+				</a>
+			</li>
+
+			<hr class="m-0">
+
 			<li class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}">
 				<a class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}" href="{{ route('admin.labs.index') }}">
 					<i class="far fa-bookmark"></i>
@@ -49,6 +58,24 @@
 				<a class="{{ Request::is('admin/routines*') ? 'mm-active' : '' }}" href="{{ route('admin.routines.index') }}">
 					<i class="far fa-bookmark"></i>
 					<span data-key="t-ecommerce">Class Routine</span>
+				</a>
+			</li>
+
+			<hr class="m-0">
+
+			<li class="{{ Request::is('admin/branches*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/branches*') ? 'mm-active' : '' }}" href="{{ route('admin.branches.index') }}">
+					<i class="far fa-bookmark"></i>
+					<span data-key="t-ecommerce">Branch</span>
+				</a>
+			</li>
+
+			<hr class="m-0">
+
+			<li class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}" href="{{ route('admin.labs.index') }}">
+					<i class="far fa-bookmark"></i>
+					<span data-key="t-ecommerce">Present</span>
 				</a>
 			</li>
 

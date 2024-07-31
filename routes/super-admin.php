@@ -8,6 +8,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], f
   Route::get('logout', [App\Http\Controllers\SuperAdmin\DashboardController::class, 'elt_logout'])->name('logout');
 
 
+  Route::resource('branches', App\Http\Controllers\SuperAdmin\BranchController::class);
+  Route::resource('batches', App\Http\Controllers\SuperAdmin\BatchController::class);
   Route::resource('subjects', App\Http\Controllers\SuperAdmin\SubjectController::class);
   Route::resource('departments', App\Http\Controllers\SuperAdmin\DepartmentController::class);
   Route::resource('questions', App\Http\Controllers\SuperAdmin\QuestionController::class);
