@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -32,9 +30,9 @@ class AuthenticatedSessionController extends Controller
     $user = Auth::user();
 
     try {
-      if (Auth::user()->hasRole('super-admin') && Auth::user()->status == 1) {
+      if (!Auth::user()->hasRole('user') && Auth::user()->status == 1) {
         Alert::success("Success", "Your Account Login Successfull.");
-        return redirect()->route('super-admin.dashboard');
+        return redirect()->route('admin.dashboard');
       } elseif (Auth::user()->hasRole('user') && Auth::user()->status == 1) {
         Alert::success("Success", "Your Account Login Successfull.");
         return redirect()->route('dashboard');

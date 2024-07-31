@@ -29,7 +29,7 @@
 					<h4 class="card-title m-0">New Subject Create </h4>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('super-admin.subjects.store') }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('admin.subjects.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 
 						@include('alert-message.alert-message')
@@ -38,13 +38,13 @@
 							<div class="col-md-4">
 								<div class="form-group mb-3">
 									<label class="form-label" for="deparment_id">Department <span class="text-danger">*</span></label>
-									<select name="department_id" id="department_id" class="form-control form-select  @error('department_id') is-invalid @enderror">
+									<select name="department" id="department" class="form-control form-select  @error('department') is-invalid @enderror">
 										<option disabled selected>-- Selected Department --</option>
 										@foreach ($departments as $department)
 											<option value="{{ $department->id }}">{{ $department->department_name }}</option>
 										@endforeach
 									</select>
-									@error('department_id')
+									@error('department')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
@@ -78,7 +78,7 @@
 						<div class="row">
 							<div class="col-md-12 text-end">
 								<div class="form-group">
-									<a href="{{ route('super-admin.subjects.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+									<a href="{{ route('admin.subjects.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
 								</div>
 							</div>

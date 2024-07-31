@@ -25,6 +25,7 @@ return new class extends Migration
       $table->string('image')->default('user.png');
       $table->string('expire')->default('01-01-2026');
       $table->timestamp('last_activity')->nullable();
+      $table->string('department_id')->nullable();
       $table->rememberToken();
       $table->timestamps();
     });

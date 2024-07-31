@@ -5,9 +5,19 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class ClearCacheController extends Controller
+class ClearCacheController extends Controller implements HasMiddleware
 {
+
+  public static function middleware(): array
+  {
+    return [
+      new Middleware('permission:clear cache'),
+    ];
+  }
+
   public function clearCache()
   {
     // Clear application cache

@@ -23,10 +23,32 @@ class RolesPermissionsTableSeeder extends Seeder
     Permission::create(['name' => 'delete role']);
 
     // Create User Permissions
+    Permission::create(['name' => 'view permission']);
+    Permission::create(['name' => 'create permission']);
+    Permission::create(['name' => 'update permission']);
+    Permission::create(['name' => 'delete permission']);
+
+    // Create User Permissions
     Permission::create(['name' => 'view user']);
     Permission::create(['name' => 'create user']);
     Permission::create(['name' => 'update user']);
     Permission::create(['name' => 'delete user']);
+
+    // Create Department Permissions
+    Permission::create(['name' => 'view department']);
+    Permission::create(['name' => 'create department']);
+    Permission::create(['name' => 'update department']);
+    Permission::create(['name' => 'delete department']);
+
+    // Create Subject Permissions
+    Permission::create(['name' => 'view subject']);
+    Permission::create(['name' => 'create subject']);
+    Permission::create(['name' => 'update subject']);
+    Permission::create(['name' => 'delete subject']);
+
+
+    // Create Clear Cache Permissions
+    Permission::create(['name' => 'clear cache']);
 
     // Create Roles
     $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin

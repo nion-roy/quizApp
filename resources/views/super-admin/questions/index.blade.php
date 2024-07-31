@@ -31,7 +31,7 @@
 							<h4 class="card-title m-0">All Questions <span class="btn btn-success">{{ getStrPad($questions->count()) }}</span></h4>
 							{{-- <a class="btn btn-danger waves-effect waves-light" href="">Add CSV</a> --}}
 						</div>
-						<a class="btn btn-success waves-effect waves-light" href="{{ route('super-admin.questions.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New Question</a>
+						<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.questions.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New Question</a>
 					</div>
 				</div>
 				<div class="card-body">
@@ -52,6 +52,7 @@
 
 
 						<tbody>
+
 							@foreach ($questions as $key => $question)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
@@ -71,9 +72,9 @@
 
 									<td>
 										<div class="d-flex align-items-center gap-1">
-											<a href="{{ route('super-admin.questions.edit', $question->id) }}" class="btn btn-success font-size-15 btn-sm"><i class="fa fa-edit"></i></a>
-											<a href="{{ route('super-admin.questions.show', $question->id) }}" class="btn btn-info font-size-15 btn-sm"><i class="fa fa-eye"></i></a>
-											<form action="{{ route('super-admin.questions.destroy', $question->id) }}" method="POST">
+											<a href="{{ route('admin.questions.edit', $question->id) }}" class="btn btn-success font-size-15 btn-sm"><i class="fa fa-edit"></i></a>
+											<a href="{{ route('admin.questions.show', $question->id) }}" class="btn btn-info font-size-15 btn-sm"><i class="fa fa-eye"></i></a>
+											<form action="{{ route('admin.questions.destroy', $question->id) }}" method="POST">
 												@csrf
 												@method('DELETE')
 												<button type="button" class="btn btn-danger delete-button font-size-15 btn-sm"><i class="fa fa-trash"></i></button>

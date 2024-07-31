@@ -29,7 +29,7 @@
 					<h4 class="card-title m-0">New User Create </h4>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('super-admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
 						@csrf
 						@method('PUT')
 
@@ -123,7 +123,7 @@
 								</div>
 
 								<div class="form-group">
-									<a href="{{ route('super-admin.users.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+									<a href="{{ route('admin.users.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-upload me-2"></i>Update Now</button>
 								</div>
 

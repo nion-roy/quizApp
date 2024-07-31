@@ -141,13 +141,13 @@
 											@csrf
 
 											<div class="form-group mb-4">
-												<select class="form-control form-select py-3 @error('department_id') is-invalid @enderror" name="department_id">
+												<select class="form-control form-select py-3 @error('department') is-invalid @enderror" name="department">
 													<option disabled selected>-- Selected Department --</option>
 													@foreach (getDepartments() as $department)
 														<option value="{{ $department->id }}">{{ $department->department_name }}</option>
 													@endforeach
 												</select>
-												@error('department_id')
+												@error('department')
 													<div class="text-danger">{{ $message }}</div>
 												@enderror
 											</div>

@@ -29,7 +29,7 @@
 					<h4 class="card-title m-0">New Question Create </h4>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('super-admin.questions.store') }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('admin.questions.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 
 						@include('alert-message.alert-message')
@@ -123,7 +123,7 @@
 							</div>
 
 							<div class="form-group">
-								<a href="{{ route('super-admin.questions.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+								<a href="{{ route('admin.questions.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 								<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
 							</div>
 
@@ -142,7 +142,7 @@
 		$(document).ready(function() {
 			$('#department_id').on('change', function() {
 				var id = $(this).val();
-				var url = "/super-admin/department-wise-subjects/" + id;
+				var url = "/admin/department-wise-subjects/" + id;
 
 				// Clear existing options in subject_id dropdown
 				$('#subject_id').empty().append('<option disabled selected>-- Loading Subjects --</option>');

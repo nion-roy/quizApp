@@ -64,6 +64,8 @@ class UserController extends Controller
     }
     // user image
 
+    // Assuming the role name is 'user'
+    $role = Role::where('id', $request->role)->first();
 
     $user->name = $request->name;
     $user->username = $request->username;
@@ -74,6 +76,8 @@ class UserController extends Controller
     $user->status = $request->status;
     $user->image = $imageName;
     $user->save();
+
+    $user->syncRoles($role->name);
 
     return redirect()->back()->with('success', 'You have create to user account successfully.');
   }
@@ -128,6 +132,9 @@ class UserController extends Controller
     }
     // user image
 
+    // Assuming the role name is 'user'
+    $role = Role::where('id', $request->role)->first();
+
     $user->name = $request->name;
     $user->username = $request->username;
     $user->slug = Str::slug($request->username);
@@ -137,6 +144,8 @@ class UserController extends Controller
     $user->status = $request->status;
     $user->image = $imageName;
     $user->update();
+
+    $user->syncRoles($role->name);
 
     return redirect()->back()->with('success', 'You have update to user account successfully.');
   }

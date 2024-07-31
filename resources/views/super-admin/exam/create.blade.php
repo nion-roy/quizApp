@@ -41,7 +41,7 @@
 	<div class="row">
 		<div class="col-12">
 
-			<form action="{{ route('super-admin.exams.store') }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ route('admin.exams.store') }}" method="POST" enctype="multipart/form-data">
 				@csrf
 
 				@include('alert-message.alert-message')
@@ -54,14 +54,14 @@
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
-											<label class="form-label" for="department_id">Department <span class="text-danger">*</span></label>
-											<select name="department_id" class="form-control form-select @error('department_id') is-invalid @enderror" id="department_id">
+											<label class="form-label" for="department">Department <span class="text-danger">*</span></label>
+											<select name="department" class="form-control form-select @error('department') is-invalid @enderror" id="department">
 												<option disabled selected>-- Select Department --</option>
 												@foreach ($departments as $department)
-													<option value="{{ $department->id }}" @if (old('department_id') == $department->id) selected @endif>{{ $department->department_name }}</option>
+													<option value="{{ $department->id }}" @if (old('department') == $department->id) selected @endif>{{ $department->department_name }}</option>
 												@endforeach
 											</select>
-											@error('department_id')
+											@error('department')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -69,14 +69,14 @@
 
 									<div class="col-md-6">
 										<div class="form-group mb-3">
-											<label class="form-label" for="subject_id">Subject <span class="text-danger">*</span></label>
-											<select name="subject_id" class="form-control form-select @error('subject_id') is-invalid @enderror" id="subject_id">
+											<label class="form-label" for="subject">Subject <span class="text-danger">*</span></label>
+											<select name="subject" class="form-control form-select @error('subject') is-invalid @enderror" id="subject">
 												<option disabled selected>-- Select Subject --</option>
 												@foreach ($subjects as $subject)
-													<option value="{{ $subject->id }}" @if (old('subject_id') == $subject->id) selected @endif>{{ $subject->subject_name }}</option>
+													<option value="{{ $subject->id }}" @if (old('subject') == $subject->id) selected @endif>{{ $subject->subject_name }}</option>
 												@endforeach
 											</select>
-											@error('subject_id')
+											@error('subject')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -166,7 +166,7 @@
 
 
 					<div class="col-md-7 text-end mb-3">
-						<a href="{{ route('super-admin.exams.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+						<a href="{{ route('admin.exams.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 						<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
 					</div>
 
@@ -209,9 +209,9 @@
 	<script>
 		$(document).ready(function() {
 			// Handler for subject selection change
-			$('#subject_id').on('change', function() {
+			$('#subject').on('change', function() {
 				var id = $(this).val();
-				var url = "/super-admin/exam-question-search/" + id;
+				var url = "/admin/exam-question-search/" + id;
 
 				// Clear previous content and reset total count
 				$('.question').empty();
@@ -272,11 +272,11 @@
 @push('js')
 	<script>
 		$(document).ready(function() {
-			// Handling subject_id change event
-			$('#subject_id').on('change', function() {
-				var subject_id = $(this).val();
+			// Handling subject change event
+			$('#subject').on('change', function() {
+				var subject = $(this).val();
 
-				if (subject_id) {
+				if (subject) {
 					$('.question_type').val('0'); // Select Random
 				} else {
 					$('.question_type').val('1'); // Select Selected
@@ -297,8 +297,8 @@
 				}
 			});
 
-			// Trigger change event on subject_id initially to set question_type value
-			// $('#subject_id').trigger('change');
+			// Trigger change event on subject initially to set question_type value
+			// $('#subject').trigger('change');
 		});
 	</script>
 @endpush
@@ -306,25 +306,25 @@
 @push('js')
 	<script>
 		$(document).ready(function() {
-			$('#department_id').on('change', function() {
+			$('#department').on('change', function() {
 				var id = $(this).val();
-				var url = "/super-admin/department-wise-subjects/" + id;
+				var url = "/admin/department-wise-subjects/" + id;
 
-				// Clear existing options in subject_id dropdown
-				$('#subject_id').html('<option disabled selected>-- Loading Subjects --</option>');
+				// Clear existing options in subject dropdown
+				$('#subject').html('<option disabled selected>-- Loading Subjects --</option>');
 
 				$.ajax({
 					type: "GET",
 					url: url,
 					success: function(response) {
 						if (response.length > 0) {
-							// Append options to subject_id dropdown
-							$('#subject_id').html('<option disabled selected>-- Select Subject --</option>');
+							// Append options to subject dropdown
+							$('#subject').html('<option disabled selected>-- Select Subject --</option>');
 							$.each(response, function(key, value) {
-								$('#subject_id').append('<option value="' + value.id + '">' + value.subject_name + '</option>');
+								$('#subject').append('<option value="' + value.id + '">' + value.subject_name + '</option>');
 							});
 						} else {
-							$('#subject_id').html('<option disabled selected>-- Subject Not Found --</option>');
+							$('#subject').html('<option disabled selected>-- Subject Not Found --</option>');
 						}
 					},
 				});

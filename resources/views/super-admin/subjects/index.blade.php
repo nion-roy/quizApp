@@ -28,7 +28,9 @@
 				<div class="card-header">
 					<div class="d-flex align-items-center justify-content-between">
 						<h4 class="card-title">All Subjects <span class="btn btn-success">{{ getStrPad($subjects->count()) }}</span></h4>
-						<a class="btn btn-success waves-effect waves-light" href="{{ route('super-admin.subjects.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New Subject</a>
+						@can('create subject')
+							<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.subjects.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New Subject</a>
+						@endcan
 					</div>
 				</div>
 				<div class="card-body">
@@ -42,7 +44,9 @@
 								<th>Creation User</th>
 								<th>Created</th>
 								<th>Status</th>
-								<th>Action</th>
+								@if (Auth::user()->can('update subject') || Auth::user()->can('delete subject'))
+									<th>Action</th>
+								@endif
 							</tr>
 						</thead>
 
@@ -53,7 +57,7 @@
 									<td>{{ getStrPad($key + 1) }}</td>
 									<td>{{ $subject->department->department_name }}</td>
 									<td>{{ $subject->subject_name }}</td>
-									<td>00</td>
+									<td>{{ getStrPad(getQuestionsCount($subject->id)) }}</td>
 									<td>{{ $subject->user->name }}</td>
 									<td>{{ $subject->created_at->format('d-M-Y') }}</td>
 									<td>
@@ -64,16 +68,22 @@
 										@endif
 									</td>
 
-									<td>
-										<div class="d-flex align-items-center gap-1">
-											<a href="{{ route('super-admin.subjects.edit', $subject->id) }}" class="btn btn-success font-size-15 btn-sm"><i class="fa fa-edit "></i></a>
-											<form action="{{ route('super-admin.subjects.destroy', $subject->id) }}" method="POST">
-												@csrf
-												@method('DELETE')
-												<button type="button" class="btn btn-danger delete-button font-size-15 btn-sm"><i class="fa fa-trash "></i></button>
-											</form>
-										</div>
-									</td>
+									@if (Auth::user()->can('update subject') || Auth::user()->can('delete subject'))
+										<td>
+											<div class="d-flex align-items-center gap-1">
+												@can('update subject')
+													<a href="{{ route('admin.subjects.edit', $subject->id) }}" class="btn btn-success font-size-15 btn-sm"><i class="fa fa-edit "></i></a>
+												@endcan
+												@can('delete subject')
+													<form action="{{ route('admin.subjects.destroy', $subject->id) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="button" class="btn btn-danger delete-button font-size-15 btn-sm"><i class="fa fa-trash "></i></button>
+													</form>
+												@endcan
+											</div>
+										</td>
+									@endif
 
 								</tr>
 							@endforeach

@@ -2,15 +2,28 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Routing\Controllers\Middleware;
 
-class RolePermissionController extends Controller
+class RolePermissionController extends Controller implements HasMiddleware
 {
+
+  public static function middleware(): array
+  {
+    return [
+      new Middleware('permission:view role', only: ['index']),
+      new Middleware('permission:create role', only: ['create']),
+      new Middleware('permission:update role', only: ['edit']),
+      new Middleware('permission:delete role', only: ['destroy']),
+    ];
+  }
+
   /**
    * Display a listing of the resource.
    */

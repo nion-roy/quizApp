@@ -29,7 +29,7 @@
 					<h4 class="card-title m-0">New Department Create </h4>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('super-admin.departments.store') }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('admin.departments.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 
 						@include('alert-message.alert-message')
@@ -63,7 +63,7 @@
 						<div class="row">
 							<div class="col-md-9 text-end">
 								<div class="form-group">
-									<a href="{{ route('super-admin.departments.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+									<a href="{{ route('admin.departments.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
 								</div>
 							</div>

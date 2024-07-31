@@ -1,11 +1,11 @@
-@if(!Auth::user()->hasRole('user'))
+@if (!Auth::user()->hasRole('user'))
 	<div id="sidebar-menu">
 		<!-- Left Menu Start -->
 		<ul class="metismenu list-unstyled" id="side-menu">
 			<li class="menu-title" data-key="t-menu">Menu</li>
 
-			<li class="{{ Request::is('super-admin/dashboard') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('super-admin/dashboard') ? 'active' : '' }}" href="{{ route('super-admin.dashboard') }}">
+			<li class="{{ Request::is('admin/dashboard') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
 					<i data-feather="home"></i>
 					<span data-key="t-dashboard">Dashboard</span>
 				</a>
@@ -13,59 +13,119 @@
 
 			<li class="menu-title" data-key="t-apps">Apps</li>
 
-			<li class="{{ Request::is('super-admin/departments*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('super-admin/departments*') ? 'mm-active' : '' }}" href="{{ route('super-admin.departments.index') }}">
-					<i class="fas fa-question-circle"></i>
-					<span data-key="t-ecommerce">Department</span>
+			@can('view department')
+				<li class="{{ Request::is('admin/departments*') ? 'mm-active' : '' }}">
+					<a class="{{ Request::is('admin/departments*') ? 'mm-active' : '' }}" href="{{ route('admin.departments.index') }}">
+						<i class="fas fa-outdent"></i>
+						<span data-key="t-ecommerce">Department</span>
+					</a>
+				</li>
+
+				<hr class="m-0">
+			@endcan
+
+			@can('view subject')
+				<li class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}">
+					<a class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}" href="{{ route('admin.subjects.index') }}">
+						<i class="far fa-bookmark"></i>
+						<span data-key="t-ecommerce">Subject</span>
+					</a>
+				</li>
+
+				<hr class="m-0">
+			@endcan
+
+			<li class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}" href="{{ route('admin.labs.index') }}">
+					<i class="far fa-bookmark"></i>
+					<span data-key="t-ecommerce">Lab Room</span>
 				</a>
 			</li>
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('super-admin/subjects*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('super-admin/subjects*') ? 'mm-active' : '' }}" href="{{ route('super-admin.subjects.index') }}">
-					<i class="fas fa-question-circle"></i>
-					<span data-key="t-ecommerce">Subject</span>
+
+			<li class="{{ Request::is('admin/routines*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/routines*') ? 'mm-active' : '' }}" href="{{ route('admin.routines.index') }}">
+					<i class="far fa-bookmark"></i>
+					<span data-key="t-ecommerce">Class Routine</span>
 				</a>
 			</li>
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('super-admin/questions*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('super-admin/questions*') ? 'mm-active' : '' }}" href="{{ route('super-admin.questions.index') }}">
-					<i class="fas fa-question-circle"></i>
+			<li class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}" href="{{ route('admin.subjects.index') }}">
+					<i class="far fa-bookmark"></i>
+					<span data-key="t-ecommerce">Students</span>
+				</a>
+			</li>
+
+			<hr class="m-0">
+
+			<li class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}" href="{{ route('admin.subjects.index') }}">
+					<i class="far fa-bookmark"></i>
+					<span data-key="t-ecommerce">Teachers</span>
+				</a>
+			</li>
+
+			<hr class="m-0">
+
+			<li class="{{ Request::is('admin/questions*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/questions*') ? 'mm-active' : '' }}" href="{{ route('admin.questions.index') }}">
+					<i class="far fa-question-circle"></i>
 					<span data-key="t-ecommerce">Question Bank</span>
 				</a>
 			</li>
 
-			<hr class="m-0"> 
+			<hr class="m-0">
 
-			<li class="{{ Request::is('super-admin/exams*') ? 'mm-active' : '' }}">
+			<li class="{{ Request::is('admin/exams*') ? 'mm-active' : '' }}">
 				<a href="javascript: void(0);" class="has-arrow">
-					<i class="fa fa-cog"></i>
+					<i class="far fa-clone"></i>
 					<span data-key="t-ecommerce">Exams</span>
 				</a>
 				<ul class="sub-menu" aria-expanded="false">
-					<li><a class="{{ Request::is('super-admin/exams*') ? 'active' : '' }}" href="{{ route('super-admin.exams.index') }}" key="t-products">Exam Questions</a></li>
-					<li><a href="{{ route('super-admin.clearCache') }}" key="t-products">Exam Results</a></li>
+					<li><a class="{{ Request::is('admin/exams*') ? 'active' : '' }}" href="{{ route('admin.exams.index') }}" key="t-products">Exam Questions</a></li>
+					<li><a href="{{ route('clearCache') }}" key="t-products">Exam Results</a></li>
 				</ul>
 			</li>
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('super-admin/roles*') || Request::is('super-admin/permissions*') || Request::is('super-admin/users*') ? 'mm-active' : '' }}">
+			@if (Auth::user()->can('view role') || Auth::user()->can('view permission') || Auth::user()->can('view user'))
+				<li class="{{ Request::is('admin/roles*') || Request::is('admin/permissions*') || Request::is('admin/users*') ? 'mm-active' : '' }}">
+					<a href="javascript: void(0);" class="has-arrow">
+						<i data-feather="users"></i>
+						<span data-key="t-ecommerce">Users</span>
+					</a>
+					<ul class="sub-menu" aria-expanded="false">
+						@can('view role')
+							<li><a class="{{ Request::is('admin/roles*') ? 'active' : '' }}" href="{{ route('admin.roles.index') }}" key="t-products">Roles</a></li>
+						@endcan
+						@can('view permission')
+							<li><a class="{{ Request::is('admin/permissions*') ? 'active' : '' }}" href="{{ route('admin.permissions.index') }}" key="t-products">Permissions</a></li>
+						@endcan
+						@can('view user')
+							<li><a class="{{ Request::is('admin/users*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}" key="t-products">All Users</a></li>
+						@endcan
+					</ul>
+				</li>
+
+				<hr class="m-0">
+			@endif
+
+			<li>
 				<a href="javascript: void(0);" class="has-arrow">
-					<i data-feather="users"></i>
-					<span data-key="t-ecommerce">Users</span>
+					<i class="fa fa-cog"></i>
+					<span data-key="t-ecommerce">Review</span>
 				</a>
 				<ul class="sub-menu" aria-expanded="false">
-					<li><a class="{{ Request::is('super-admin/roles*') ? 'active' : '' }}" href="{{ route('super-admin.roles.index') }}" key="t-products">Roles</a></li>
-					<li><a class="{{ Request::is('super-admin/permissions*') ? 'active' : '' }}" href="{{ route('super-admin.permissions.index') }}" key="t-products">Permissions</a></li>
-					<li><a class="{{ Request::is('super-admin/users*') ? 'active' : '' }}" href="{{ route('super-admin.users.index') }}" key="t-products">All Users</a></li>
+					<li><a href="ecommerce-products.html" key="t-products">Company</a></li>
+					<li><a href="ecommerce-products.html" key="t-products">Teacher</a></li>
 				</ul>
 			</li>
-
-			<hr class="m-0">
 
 			<li>
 				<a href="javascript: void(0);" class="has-arrow">
@@ -74,14 +134,23 @@
 				</a>
 				<ul class="sub-menu" aria-expanded="false">
 					<li><a href="ecommerce-products.html" key="t-products">General Setting</a></li>
-					<li><a href="{{ route('super-admin.clearCache') }}" key="t-products">Cache Clear</a></li>
 				</ul>
 			</li>
 
 			<hr class="m-0">
 
+			@can('clear cache')
+				<li>
+					<a href="{{ route('clearCache') }}">
+						<i class="fab fa-digital-ocean"></i>
+						<span data-key="t-ecommerce">Cache Clear</span>
+					</a>
+				</li>
+				<hr class="m-0">
+			@endcan
+
 			<li>
-				<a href="{{ route('super-admin.logout') }}">
+				<a href="{{ route('admin.logout') }}">
 					<i class="fas fa-sign-out-alt"></i>
 					<span data-key="t-ecommerce">Logout</span>
 				</a>
@@ -123,7 +192,6 @@
 			<hr class="m-0">
 
 
-
 			<li class="{{ Request::is('exams*') || Request::is('exam-question*') ? 'mm-active' : '' }}">
 				<a class="{{ Request::is('exams*') || Request::is('exam-question*') ? 'active' : '' }}" href="{{ route('user.exams.index') }}">
 					<i class="fas fa-question-circle"></i>
@@ -141,6 +209,30 @@
 			</li>
 
 			<hr class="m-0">
+
+			<li class="{{ Request::is('user/teacher-review*') ? 'mm-active' : '' }}">
+				<a href="javascript: void(0);" class="has-arrow">
+					<i class="far fa-clone"></i>
+					<span data-key="t-ecommerce">Review</span>
+				</a>
+				<ul class="sub-menu" aria-expanded="false">
+					<li><a class="{{ Request::is('user/teacher-review*') ? 'active' : '' }}" href="{{ route('user.teachers.review.index') }}" key="t-products">Teachers</a></li>
+					<li><a href="{{ route('clearCache') }}" key="t-products">Company</a></li>
+				</ul>
+			</li>
+
+			<hr class="m-0">
+
+			@can('clear cache')
+				<li>
+					<a href="{{ route('clearCache') }}">
+						<i class="fab fa-digital-ocean"></i>
+						<span data-key="t-ecommerce">Cache Clear</span>
+					</a>
+				</li>
+				<hr class="m-0">
+			@endcan
+
 			<li>
 				<a href="{{ route('user.logout') }}">
 					<i class="fas fa-sign-out-alt"></i>

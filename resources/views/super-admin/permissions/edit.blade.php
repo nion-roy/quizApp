@@ -1,5 +1,7 @@
 @extends('layouts.backend.app')
 
+@section('title', 'Edit Permission')
+
 @section('main_content')
 	<!-- start page title -->
 	<div class="row">
@@ -9,7 +11,7 @@
 
 				<div class="page-title-right">
 					<ol class="breadcrumb m-0">
-						<li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboards</a></li>
+						<li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboards</a></li>
 						<li class="breadcrumb-item active">Dashboard</li>
 					</ol>
 				</div>
@@ -25,7 +27,7 @@
 				<div class="card-body">
 					<h4 class="card-title mb-4">Permission Managments</h4>
 
-					<form action="{{ route('super-admin.permissions.update', $permission->id) }}" method="POST">
+					<form action="{{ route('admin.permissions.update', $permission->id) }}" method="POST">
 						@csrf
 						@method('PUT')
 
@@ -35,13 +37,16 @@
 							<div class="col-md-6">
 								<div class="form-group mb-3">
 									<label for="name" class="form-label">Permission Name</label>
-									<input type="text" name="name" class="form-control" id="name" placeholder="Enter permission name" value="{{ $permission->name }}">
+									<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Enter permission name" value="{{ $permission->name }}">
+									@error('name')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<a class="btn btn-danger waves-effect" href="{{ route('super-admin.permissions.index') }}"><i class="fas fa-arrow-left me-2"></i>Back Now</a>
+							<a class="btn btn-danger waves-effect" href="{{ route('admin.permissions.index') }}"><i class="fas fa-arrow-left me-2"></i>Back Now</a>
 							<button class="btn btn-success waves-effect"><i class="fas fa-upload me-2"></i>Update Now</button>
 						</div>
 					</form>

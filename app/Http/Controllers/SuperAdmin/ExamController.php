@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use App\Models\ExamQuestion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ExamResult;
 use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
@@ -42,8 +43,8 @@ class ExamController extends Controller
   public function store(Request $request)
   {
     $validated = $request->validate([
-      'department_id' => 'required',
-      'subject_id' => 'required',
+      'department' => 'required',
+      'subject' => 'required',
       'exam_name' => 'required',
       'exam_start' => 'required',
       'exam_end' => 'required',
@@ -54,8 +55,8 @@ class ExamController extends Controller
 
     $exam = new Exam();
     $exam->user_id = Auth::id();
-    $exam->department_id = $validated['department_id'];
-    $exam->subject_id = $validated['subject_id'];
+    $exam->department_id = $validated['department'];
+    $exam->subject_id = $validated['subject'];
     $exam->exam_name = $validated['exam_name'];
     $exam->slug = Str::slug($validated['exam_name']);
     $exam->exam_start = Carbon::parse($validated['exam_start']);
@@ -130,8 +131,8 @@ class ExamController extends Controller
   {
     // Validate the incoming request data
     $validated = $request->validate([
-      'department_id' => 'required',
-      'subject_id' => 'required',
+      'department' => 'required',
+      'subject' => 'required',
       'exam_name' => 'required',
       'exam_start' => 'required',
       'exam_end' => 'required',
@@ -145,8 +146,8 @@ class ExamController extends Controller
 
     // Update exam details
     $exam->user_id = Auth::id();
-    $exam->department_id = $validated['department_id'];
-    $exam->subject_id = $validated['subject_id'];
+    $exam->department_id = $validated['department'];
+    $exam->subject_id = $validated['subject'];
     $exam->exam_name = $validated['exam_name'];
     $exam->slug = Str::slug($validated['exam_name']);
     $exam->exam_start = Carbon::parse($validated['exam_start']);
@@ -208,7 +209,12 @@ class ExamController extends Controller
 
   public function getQuestion($id)
   {
-    $questions = Question::where('status', true)->where('subject_id', $id)->latest('id')->get();
+    if (Auth::user()->hasRole('super-admin')) {
+      $questions = Question::where('status', true)->where('subject_id', $id)->latest('id')->get();
+    } else {
+      $questions = Question::where('user_id', Auth::id())->where('status', true)->where('subject_id', $id)->latest('id')->get();
+    }
+
     return $questions;
   }
 
@@ -245,5 +251,21 @@ class ExamController extends Controller
     $exam->save();
 
     return response()->json(['success' => true]);
+  }
+
+
+
+  public function elt_exam_results(String $id)
+  {
+    $exam = Exam::where('id', $id)->with('examResults')->first();
+
+    if (!$exam) {
+      return response()->json(['error' => 'Exam not found'], 404);
+    }
+
+    $results = $exam->examResults->groupBy('user_id');
+    // return response()->json($results);
+    // Alternatively, you could return a view with the results if needed
+    return view('super-admin.exam.student-result', compact('exam', 'results'));
   }
 }
