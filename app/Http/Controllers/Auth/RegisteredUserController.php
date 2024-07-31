@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -35,14 +36,16 @@ class RegisteredUserController extends Controller
       'username' => ['required', 'string', 'regex:/\w*$/', 'max:10', 'unique:users'],
       'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
       'password' => ['required'],
-      'department_id' => ['required'],
+      'department' => ['required'],
       // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    ], [
-      'department_id' => 'The department field is required.',
     ]);
 
 
     // dd($request->all());
+
+    // Assuming the role name is 'user' and you need to fetch the role ID
+    $role = Role::where('name', 'user')->first();
+    $roleId = $role ? $role->id : null;
 
     $user = new User();
     $user->name = $request->name;
@@ -50,13 +53,11 @@ class RegisteredUserController extends Controller
     $user->slug = Str::slug($request->username);
     $user->email = $request->email;
     $user->password = Hash::make($request->password);
+    $user->department_id = $request->department;
+    $user->role_id = $roleId;
     $user->save();
 
-    // $user = User::create([
-    //   'name' => $request->name, 
-    //   'email' => $request->email,
-    //   'password' => Hash::make($request->password),
-    // ]);
+    $user->assignRole('user');
 
     event(new Registered($user));
 

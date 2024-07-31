@@ -21,6 +21,28 @@ if (!function_exists('getDepartmentCount')) {
 // Department wise Subject Count Function
 
 
+// Exam Attend Count Function
+if (!function_exists('getExamAttendCount')) {
+  function getExamAttendCount($id)
+  {
+    $examAttends = App\Models\ExamResult::where('exam_id', $id)->count();
+    return $examAttends;
+  }
+}
+// Exam Attend Count Function
+
+
+// Subject wise Questions Count Function
+if (!function_exists('getQuestionsCount')) {
+  function getQuestionsCount($id)
+  {
+    $questions = App\Models\Question::where('subject_id', $id)->count();
+    return $questions;
+  }
+}
+// Subject wise Questions Count Function
+
+
 // Percentage Calculation Function
 if (!function_exists('getPercentage')) {
   function getPercentage($percentage, $total)

@@ -27,7 +27,9 @@
 				<div class="card-header">
 					<div class="d-flex align-items-center justify-content-between">
 						<h4 class="card-title">All Users <span class="btn btn-success">{{ getStrPad($users->count()) }}</span></h4>
-						<a class="btn btn-success waves-effect waves-light" href="{{ route('super-admin.users.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New User</a>
+						@can('create role')
+							<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.users.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New User</a>
+						@endcan
 					</div>
 				</div>
 				<div class="card-body">
@@ -42,7 +44,9 @@
 								<th>Active</th>
 								<th>Role</th>
 								<th>Status</th>
-								<th>Action</th>
+								@if (Auth::user()->can('update user') || Auth::user()->can('delete user'))
+									<th>Action</th>
+								@endif
 							</tr>
 						</thead>
 
@@ -94,21 +98,25 @@
 										@endif
 									</td>
 
-									<td>
-										<div class="btn-group">
-											<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
-											<div class="dropdown-menu" style="">
-												<a href="{{ route('super-admin.users.edit', $user->id) }}" class="dropdown-item">Edit</a>
-												<a href="" class="dropdown-item">View</a>
-
-												<form action="{{ route('super-admin.users.destroy', $user->id) }}" method="POST">
-													@csrf
-													@method('DELETE')
-													<button type="button" class="dropdown-item delete-button">Delete</button>
-												</form>
+									@if (Auth::user()->can('update user') || Auth::user()->can('delete user'))
+										<td>
+											<div class="btn-group">
+												<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+												<div class="dropdown-menu" style="">
+													@can('update user')
+														<a href="{{ route('admin.users.edit', $user->id) }}" class="dropdown-item">Edit</a>
+													@endcan
+													@can('delete user')
+														<form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+															@csrf
+															@method('DELETE')
+															<button type="button" class="dropdown-item delete-button">Delete</button>
+														</form>
+													@endcan
+												</div>
 											</div>
-										</div>
-									</td>
+										</td>
+									@endif
 
 								</tr>
 							@endforeach

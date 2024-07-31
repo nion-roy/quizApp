@@ -23,15 +23,9 @@ class SubjectRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'department_id' => ['required'],
+      'department' => ['required'],
       'subject_name' => ['required', 'string', Rule::unique('subjects')->ignore($this->route('subject'))],
       'status' => ['required'],
-    ];
-  }
-  public function messages(): array
-  {
-    return [
-      'department_id.required' => ['The department field is required.'],
     ];
   }
 }

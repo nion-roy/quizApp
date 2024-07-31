@@ -2,13 +2,26 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Models\Department;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubjectRequest;
-use App\Models\Department;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Repositories\Interfaces\SubjectRepositoryInterface;
 
-class SubjectController extends Controller
+class SubjectController extends Controller implements HasMiddleware
 {
+
+  public static function middleware(): array
+  {
+    return [
+      new Middleware('permission:view subject', only: ['index']),
+      new Middleware('permission:create subject', only: ['create']),
+      new Middleware('permission:update subject', only: ['edit']),
+      new Middleware('permission:delete subject', only: ['destroy']),
+    ];
+  }
+
   protected $subjectRepository;
   public function __construct(SubjectRepositoryInterface $subjectRepository)
   {

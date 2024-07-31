@@ -28,7 +28,9 @@
 				<div class="card-header">
 					<div class="d-flex align-items-center justify-content-between">
 						<h4 class="card-title">All Departments <span class="btn btn-success">{{ getStrPad($departments->count()) }}</span></h4>
-						<a class="btn btn-success waves-effect waves-light" href="{{ route('super-admin.departments.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New Department</a>
+						@can('create department')
+							<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.departments.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New Department</a>
+						@endcan
 					</div>
 				</div>
 				<div class="card-body">
@@ -41,7 +43,9 @@
 								<th>Creation User</th>
 								<th>Created</th>
 								<th>Status</th>
-								<th>Action</th>
+								@if (Auth::user()->can('update department') || Auth::user()->can('delete department'))
+									<th>Action</th>
+								@endif
 							</tr>
 						</thead>
 
@@ -62,16 +66,22 @@
 										@endif
 									</td>
 
-									<td>
-										<div class="d-flex align-items-center gap-1">
-											<a href="{{ route('super-admin.departments.edit', $department->id) }}" class="btn btn-success font-size-15 btn-sm"><i class="fa fa-edit "></i></a>
-											<form action="{{ route('super-admin.departments.destroy', $department->id) }}" method="POST">
-												@csrf
-												@method('DELETE')
-												<button type="button" class="btn btn-danger font-size-15 btn-sm delete-button"><i class="fa fa-trash "></i></button>
-											</form>
-										</div>
-									</td>
+									@if (Auth::user()->can('update department') || Auth::user()->can('delete department'))
+										<td>
+											<div class="d-flex align-items-center gap-1">
+												@can('create department')
+													<a href="{{ route('admin.departments.edit', $department->id) }}" class="btn btn-success font-size-15 btn-sm"><i class="fa fa-edit "></i></a>
+												@endcan
+												@can('create department')
+													<form action="{{ route('admin.departments.destroy', $department->id) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="button" class="btn btn-danger font-size-15 btn-sm delete-button"><i class="fa fa-trash "></i></button>
+													</form>
+												@endcan
+											</div>
+										</td>
+									@endif
 
 								</tr>
 							@endforeach

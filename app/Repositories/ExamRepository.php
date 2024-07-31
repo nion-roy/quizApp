@@ -3,13 +3,18 @@
 namespace App\Repositories;
 
 use App\Models\Exam;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\ExamRepositoryInterface;
 
 class ExamRepository implements ExamRepositoryInterface
 {
   public function getAll()
   {
-    return Exam::latest('id')->get();
+    if (Auth::check() && Auth::user()->hasRole('super-admin')) {
+      return Exam::latest('id')->get();
+    } else {
+      return Exam::where('user_id', Auth::id())->latest('id')->get();
+    }
   }
 
   public function getById($id)

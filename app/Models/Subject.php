@@ -25,7 +25,7 @@ class Subject extends Model
   {
     $subject = new Subject();
     $subject->user_id = Auth::id();
-    $subject->department_id = $requestData["department_id"];
+    $subject->department_id = $requestData["department"];
     $subject->subject_name = $requestData["subject_name"];
     $subject->status = $requestData["status"];
     $subject->save();
@@ -35,7 +35,7 @@ class Subject extends Model
   public static function updateSubject($id, $requestData)
   {
     $subject = Subject::findOrFail($id);
-    $subject->department_id = $requestData["department_id"];
+    $subject->department_id = $requestData["department"];
     $subject->subject_name = $requestData["subject_name"];
     $subject->status = $requestData["status"];
     $subject->save();

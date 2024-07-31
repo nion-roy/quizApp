@@ -3,11 +3,25 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class PermissionController extends Controller
+class PermissionController extends Controller implements HasMiddleware
 {
+
+  public static function middleware(): array
+  {
+    return [
+      new Middleware('permission:view permission', only: ['index']),
+      new Middleware('permission:create permission', only: ['create']),
+      new Middleware('permission:update permission', only: ['edit']),
+      new Middleware('permission:delete permission', only: ['destroy']),
+    ];
+  }
+
   /**
    * Display a listing of the resource.
    */
@@ -30,9 +44,16 @@ class PermissionController extends Controller
    */
   public function store(Request $request)
   {
+
+    $request->validate([
+      'name' => 'required|unique:permissions'
+    ]);
+
+    // Create the new permission
     $permission = new Permission();
     $permission->name = $request->name;
     $permission->save();
+
     return redirect()->back()->with('success', 'You have to create permission successfully.');
   }
 
@@ -58,6 +79,10 @@ class PermissionController extends Controller
    */
   public function update(Request $request, string $id)
   {
+    $request->validate([
+      'name' => 'required|unique:permissions,name,' . $id
+    ]);
+
     $permission = Permission::findOrFail($id);
     $permission->name = $request->name;
     $permission->update();

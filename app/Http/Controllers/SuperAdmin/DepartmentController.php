@@ -4,10 +4,21 @@ namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 
-class DepartmentController extends Controller
+class DepartmentController extends Controller implements HasMiddleware
 {
+  public static function middleware(): array
+  {
+    return [
+      new Middleware('permission:view department', only: ['index']),
+      new Middleware('permission:create department', only: ['create']),
+      new Middleware('permission:update department', only: ['edit']),
+      new Middleware('permission:delete department', only: ['destroy']),
+    ];
+  }
 
   protected $departmentRepository;
 
@@ -15,6 +26,7 @@ class DepartmentController extends Controller
   {
     $this->departmentRepository = $departmentRepository;
   }
+
 
   /**
    * Display a listing of the resource.

@@ -23,4 +23,9 @@ class ExamResult extends Model
   {
     return $this->belongsTo(QuestionOption::class);
   }
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
 }

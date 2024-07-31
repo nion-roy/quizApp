@@ -3,13 +3,18 @@
 namespace App\Repositories;
 
 use App\Models\Question;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\QuestionRepositoryInterface;
 
 class QuestionRepository implements QuestionRepositoryInterface
 {
   public function getAll()
   {
-    return Question::latest('id')->get();
+    if (Auth::check() && Auth::user()->hasRole('super-admin')) {
+      return Question::latest('id')->get();
+    } else {
+      return Question::where('user_id', Auth::id())->latest('id')->get();
+    }
   }
 
   public function getById($id)

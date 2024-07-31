@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::group(['as' => 'user.', 'middleware' => ['auth', 'user']], function () {
+Route::group(['as' => 'user.', 'middleware' => 'user'], function () {
   Route::get('dashboard', [App\Http\Controllers\User\DashboardController::class, 'elt_index'])->name('dashboard');
   Route::get('logout', [App\Http\Controllers\User\DashboardController::class, 'elt_logout'])->name('logout');
 
@@ -27,4 +27,7 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'user']], function () {
   Route::post('exam-question-store', [App\Http\Controllers\User\ExamController::class, 'elt_store'])->name('exams.store');
   Route::get('exam-result/{id}', [App\Http\Controllers\User\ExamController::class, 'elt_result'])->name('exams.result');
   //Exam Controllers
+
+
+  Route::get('teacher-review', [App\Http\Controllers\User\TeacherReviewController::class, 'index'])->name('teachers.review.index');
 });

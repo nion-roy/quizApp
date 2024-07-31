@@ -17,19 +17,25 @@ class UserMiddleware
   public function handle(Request $request, Closure $next): Response
   {
     if (Auth::check()) {
-      if (Auth::user()->status == 1 && Auth::user()->hasRole('user')) {
+      $user = Auth::user();
+
+      if ($user->status == 1 && $user->hasRole('user')) {
         return $next($request);
-      }elseif (Auth::user()->status == 2) {
-        Auth::logout();
-        return redirect()->route('login')->with('warning ', 'Your account is pending.');
-      } elseif (Auth::user()->status == 3) {
-        Auth::logout();
-        return redirect()->route('login')->with('warning ', 'Your account is suspended.');
-      } elseif (Auth::user()->status == 4) {
-        Auth::logout();
-        return redirect()->route('login')->with('warning ', 'Your account is blocked.');
-      } else {
-        abort(404);
+      }
+
+      // Handle different statuses
+      switch ($user->status) {
+        case 2:
+          Auth::logout();
+          return redirect()->route('login')->with('warning', 'Your account is pending.');
+        case 3:
+          Auth::logout();
+          return redirect()->route('login')->with('warning', 'Your account is suspended.');
+        case 4:
+          Auth::logout();
+          return redirect()->route('login')->with('warning', 'Your account is blocked.');
+        default:
+          abort(404);
       }
     } else {
       abort(404);

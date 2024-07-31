@@ -9,7 +9,7 @@
 
 				<div class="page-title-right">
 					<ol class="breadcrumb m-0">
-						<li class="breadcrumb-item"><a href="{{ route('super-admin.dashboard') }}">Dashboards</a></li>
+						<li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboards</a></li>
 						<li class="breadcrumb-item active">Dashboard</li>
 					</ol>
 				</div>
@@ -25,7 +25,7 @@
 				<div class="card-body">
 					<h4 class="card-title mb-4">Roles & Permission Managments</h4>
 
-					<form action="{{ route('super-admin.roles.store') }}" method="POST">
+					<form action="{{ route('admin.roles.store') }}" method="POST">
 						@csrf
 
 						@include('alert-message.alert-message')
@@ -63,7 +63,7 @@
 						</div>
 
 						<div class="form-group">
-							<a class="btn btn-danger waves-effect" href="{{ route('super-admin.roles.index') }}"><i class="fas fa-arrow-left me-2"></i>Back Now</a>
+							<a class="btn btn-danger waves-effect" href="{{ route('admin.roles.index') }}"><i class="fas fa-arrow-left me-2"></i>Back Now</a>
 							<button class="btn btn-success waves-effect"><i class="fas fa-save me-2"></i>Add Now</button>
 						</div>
 					</form>
