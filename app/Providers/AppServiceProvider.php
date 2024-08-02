@@ -14,6 +14,7 @@ use App\Repositories\Interfaces\BranchRepositoryInterface;
 use App\Repositories\Interfaces\SubjectRepositoryInterface;
 use App\Repositories\Interfaces\QuestionRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,5 +38,7 @@ class AppServiceProvider extends ServiceProvider
     Gate::before(function ($user, $ability) {
       return $user->hasRole('super-admin') ? true : null;
     });
+
+    Paginator::useBootstrapFive();
   }
 }

@@ -5,6 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<title>Login</title>
 
 		<!-- App favicon -->
 		<link rel="shortcut icon" href="{{ asset('backend') }}/assets/images/favicon.ico">
@@ -28,7 +29,7 @@
 			<div class="container-fluid p-0">
 				<div class="row g-0">
 
-					<div class="col-xxl-9 col-lg-8 col-md-7">
+					<div class="col-xxl-9 col-lg-8 col-md-7 d-none d-lg-block">
 						<div class="auth-bg pt-md-5 p-4 d-flex">
 							<div class="bg-overlay"></div>
 							<ul class="bg-bubbles">
@@ -143,43 +144,26 @@
 										<form class="mt-4 pt-2" method="POST" action="{{ route('login.store') }}">
 											@csrf
 
-											<div class="form-group mb-3"> 
+											<div class="form-group mb-3">
 												<input type="text" name="email" class="form-control py-3 @error('email') is-invalid @enderror" id="email" placeholder="Enter Email" value="{{ old('email') }}">
 												@error('email')
-                        <div class="text-danger">{{ $message }}</div>
-												@enderror  
-											</div>
-                      
-											<div class="form-group mb-3"> 
-												<input type="password" name="password" class="form-control py-3 pe-5 @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
-												@error('password') 
 													<div class="text-danger">{{ $message }}</div>
-												@enderror 
+												@enderror
 											</div>
 
-											<div class="row mb-4">
-												<div class="col">
-													<div class="form-check font-size-15">
-														<input class="form-check-input" type="checkbox" id="remember-check">
-														<label class="form-check-label font-size-13" for="remember-check"> Remember me </label>
-													</div>
-												</div>
-
+											<div class="form-group mb-3">
+												<input type="password" name="password" class="form-control py-3 @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
+												@error('password')
+													<div class="text-danger">{{ $message }}</div>
+												@enderror
 											</div>
-											<div class="mb-3">
-												<button class="btn btn-primary w-100 waves-effect waves-light py-3" type="submit">Log In</button>
+
+											<div class="mb-3 d-flex align-items-center justify-content-between">
+												<a href="{{ route('register') }}" class="btn btn-success waves-effect waves-light">Create Account</a>
+												<button class="btn btn-primary waves-effect waves-light" type="submit">Log In</button>
 											</div>
 										</form>
 
-										<div class="mt-4 pt-2 text-center">
-											<div class="signin-other-title">
-												<h5 class="font-size-14 mb-3 text-muted fw-medium">- Sign in with -</h5>
-											</div>
-										</div>
-
-										<div class="mt-5 text-center">
-											<p class="text-muted mb-0">Don't have an account ? <a href="{{ route('register') }}" class="text-primary fw-semibold"> Signup now </a> </p>
-										</div>
 									</div>
 									<div class="mt-4 mt-md-5 text-center">
 										<p class="mb-0">©

@@ -28,7 +28,7 @@
 				<div class="card-header">
 					<div class="row align-items-center justify-content-between">
 						<div class="col-md-3 d-flex align-items-center gap-2">
-							<span class="m-0 w-50">Filter By</span>
+							<span class="m-0 w-50">Sort By</span>
 							<select name="role" id="role" class="form-select text-capitalize" onchange="filterStatus()">
 								<option value="0" selected>All</option>
 								@foreach ($roles as $role)

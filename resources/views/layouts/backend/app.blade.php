@@ -46,8 +46,11 @@
 				gap: 8px;
 			}
 
-			hr {
-				border-color: red;
+			table tr>td,
+			table .user_info {
+				text-overflow: ellipsis !important;
+				overflow: hidden !important;
+				white-space: nowrap !important;
 			}
 		</style>
 
