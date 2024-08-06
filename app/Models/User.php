@@ -17,6 +17,11 @@ class User extends Authenticatable
     return Cache::has('user-is-online-' . $this->id);
   }
 
+  public function trainer()
+  {
+    return $this->hasOne(Trainer::class);
+  }
+
 
   /**
    * The attributes that are mass assignable.

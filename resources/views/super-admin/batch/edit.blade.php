@@ -36,7 +36,24 @@
 						@include('alert-message.alert-message')
 
 						<div class="row justify-content-center">
-							<div class="col-md-3"> 
+
+							<div class="col-md-3">
+								<div class="form-group mb-3">
+									<label class="form-label" for="branch">Branch Name <span class="text-danger">*</span></label>
+									<select name="branch" id="branch" class="form-select select2">
+										<option disabled selected>-- Selected Branch --</option>
+										@foreach (getBranches() as $branch)
+											<option value="{{ $branch->id }}" {{ $branch->id == $batch->branch_id ? 'selected' : '' }}>{{ $branch->branch_name }}</option>
+										@endforeach
+									</select>
+									@error('branch')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+
+							<div class="col-md-3">
 								<div class="form-group mb-3">
 									<label class="form-label" for="batch">Batch Name <span class="text-danger">*</span></label>
 									<input type="text" name="batch" class="form-control @error('batch') is-invalid @enderror" id="batch" placeholder="Enter batch name" value="{{ old('batch') ?? $batch->batch }}">
@@ -59,9 +76,7 @@
 									@enderror
 								</div>
 							</div>
-						</div>
 
-						<div class="row">
 							<div class="col-md-9 text-end">
 								<div class="form-group">
 									<a href="{{ route('admin.batches.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>

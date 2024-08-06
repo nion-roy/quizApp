@@ -74,3 +74,26 @@ if (!function_exists('getDepartments')) {
   }
 }
 // All Department Function
+
+
+
+// All Branches Get Function
+if (!function_exists('getBranches')) {
+  function getBranches()
+  {
+    $branches = App\Models\Branch::where('status', true)->get();
+    return $branches;
+  }
+}
+// All Branches Get Function
+
+
+// User Role Function
+if (!function_exists('getRoles')) {
+  function getRoles()
+  {
+    $roles = Spatie\Permission\Models\Role::get();
+    return $roles;
+  }
+}
+// User Role Function

@@ -42,8 +42,8 @@
 									<label class="form-label" for="branch">Branch Name <span class="text-danger">*</span></label>
 									<select name="branch" id="branch" class="form-select select2">
 										<option disabled selected>-- Selected Branch --</option>
-										@foreach ($branches as $branch)
-											<option value="{{ $branch->id }}">{{ $branch->branch }}</option>
+										@foreach (getBranches() as $branch)
+											<option value="{{ $branch->id }}" {{ $branch->id == $department->branch_id ? 'selected' : '' }}>{{ $branch->branch_name }}</option>
 										@endforeach
 									</select>
 									@error('branch')

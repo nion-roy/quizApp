@@ -37,20 +37,15 @@
 						<div class="row">
 
 							<div class="col-md-6 mb-3">
-								<div class="form-group">
-									<label class="form-label" for="min_set">Class Start <span class="text-danger">*</span></label>
-									<input type="time" name="min_set" class="form-control @error('min_set') is-invalid @enderror" id="min_set" placeholder="Enter lab name" value="{{ old('min_set') }}">
-									@error('min_set')
-										<div class="text-danger">{{ $message }}</div>
-									@enderror
-								</div>
-							</div>
-
-							<div class="col-md-6 mb-3">
-								<div class="form-group">
-									<label class="form-label" for="min_set">Class End <span class="text-danger">*</span></label>
-									<input type="time" name="min_set" class="form-control @error('min_set') is-invalid @enderror" id="min_set" placeholder="Enter lab name" value="{{ old('min_set') }}">
-									@error('min_set')
+								<div class="form-group mb-3">
+									<label class="form-label" for="branch">Branch Name <span class="text-danger">*</span></label>
+									<select name="branch" id="branch" class="form-select select2">
+										<option disabled selected>-- Selected Branch --</option>
+										@foreach (getBranches() as $branch)
+											<option value="{{ $branch->id }}">{{ $branch->branch }}</option>
+										@endforeach
+									</select>
+									@error('branch')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
@@ -73,7 +68,27 @@
 
 							<div class="col-md-6 mb-3">
 								<div class="form-group">
-									<label class="form-label" for="lab_name">Lab <span class="text-danger">*</span></label>
+									<label class="form-label" for="min_set">Class Start <span class="text-danger">*</span></label>
+									<input type="time" name="min_set" class="form-control @error('min_set') is-invalid @enderror" id="min_set" placeholder="Enter lab name" value="{{ old('min_set') }}">
+									@error('min_set')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-6 mb-3">
+								<div class="form-group">
+									<label class="form-label" for="min_set">Class End <span class="text-danger">*</span></label>
+									<input type="time" name="min_set" class="form-control @error('min_set') is-invalid @enderror" id="min_set" placeholder="Enter lab name" value="{{ old('min_set') }}">
+									@error('min_set')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-6 mb-3">
+								<div class="form-group">
+									<label class="form-label" for="lab_name">Lab Room <span class="text-danger">*</span></label>
 									<select name="lab" id="lab" class="form-select select2">
 										<option disabled selected>-- Selected Lab --</option>
 										@foreach ($labs as $lab)
@@ -88,7 +103,7 @@
 
 							<div class="col-12">
 								<div class="form-group">
-                  <a href="{{ route('admin.routines.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+									<a href="{{ route('admin.routines.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
 								</div>
 							</div>

@@ -90,10 +90,10 @@
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}" href="{{ route('admin.subjects.index') }}">
+			<li class="{{ Request::is('admin/trainers*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/trainers*') ? 'mm-active' : '' }}" href="{{ route('admin.trainers.index') }}">
 					<i class="far fa-bookmark"></i>
-					<span data-key="t-ecommerce">Teachers</span>
+					<span data-key="t-ecommerce">Trainer</span>
 				</a>
 			</li>
 

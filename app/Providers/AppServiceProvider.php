@@ -2,19 +2,21 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use App\Repositories\BatchRepository;
 use App\Repositories\BranchRepository;
 use App\Repositories\SubjectRepository;
+use App\Repositories\TrainerRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\QuestionRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\Interfaces\BatchRepositoryInterface;
 use App\Repositories\Interfaces\BranchRepositoryInterface;
 use App\Repositories\Interfaces\SubjectRepositoryInterface;
+use App\Repositories\Interfaces\TrainerRepositoryInterface;
 use App\Repositories\Interfaces\QuestionRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
-use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind(QuestionRepositoryInterface::class, QuestionRepository::class);
     $this->app->bind(BranchRepositoryInterface::class, BranchRepository::class);
     $this->app->bind(BatchRepositoryInterface::class, BatchRepository::class);
+    $this->app->bind(TrainerRepositoryInterface::class, TrainerRepository::class);
   }
 
   /**

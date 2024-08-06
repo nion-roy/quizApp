@@ -11,13 +11,13 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('departments', function (Blueprint $table) {
+    Schema::create('batches', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('branch_id')->constrained('branches')->cascadeOnDelete();
       $table->foreignId('user_id')->constrained('users');
-      $table->string('department_name')->unique();
-      $table->string('slug')->unique();
-      $table->boolean('status')->default(false);
+      $table->foreignId('branch_id')->constrained('branches')->cascadeOnDelete();
+      $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete();
+      $table->string('batch')->unique();
+      $table->boolean('status')->default(true);
       $table->timestamps();
     });
   }
@@ -27,6 +27,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('departments');
+    Schema::dropIfExists('batches');
   }
 };

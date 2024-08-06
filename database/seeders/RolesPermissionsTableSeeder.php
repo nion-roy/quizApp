@@ -53,7 +53,7 @@ class RolesPermissionsTableSeeder extends Seeder
     // Create Roles
     $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin
     $adminRole = Role::create(['name' => 'admin']);
-    $staffRole = Role::create(['name' => 'staff']);
+    $teacherRole = Role::create(['name' => 'teacher']);
     $userRole = Role::create(['name' => 'user']);
 
     // Lets give all permission to super-admin role.
@@ -96,21 +96,21 @@ class RolesPermissionsTableSeeder extends Seeder
     $adminUser->assignRole($adminRole);
 
 
-    $staffUser = User::firstOrCreate([
-      'email' => 'staff@gmail.com',
+    $teacherUser = User::firstOrCreate([
+      'email' => 'teacher@gmail.com',
     ], [
-      'name' => 'Staff',
-      'slug' => 'staff',
-      'username' => 'staff',
+      'name' => 'Teacher',
+      'slug' => 'teacher',
+      'username' => 'teacher',
       'role_id' => 3,
       'status' => 1,
-      'email' => 'staff@gmail.com',
+      'email' => 'teacher@gmail.com',
       'password' => Hash::make('12345678'),
       'created_at' => Carbon::now(),
       'updated_at' => Carbon::now(),
     ]);
 
-    $staffUser->assignRole($staffRole);
+    $teacherUser->assignRole($teacherRole);
 
     $userUser = User::firstOrCreate([
       'email' => 'user@gmail.com',

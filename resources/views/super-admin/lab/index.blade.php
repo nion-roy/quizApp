@@ -38,6 +38,7 @@
 						<thead>
 							<tr>
 								<th>#</th>
+								<th>Branch</th>
 								<th>Lab Name</th>
 								<th>Min Sets</th>
 								<th>Max Sets</th>
@@ -52,6 +53,7 @@
 							@foreach ($labs as $key => $lab)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
+									<td>{{ $lab->branch->branch_name }}</td>
 									<td>{{ $lab->lab_name }}</td>
 									<td>{{ $lab->min_set }}</td>
 									<td>{{ $lab->max_set }}</td>

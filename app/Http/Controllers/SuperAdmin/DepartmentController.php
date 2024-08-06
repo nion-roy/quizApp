@@ -43,8 +43,7 @@ class DepartmentController extends Controller implements HasMiddleware
    */
   public function create()
   {
-    $branches = Branch::where('status', true)->get();
-    return view("super-admin.departments.create", compact("branches"));
+    return view("super-admin.departments.create");
   }
 
   /**
@@ -69,9 +68,8 @@ class DepartmentController extends Controller implements HasMiddleware
    */
   public function edit(string $id)
   {
-    $branches = Branch::where('status', true)->get();
     $department = $this->departmentRepository->getById($id);
-    return view('super-admin.departments.edit', compact('department', 'branches'));
+    return view('super-admin.departments.edit', compact('department'));
   }
 
   /**

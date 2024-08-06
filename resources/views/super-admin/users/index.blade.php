@@ -51,7 +51,7 @@
 
 
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-2 text-end">
 							@can('create role')
 								<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.users.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New User</a>
 							@endcan

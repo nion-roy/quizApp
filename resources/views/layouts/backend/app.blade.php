@@ -21,6 +21,9 @@
 		<link href="{{ asset('backend') }}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('backend') }}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
+		<!-- Select 2 css -->
+		<link href="{{ asset('backend') }}/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
 		<!-- plugin css -->
 		<link href="{{ asset('backend') }}/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
 
@@ -33,6 +36,7 @@
 		<link href="{{ asset('backend') }}/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 		<!-- App Css-->
 		<link href="{{ asset('backend') }}/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
 
 		<style>
 			.btn:hover,
@@ -132,6 +136,13 @@
 		<script src="{{ asset('backend') }}/assets/js/pages/datatables.init.js"></script>
 		<script src="{{ asset('backend') }}/assets/js/pages/allchart.js"></script>
 
+		<!-- Select2 js -->
+		<script src="{{ asset('backend') }}/assets/libs/select2/js/select2.min.js"></script>
+
+		<!-- init js -->
+		<script src="{{ asset('backend') }}/assets/js/pages/form-advanced.init.js"></script>
+
+
 		<!-- Sweet Alerts js -->
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -140,6 +151,12 @@
 		<script src="{{ asset('backend') }}/assets/js/app.js"></script>
 
 		@include('sweetalert::alert')
+
+		<script>
+			$(document).ready(function() {
+				$('.form-select').select2();
+			});
+		</script>
 
 		@stack('js')
 
