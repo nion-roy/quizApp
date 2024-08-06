@@ -52,7 +52,7 @@
 							@foreach ($branches as $key => $branch)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
-									<td>{{ $branch->branch }}</td>
+									<td>{{ $branch->branch_name }}</td>
 									<td>{{ $branch->created_at->format('d-M-Y') }}</td>
 									<td>
 										@if ($branch->status == 1)

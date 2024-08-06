@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -18,12 +17,24 @@ class UserController extends Controller
   /**
    * Display a listing of the resource.
    */
-  public function index()
+  public function index(Request $request)
   {
-    $users = DB::table('users')->join('roles', 'users.role_id', '=', 'roles.id')->select('users.*', 'roles.name as role_name')->latest('id')->get();
-    $roles = Role::get();
+    $roleID = $request->role ?? 0;
+    $roles = Role::all();
+
+    $usersQuery = User::join('roles', 'users.role_id', '=', 'roles.id')
+    ->select('users.*', 'roles.name as role_name')
+    ->latest('users.id');
+
+    if ($roleID != 0) {
+      $usersQuery->where('role_id', $roleID);
+    }
+
+    $users = $usersQuery->get();
     return view('super-admin.users.index', compact('users', 'roles'));
   }
+
+
 
   /**
    * Show the form for creating a new resource.

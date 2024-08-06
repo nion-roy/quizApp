@@ -38,8 +38,9 @@
 						<thead>
 							<tr>
 								<th>#</th>
+								<th>Branch</th>
 								<th>Batch Name</th>
-                <th>Create</th>
+								<th>Create</th>
 								<th>Status</th>
 								@if (Auth::user()->can('update batch') || Auth::user()->can('delete batch'))
 									<th>Action</th>
@@ -52,6 +53,7 @@
 							@foreach ($batches as $key => $batch)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
+									<td>{{ $batch->branch->branch_name }}</td>
 									<td>{{ $batch->batch }}</td>
 									<td>{{ $batch->created_at->format('d-M-Y') }}</td>
 									<td>

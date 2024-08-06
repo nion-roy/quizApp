@@ -37,6 +37,21 @@
 						<div class="row justify-content-center">
 							<div class="col-md-3">
 								<div class="form-group mb-3">
+									<label class="form-label" for="branch">Branch Name <span class="text-danger">*</span></label>
+									<select name="branch" id="branch" class="form-select select2">
+										<option disabled selected>-- Selected Branch --</option>
+										@foreach (getBranches() as $branch)
+											<option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
+										@endforeach
+									</select>
+									@error('branch')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="form-group mb-3">
 									<label class="form-label" for="department_name">Department Name <span class="text-danger">*</span></label>
 									<input type="text" name="department_name" class="form-control @error('department_name') is-invalid @enderror" id="department_name" placeholder="Enter department name" value="{{ old('department_name') }}">
 									@error('department_name')
@@ -58,9 +73,7 @@
 									@enderror
 								</div>
 							</div>
-						</div>
 
-						<div class="row">
 							<div class="col-md-9 text-end">
 								<div class="form-group">
 									<a href="{{ route('admin.departments.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>

@@ -15,6 +15,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], f
   Route::resource('questions', App\Http\Controllers\SuperAdmin\QuestionController::class);
   Route::get('department-wise-subjects/{id}', [App\Http\Controllers\SuperAdmin\QuestionController::class, 'getSubject'])->name('department-wise-subjects');
 
+
+  Route::resource('trainers', App\Http\Controllers\SuperAdmin\TrainerController::class);
   Route::resource('users', App\Http\Controllers\SuperAdmin\UserController::class);
   Route::resource('roles', App\Http\Controllers\SuperAdmin\RolePermissionController::class);
   Route::resource('permissions', App\Http\Controllers\SuperAdmin\PermissionController::class);

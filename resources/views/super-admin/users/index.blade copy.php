@@ -24,14 +24,41 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="card">
+
 				<div class="card-header">
-					<div class="d-flex align-items-center justify-content-between">
-						<h4 class="card-title">All Users <span class="btn btn-success">{{ getStrPad($users->count()) }}</span></h4>
-						@can('create role')
-							<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.users.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New User</a>
-						@endcan
+					<div class="row align-items-center justify-content-between">
+						<div class="col-md-3 d-flex align-items-center gap-2">
+							<span class="m-0 w-50">Sort By</span>
+							<select name="role" id="role" class="form-select text-capitalize" onchange="filterStatus()">
+								<option value="0" selected>All</option>
+								@foreach ($roles as $role)
+									<option value="{{ $role->id }}" {{ request()->role == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
+								@endforeach
+							</select>
+
+							@push('js')
+								<script>
+									function filterStatus() {
+										let status = document.getElementById('role').value;
+										if (status == 0) {
+											location.href = "/admin/users"
+										} else {
+											location.href = "/admin/users?role=" + status;
+										}
+									};
+								</script>
+							@endpush
+
+
+						</div>
+						<div class="col-md-2">
+							@can('create role')
+								<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.users.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New User</a>
+							@endcan
+						</div>
 					</div>
 				</div>
+
 				<div class="card-body">
 					<table id="datatable" class="table table-bordered dt-responsive nowrap w-100 align-middle">
 						<thead>
@@ -70,7 +97,7 @@
 									</td>
 									<td>{{ $user->username }}</td>
 									<td>{{ $user->email }}</td>
-									<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-M-Y') }} <span class="m-0 font-size-11">{{ Carbon\Carbon::parse($user->created_at)->format('g:i a') }}</span></td>
+									<td>{{ Carbon\Carbon::parse($user->created_at)->format('d-M-Y') }}</td>
 
 									<td>
 										@if (Cache::has('user-is-online-' . $user->id))

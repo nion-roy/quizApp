@@ -28,7 +28,7 @@
 			<div class="container-fluid p-0">
 				<div class="row g-0">
 
-					<div class="col-xxl-9 col-lg-8 col-md-7">
+					<div class="col-xxl-9 col-lg-8 col-md-7 d-none d-lg-block">
 						<div class="auth-bg pt-md-5 p-4 d-flex">
 							<div class="bg-overlay"></div>
 							<ul class="bg-bubbles">
@@ -140,8 +140,8 @@
 										<form class="mt-4 pt-2" method="POST" action="{{ route('register') }}">
 											@csrf
 
-											<div class="form-group mb-4">
-												<select class="form-control form-select py-3 @error('department') is-invalid @enderror" name="department">
+											<div class="form-group mb-3">
+												<select class="form-control form-select py-2 @error('department') is-invalid @enderror" name="department">
 													<option disabled selected>-- Selected Department --</option>
 													@foreach (getDepartments() as $department)
 														<option value="{{ $department->id }}">{{ $department->department_name }}</option>
@@ -152,47 +152,54 @@
 												@enderror
 											</div>
 
-											<div class="form-group mb-4">
-												<input type="text" name="name" class="form-control py-3 @error('name') is-invalid @enderror" id="name" placeholder="Enter Full Name" value="{{ old('name') }}">
+											<div class="form-group mb-3">
+												<select class="form-control form-select py-2 @error('department') is-invalid @enderror" name="department">
+													<option disabled selected>-- Selected Department --</option>
+													@foreach (getDepartments() as $department)
+														<option value="{{ $department->id }}">{{ $department->department_name }}</option>
+													@endforeach
+												</select>
+												@error('department')
+													<div class="text-danger">{{ $message }}</div>
+												@enderror
+											</div>
+
+											<div class="form-group mb-3">
+												<input type="text" name="name" class="form-control py-2 @error('name') is-invalid @enderror" id="name" placeholder="Enter Full Name" value="{{ old('name') }}">
 												@error('name')
 													<div class="text-danger">{{ $message }}</div>
 												@enderror
 											</div>
 
-											<div class="form-group mb-4">
-												<input type="text" name="username" class="form-control py-3 @error('username') is-invalid @enderror" id="username" placeholder="Enter User Name" value="{{ old('username') }}">
+											<div class="form-group mb-3">
+												<input type="text" name="username" class="form-control py-2 @error('username') is-invalid @enderror" id="username" placeholder="Enter User Name" value="{{ old('username') }}">
 												@error('username')
 													<div class="text-danger">{{ $message }}</div>
 												@enderror
 											</div>
 
-											<div class="form-group mb-4">
-												<input type="email" name="email" class="form-control py-3 @error('email') is-invalid @enderror" id="email" placeholder="Enter Email" value="{{ old('email') }}">
+											<div class="form-group mb-3">
+												<input type="email" name="email" class="form-control py-2 @error('email') is-invalid @enderror" id="email" placeholder="Enter Email" value="{{ old('email') }}">
 												@error('email')
 													<div class="text-danger">{{ $message }}</div>
 												@enderror
 											</div>
 
-											<div class="form-group mb-4">
-												<input type="password" name="password" class="form-control py-3 @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
+											<div class="form-group mb-3">
+												<input type="password" name="password" class="form-control py-2 @error('password') is-invalid @enderror" id="password" placeholder="Enter Password">
 												@error('password')
 													<div class="text-danger">{{ $message }}</div>
 												@enderror
 											</div>
 
-											<div class="mb-4">
-												<p class="mb-0">By registering you agree to the Dason <a href="#" class="text-primary">Terms of Use</a></p>
-											</div>
-											<div class="mb-3">
-												<button class="btn btn-primary w-100 waves-effect waves-light py-3" type="submit">Register</button>
+											<div class="d-flex align-items-center justify-content-between">
+												<button class="btn btn-primary waves-effect waves-light py-2" type="submit">Register Now</button>
+												<a href="{{ route('login') }}" class="btn btn-danger waves-effect">Back</a>
 											</div>
 										</form>
 
-										<div class="mt-5 text-center">
-											<p class="text-muted mb-0">Already have an account ? <a href="{{ route('login') }}" class="text-primary fw-semibold"> Login </a> </p>
-										</div>
 									</div>
-									<div class="mt-4 mt-md-5 text-center">
+									<div class="mt-4 text-center">
 										<p class="mb-0">© {{ date('Y') }} Dason . Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
 										</p>
 									</div>

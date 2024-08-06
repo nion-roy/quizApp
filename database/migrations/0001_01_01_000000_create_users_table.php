@@ -14,18 +14,18 @@ return new class extends Migration
     Schema::create('users', function (Blueprint $table) {
       $table->id();
       $table->string('name');
-      $table->string('slug');
-      $table->string('username')->unique();
+      $table->string('slug')->unique();
+      $table->string('username')->nullable()->unique();
+      $table->integer('number')->nullable()->unique();
+      $table->integer('otp')->nullable();
       $table->string('email')->unique();
-      $table->timestamp('email_verified_at')->nullable();
       $table->string('password');
-      // $table->enum('role', ['super-admin', 'admin', 'teacher', 'user'])->default('user');
-      $table->integer('role_id');
+      $table->integer('role_id')->nullable();
+      $table->string('address')->nullable();
       $table->enum('status', [1, 2, 3, 4])->default(1);
       $table->string('image')->default('user.png');
-      $table->string('expire')->default('01-01-2026');
       $table->timestamp('last_activity')->nullable();
-      $table->string('department_id')->nullable();
+      $table->string('branch_id')->nullable();
       $table->rememberToken();
       $table->timestamps();
     });

@@ -38,6 +38,7 @@
 						<thead>
 							<tr>
 								<th>#</th>
+                <th>Branch</th>
 								<th>Department Name</th>
 								<th>Count</th>
 								<th>Creation User</th>
@@ -54,6 +55,7 @@
 							@foreach ($departments as $key => $department)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
+                  <td>{{ $department->branch->branch_name }}</td>
 									<td>{{ $department->department_name }}</td>
 									<td>{{ getStrPad(getDepartmentCount($department->id)) }}</td>
 									<td>{{ $department->user->name }}</td>

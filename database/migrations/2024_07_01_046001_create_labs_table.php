@@ -11,10 +11,13 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('batches', function (Blueprint $table) {
+    Schema::create('labs', function (Blueprint $table) {
       $table->id();
-      $table->string('batch')->unique();
-      $table->boolean('status')->default(true);
+      $table->foreignId('user_id')->constrained('users');
+      $table->foreignId('branch_id')->constrained('branches')->cascadeOnDelete();
+      $table->string('lab_name')->unique();
+      $table->integer('max_set');
+      $table->integer('min_set');
       $table->timestamps();
     });
   }
@@ -24,6 +27,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('batches');
+    Schema::dropIfExists('labs');
   }
 };

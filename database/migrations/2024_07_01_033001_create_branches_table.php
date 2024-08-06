@@ -13,7 +13,9 @@ return new class extends Migration
   {
     Schema::create('branches', function (Blueprint $table) {
       $table->id();
-      $table->string('branch')->unique();
+      $table->foreignId('user_id')->constrained('users');
+      $table->string('branch_name')->unique();
+      $table->string('slug')->unique();
       $table->boolean('status')->default(true);
       $table->timestamps();
     });
