@@ -17,7 +17,7 @@ class QuestionsTableSeeder extends Seeder
     DB::table('questions')->insert([
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'What is the time complexity of binary search?',
         'correct_answer' => 'O(log n)',
@@ -27,7 +27,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'Which of the following is a non-relational database?',
         'correct_answer' => 'MongoDB',
@@ -37,7 +37,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'In computer networks, what does the acronym "LAN" stand for?',
         'correct_answer' => 'Local Area Network',
@@ -47,7 +47,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'Which sorting algorithm has the best average-case time complexity?',
         'correct_answer' => 'Merge Sort',
@@ -57,7 +57,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'What is the main purpose of an operating system?',
         'correct_answer' => 'All of the above',
@@ -67,7 +67,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'Which data structure is used for implementing recursion?',
         'correct_answer' => 'Stack',
@@ -77,7 +77,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'What does HTTP stand for?',
         'correct_answer' => 'HyperText Transfer Protocol',
@@ -87,7 +87,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'Which of the following is a principle of OOP (Object-Oriented Programming)?',
         'correct_answer' => 'All of the above',
@@ -97,7 +97,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'What is the primary function of the ALU (Arithmetic Logic Unit)?',
         'correct_answer' => 'To perform arithmetic and logical operations',
@@ -107,7 +107,7 @@ class QuestionsTableSeeder extends Seeder
       ],
       [
         'user_id' => 1,
-        'department_id' => 1,
+        'department_id' => 3,
         'subject_id' => 1,
         'question_name' => 'Which of the following is not a valid variable name in Python?',
         'correct_answer' => '2nd_variable',

@@ -29,12 +29,27 @@
 					<h4 class="card-title m-0">New User Create </h4>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('admin.trainers.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 
 						@include('alert-message.alert-message')
 
 						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group mb-3">
+									<label class="form-label" for="branch">Branch Name <span class="text-danger">*</span></label>
+									<select name="branch" id="branch" class="form-select select2">
+										<option disabled selected>-- Selected Branch --</option>
+										@foreach (getBranches() as $branch)
+											<option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
+										@endforeach
+									</select>
+									@error('branch')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
 							<div class="col-md-6">
 								<div class="form-group mb-3">
 									<label class="form-label" for="name">Full Name <span class="text-danger">*</span></label>
@@ -43,45 +58,101 @@
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
+							</div>
 
+							<div class="col-md-6">
 								<div class="form-group mb-3">
-									<label class="form-label" for="username">Username<span class="text-danger">*</span></label>
-									<input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Enter username" value="{{ old('username') }}">
-									@error('username')
+									<label class="form-label" for="designation">Designation <span class="text-danger">*</span></label>
+									<input type="text" name="designation" class="form-control @error('designation') is-invalid @enderror" id="designation" placeholder="Enter designation" value="{{ old('designation') }}">
+									@error('designation')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
+							</div>
 
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group mb-3">
-											<label class="form-label" for="email">Email<span class="text-danger">*</span></label>
-											<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter email" value="{{ old('email') }}">
-											@error('email')
-												<div class="text-danger">{{ $message }}</div>
-											@enderror
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group mb-3">
-											<label class="form-label" for="password">Password<span class="text-danger">*</span></label>
-											<input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Enter password" value="12345678">
-											@error('password')
-												<div class="text-danger">{{ $message }}</div>
-											@enderror
-										</div>
-									</div>
+							<div class="col-md-6">
+								<div class="form-group mb-3">
+									<label class="form-label" for="email">Email<span class="text-danger">*</span></label>
+									<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter email" value="{{ old('email') }}">
+									@error('email')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
 								</div>
+							</div>
 
+							<div class="col-md-6">
+								<div class="form-group mb-3">
+									<label class="form-label" for="short_description">Short Description <span class="text-danger">*</span></label>
+									<textarea name="short_description" class="form-control @error('short_description') is-invalid @enderror" id="short_description" cols="30" rows="4" placeholder="Enter short description...">{{ old('short_description') }}</textarea>
+									@error('short_description')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group mb-3">
+									<label class="form-label" for="marketplace">Earning / Marketplace <span class="text-danger">*</span></label>
+									<textarea name="marketplace" class="form-control @error('marketplace') is-invalid @enderror" id="marketplace" cols="30" rows="4" placeholder="Enter earning or marketplace...">{{ old('marketplace') }}</textarea>
+									@error('marketplace')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-12">
+								<div class="form-group mb-3">
+									<label class="form-label" for="about">About Trainer <span class="text-danger">*</span></label>
+									<textarea name="about" class="form-control @error('about') is-invalid @enderror" id="about" cols="30" rows="4" placeholder="Enter about trainer...">{{ old('about') }}</textarea>
+									@error('about')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group mb-3">
+									<label class="form-label" for="freelancing_1">Freelancing Link 01 <span class="text-danger">*</span></label>
+									<input type="text" name="freelancing_1" class="form-control @error('freelancing_1') is-invalid @enderror" id="freelancing_1" placeholder="Enter freelancing link 01" value="{{ old('freelancing_1') }}">
+									@error('freelancing_1')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group mb-3">
+									<label class="form-label" for="freelancing_2">Freelancing Link 02 <span class="text-danger">*</span></label>
+									<input type="text" name="freelancing_2" class="form-control @error('freelancing_2') is-invalid @enderror" id="freelancing_2" placeholder="Enter freelancing link 01" value="{{ old('freelancing_2') }}">
+									@error('freelancing_2')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group mb-3">
+									<label class="form-label" for="freelancing_3">Freelancing Link 03 <span class="text-danger">*</span></label>
+									<input type="text" name="freelancing_3" class="form-control @error('freelancing_3') is-invalid @enderror" id="freelancing_3" placeholder="Enter freelancing link 01" value="{{ old('freelancing_3') }}">
+									@error('freelancing_3')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-12">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group mb-3">
 											<label class="form-label" for="role">Role<span class="text-danger">*</span></label>
 											<select name="role" class="form-control form-select @error('role') is-invalid @enderror" id="role">
 												<option disabled selected>-- Selected Role --</option>
-												@foreach ($roles as $role)
-													<option value="{{ $role->id }}">{{ $role->name }}</option>
+												@foreach (getRoles() as $role)
+													@if ($role->name === 'teacher')
+														<option value="{{ $role->id }}" selected>{{ $role->name }}</option>
+													@endif
 												@endforeach
+
 											</select>
 											@error('role')
 												<div class="text-danger">{{ $message }}</div>
@@ -104,22 +175,41 @@
 										</div>
 									</div>
 								</div>
-
-								<div class="form-group mb-3">
-									<label class="form-label" for="image">User Image</label> <br>
-									<div id="imagePreviewContainer"></div>
-									<input type="file" name="image" class="@error('image') is-invalid @enderror" id="imageInput">
-									@error('image')
-										<div class="text-danger">{{ $message }}</div>
-									@enderror
-								</div>
-
-								<div class="form-group">
-									<a href="{{ route('admin.users.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
-									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
-								</div>
-
 							</div>
+
+
+							{{-- <div class="row">
+									<div class="col-md-6">
+										<div class="form-group mb-3">
+											<label class="form-label" for="role">Role<span class="text-danger">*</span></label>
+											<select name="role" class="form-control form-select @error('role') is-invalid @enderror" id="role">
+												<option disabled selected>-- Selected Role --</option>
+												@foreach ($roles as $role)
+													<option value="{{ $role->id }}">{{ $role->name }}</option>
+												@endforeach
+											</select>
+											@error('role')
+												<div class="text-danger">{{ $message }}</div>
+											@enderror
+										</div>
+									</div>
+								</div> --}}
+
+
+							<div class="form-group mb-3">
+								<label class="form-label" for="image">User Image</label> <br>
+								<div id="imagePreviewContainer"></div>
+								<input type="file" name="image" class="@error('image') is-invalid @enderror" id="imageInput">
+								@error('image')
+									<div class="text-danger">{{ $message }}</div>
+								@enderror
+							</div>
+
+							<div class="form-group">
+								<a href="{{ route('admin.users.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+								<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
+							</div>
+
 						</div>
 
 					</form>

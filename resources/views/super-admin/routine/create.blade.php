@@ -42,7 +42,7 @@
 									<select name="branch" id="branch" class="form-select select2">
 										<option disabled selected>-- Selected Branch --</option>
 										@foreach (getBranches() as $branch)
-											<option value="{{ $branch->id }}">{{ $branch->branch }}</option>
+											<option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
 										@endforeach
 									</select>
 									@error('branch')

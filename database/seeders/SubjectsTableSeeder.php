@@ -16,8 +16,8 @@ class SubjectsTableSeeder extends Seeder
     DB::table('subjects')->insert([
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Bangla',
+        'department_id' => 3,
+        'subject_name' => 'HTML',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -25,8 +25,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'English',
+        'department_id' => 3,
+        'subject_name' => 'CSS',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -34,8 +34,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Physics',
+        'department_id' => 3,
+        'subject_name' => 'JavaScript',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -43,8 +43,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Chemistry',
+        'department_id' => 3,
+        'subject_name' => 'jQuery',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -52,8 +52,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Biology',
+        'department_id' => 3,
+        'subject_name' => 'Bootstrap',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -61,8 +61,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Agriculture Education',
+        'department_id' => 3,
+        'subject_name' => 'PHP',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -70,8 +70,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'ICT',
+        'department_id' => 3,
+        'subject_name' => 'MySQL',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -79,8 +79,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Agriculture Education',
+        'department_id' => 3,
+        'subject_name' => 'Python',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -88,8 +88,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Geography',
+        'department_id' => 3,
+        'subject_name' => 'Mongo DB',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -97,8 +97,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Psychology',
+        'department_id' => 3,
+        'subject_name' => 'React',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
@@ -106,44 +106,8 @@ class SubjectsTableSeeder extends Seeder
 
       [
         'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Accounting',
-        'status' => 1,
-        'created_at'  => Carbon::now(),
-        'updated_at'  => Carbon::now(),
-      ],
-
-      [
-        'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Economics',
-        'status' => 1,
-        'created_at'  => Carbon::now(),
-        'updated_at'  => Carbon::now(),
-      ],
-
-      [
-        'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Production Management & Marketing',
-        'status' => 1,
-        'created_at'  => Carbon::now(),
-        'updated_at'  => Carbon::now(),
-      ],
-
-      [
-        'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'Business Organization and Management',
-        'status' => 1,
-        'created_at'  => Carbon::now(),
-        'updated_at'  => Carbon::now(),
-      ],
-
-      [
-        'user_id' => 1,
-        'department_id' => rand(1,5),
-        'subject_name' => 'History',
+        'department_id' => 3,
+        'subject_name' => 'Laravel',
         'status' => 1,
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainerRequest;
 use App\Models\Trainer;
 use App\Repositories\Interfaces\TrainerRepositoryInterface;
-use Illuminate\Http\Request;
 
 class TrainerController extends Controller
 {
@@ -63,7 +62,7 @@ class TrainerController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, Trainer $trainer)
+  public function update(TrainerRequest $request, Trainer $trainer)
   {
     $this->TrainerRepository->update($trainer->id, $request->validated());
     return redirect()->back()->with('success', 'You have update to trainer successfully.');
