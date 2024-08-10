@@ -64,7 +64,7 @@
 									<td>{{ $exam->subject->subject_name }}</td>
 									<td>{{ $examStartDateTime->format('d F Y') }} - {{ $examStartDateTime->format('H:s A') }}</td>
 									<td>{{ $examEndDateTime->format('d F Y') }} - {{ $examEndDateTime->format('H:i A') }}</td>
-                  <td>{{ getStrPad(getExamAttendCount($exam->id)) }}</td>
+									<td>{{ getStrPad(getExamAttendCount($exam->id)) }}</td>
 									<td>
 										@if ($exam->status == 1)
 											<span class="text-white bg-success px-2 py-1 rounded">Active</span>
@@ -75,21 +75,15 @@
 										@endif
 									</td>
 
-									<td>
-										<div class="btn-group">
-											<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
-											<div class="dropdown-menu" style="">
-												<a href="{{ route('admin.exams.edit', $exam->id) }}" class="dropdown-item">Edit</a>
-												<a href="{{ route('admin.exams.show', $exam->id) }}" class="dropdown-item">View</a>
-												<a href="{{ route('admin.exams.result', $exam->id) }}" class="dropdown-item">Results</a>
-
-												<form action="{{ route('admin.exams.destroy', $exam->id) }}" method="POST">
-													@csrf
-													@method('DELETE')
-													<button type="button" class="dropdown-item delete-button">Delete</button>
-												</form>
-											</div>
-										</div>
+									<td class="d-flex align-items-center gap-1">
+										<a href="{{ route('admin.exams.edit', $exam->id) }}" class="btn btn-danger"><i class="fa fa-edit"></i></a>
+										<a href="{{ route('admin.exams.show', $exam->id) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
+										<a href="{{ route('admin.exams.result', $exam->id) }}" class="btn btn-success"><i class="fa fa-plug"></i></a>
+										<form action="{{ route('admin.exams.destroy', $exam->id) }}" method="POST">
+											@csrf
+											@method('DELETE')
+											<button type="button" class="btn btn-danger delete-button"><i class="fa fa-trash"></i></button>
+										</form>
 									</td>
 
 								</tr>
