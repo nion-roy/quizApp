@@ -6,16 +6,20 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use App\Repositories\BatchRepository;
 use App\Repositories\BranchRepository;
+use App\Repositories\StudentRepository;
 use App\Repositories\SubjectRepository;
 use App\Repositories\TrainerRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\QuestionRepository;
+use App\Repositories\AttendanceRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\Interfaces\BatchRepositoryInterface;
 use App\Repositories\Interfaces\BranchRepositoryInterface;
+use App\Repositories\Interfaces\StudentRepositoryInterface;
 use App\Repositories\Interfaces\SubjectRepositoryInterface;
 use App\Repositories\Interfaces\TrainerRepositoryInterface;
 use App\Repositories\Interfaces\QuestionRepositoryInterface;
+use App\Repositories\Interfaces\AttendanceRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind(BranchRepositoryInterface::class, BranchRepository::class);
     $this->app->bind(BatchRepositoryInterface::class, BatchRepository::class);
     $this->app->bind(TrainerRepositoryInterface::class, TrainerRepository::class);
+    $this->app->bind(StudentRepositoryInterface::class, StudentRepository::class);
+    $this->app->bind(AttendanceRepositoryInterface::class, AttendanceRepository::class);
   }
 
   /**

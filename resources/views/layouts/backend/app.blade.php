@@ -21,6 +21,9 @@
 		<link href="{{ asset('backend') }}/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('backend') }}/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
+		<!-- Responsive datatable examples -->
+		<link href="{{ asset('backend') }}/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
 		<!-- Select 2 css -->
 		<link href="{{ asset('backend') }}/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 
@@ -50,12 +53,12 @@
 				gap: 8px;
 			}
 
-			table tr>td,
+			/* table tr>td,
 			table .user_info {
 				text-overflow: ellipsis !important;
 				overflow: hidden !important;
 				white-space: nowrap !important;
-			}
+			} */
 		</style>
 
 
@@ -135,6 +138,10 @@
 		<!-- Datatable init js -->
 		<script src="{{ asset('backend') }}/assets/js/pages/datatables.init.js"></script>
 		<script src="{{ asset('backend') }}/assets/js/pages/allchart.js"></script>
+
+		<!-- Responsive examples -->
+		<script src="{{ asset('backend') }}/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+		<script src="{{ asset('backend') }}/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
 		<!-- Select2 js -->
 		<script src="{{ asset('backend') }}/assets/libs/select2/js/select2.min.js"></script>

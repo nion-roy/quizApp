@@ -17,6 +17,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], f
 
 
   Route::resource('trainers', App\Http\Controllers\SuperAdmin\TrainerController::class);
+  Route::resource('students', App\Http\Controllers\SuperAdmin\StudentController::class);
+  Route::resource('attendances', App\Http\Controllers\SuperAdmin\AttendanceController::class);
   Route::resource('users', App\Http\Controllers\SuperAdmin\UserController::class);
   Route::resource('roles', App\Http\Controllers\SuperAdmin\RolePermissionController::class);
   Route::resource('permissions', App\Http\Controllers\SuperAdmin\PermissionController::class);

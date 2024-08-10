@@ -14,7 +14,7 @@
 			<li class="menu-title" data-key="t-apps">Apps</li>
 
 			<li class="{{ Request::is('admin/branches*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/branches*') ? 'mm-active' : '' }}" href="{{ route('admin.branches.index') }}">
+				<a class="{{ Request::is('admin/branches*') ? 'active' : '' }}" href="{{ route('admin.branches.index') }}">
 					<i class="far fa-bookmark"></i>
 					<span data-key="t-ecommerce">Branch</span>
 				</a>
@@ -24,7 +24,7 @@
 
 			@can('view department')
 				<li class="{{ Request::is('admin/departments*') ? 'mm-active' : '' }}">
-					<a class="{{ Request::is('admin/departments*') ? 'mm-active' : '' }}" href="{{ route('admin.departments.index') }}">
+					<a class="{{ Request::is('admin/departments*') ? 'active' : '' }}" href="{{ route('admin.departments.index') }}">
 						<i class="fas fa-outdent"></i>
 						<span data-key="t-ecommerce">Department</span>
 					</a>
@@ -33,20 +33,20 @@
 				<hr class="m-0">
 			@endcan
 
-			{{-- @can('view subject')
+			@can('view subject')
 				<li class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}">
-					<a class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}" href="{{ route('admin.subjects.index') }}">
-						<i class="far fa-bookmark"></i>
+					<a class="{{ Request::is('admin/subjects*') ? 'active' : '' }}" href="{{ route('admin.subjects.index') }}">
+						<i class="far fa-address-book"></i>
 						<span data-key="t-ecommerce">Subject</span>
 					</a>
 				</li>
 
 				<hr class="m-0">
-			@endcan --}}
+			@endcan
 
 			<li class="{{ Request::is('admin/batches*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/batches*') ? 'mm-active' : '' }}" href="{{ route('admin.batches.index') }}">
-					<i class="far fa-bookmark"></i>
+				<a class="{{ Request::is('admin/batches*') ? 'active' : '' }}" href="{{ route('admin.batches.index') }}">
+					<i class="fas fa-unlink"></i>
 					<span data-key="t-ecommerce">Batch</span>
 				</a>
 			</li>
@@ -54,8 +54,8 @@
 			<hr class="m-0">
 
 			<li class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}" href="{{ route('admin.labs.index') }}">
-					<i class="far fa-bookmark"></i>
+				<a class="{{ Request::is('admin/labs*') ? 'active' : '' }}" href="{{ route('admin.labs.index') }}">
+					<i class="fab fa-chromecast"></i>
 					<span data-key="t-ecommerce">Lab Room</span>
 				</a>
 			</li>
@@ -64,26 +64,26 @@
 
 
 			<li class="{{ Request::is('admin/routines*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/routines*') ? 'mm-active' : '' }}" href="{{ route('admin.routines.index') }}">
-					<i class="far fa-bookmark"></i>
+				<a class="{{ Request::is('admin/routines*') ? 'active' : '' }}" href="{{ route('admin.routines.index') }}">
+					<i class="fas fa-tasks"></i>
 					<span data-key="t-ecommerce">Class Routine</span>
 				</a>
 			</li>
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/labs*') ? 'mm-active' : '' }}" href="{{ route('admin.labs.index') }}">
-					<i class="far fa-bookmark"></i>
-					<span data-key="t-ecommerce">Present</span>
+			<li class="{{ Request::is('admin/attendances*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/attendances*') ? 'active' : '' }}" href="{{ route('admin.attendances.index') }}">
+					<i class="far fa-newspaper"></i>
+					<span data-key="t-ecommerce">Attendance</span>
 				</a>
 			</li>
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/subjects*') ? 'mm-active' : '' }}" href="{{ route('admin.subjects.index') }}">
-					<i class="far fa-bookmark"></i>
+			<li class="{{ Request::is('admin/students*') ? 'mm-active' : '' }}">
+				<a class="{{ Request::is('admin/students*') ? 'active' : '' }}" href="{{ route('admin.students.index') }}">
+					<i class="fas fa-user-graduate"></i>
 					<span data-key="t-ecommerce">Students</span>
 				</a>
 			</li>
@@ -91,8 +91,8 @@
 			<hr class="m-0">
 
 			<li class="{{ Request::is('admin/trainers*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/trainers*') ? 'mm-active' : '' }}" href="{{ route('admin.trainers.index') }}">
-					<i class="far fa-bookmark"></i>
+				<a class="{{ Request::is('admin/trainers*') ? 'active' : '' }}" href="{{ route('admin.trainers.index') }}">
+					<i class="fas fa-chalkboard-teacher"></i>
 					<span data-key="t-ecommerce">Trainer</span>
 				</a>
 			</li>
@@ -100,7 +100,7 @@
 			<hr class="m-0">
 
 			<li class="{{ Request::is('admin/questions*') ? 'mm-active' : '' }}">
-				<a class="{{ Request::is('admin/questions*') ? 'mm-active' : '' }}" href="{{ route('admin.questions.index') }}">
+				<a class="{{ Request::is('admin/questions*') ? 'active' : '' }}" href="{{ route('admin.questions.index') }}">
 					<i class="far fa-question-circle"></i>
 					<span data-key="t-ecommerce">Question Bank</span>
 				</a>
@@ -108,13 +108,13 @@
 
 			<hr class="m-0">
 
-			<li class="{{ Request::is('admin/exams*') ? 'mm-active' : '' }}">
-				<a href="javascript: void(0);" class="has-arrow">
+			<li class="{{ Request::is('admin/exams*') || Request::is('admin/exam-results*') ? 'mm-active' : '' }}">
+				<a href="javascript: void(0);" class="has-arrow {{ Request::is('admin/exams*') || Request::is('admin/exam-results*') ? 'active' : '' }}">
 					<i class="far fa-clone"></i>
 					<span data-key="t-ecommerce">Exams</span>
 				</a>
 				<ul class="sub-menu" aria-expanded="false">
-					<li><a class="{{ Request::is('admin/exams*') ? 'active' : '' }}" href="{{ route('admin.exams.index') }}" key="t-products">Exam Questions</a></li>
+					<li><a class="{{ Request::is('admin/exams*') || Request::is('admin/exam-results*') ? 'active' : '' }}" href="{{ route('admin.exams.index') }}" key="t-products">Exam Questions</a></li>
 					<li><a href="{{ route('clearCache') }}" key="t-products">Exam Results</a></li>
 				</ul>
 			</li>
@@ -145,7 +145,7 @@
 
 			<li>
 				<a href="javascript: void(0);" class="has-arrow">
-					<i class="fa fa-cog"></i>
+					<i class="fas fa-share-alt"></i>
 					<span data-key="t-ecommerce">Review</span>
 				</a>
 				<ul class="sub-menu" aria-expanded="false">

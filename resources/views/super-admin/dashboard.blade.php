@@ -22,6 +22,24 @@
 	<!-- end page title -->
 
 	<div class="row">
+
+		<div class="col-xl-3 col-md-6">
+			<div class="card card-h-100">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div class="flex-grow-1">
+							<h4 class="m-0"><span class="counter-value" data-target="{{ $branch }}">0</span></h4>
+							<span class="text-muted mt-3 lh-1 d-block text-truncate">Total Branch</span>
+						</div>
+						<div class="flex-grow-1 text-end">
+							<i class="far fa-bookmark fa-3x opacity-50"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 		<div class="col-xl-3 col-md-6">
 			<div class="card card-h-100">
 				<div class="card-body">
@@ -48,7 +66,41 @@
 							<span class="text-muted mt-3 lh-1 d-block text-truncate">Total Subjects</span>
 						</div>
 						<div class="flex-grow-1 text-end">
-							<i class="far fa-bookmark fa-3x opacity-50"></i>
+							<i class="far fa-address-book fa-3x opacity-50"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-xl-3 col-md-6">
+			<div class="card card-h-100">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div class="flex-grow-1">
+							<h4 class="m-0"><span class="counter-value" data-target="{{ $lab }}">0</span></h4>
+							<span class="text-muted mt-3 lh-1 d-block text-truncate">Total Labs</span>
+						</div>
+						<div class="flex-grow-1 text-end">
+							<i class="fab fa-chromecast fa-3x opacity-50"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-xl-3 col-md-6">
+			<div class="card card-h-100">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div class="flex-grow-1">
+							<h4 class="m-0"><span class="counter-value" data-target="{{ $batch }}">0</span></h4>
+							<span class="text-muted mt-3 lh-1 d-block text-truncate">Total Batches</span>
+						</div>
+						<div class="flex-grow-1 text-end">
+							<i class="fas fa-unlink fa-3x opacity-50"></i>
 						</div>
 					</div>
 				</div>
@@ -112,7 +164,23 @@
 					<div class="d-flex align-items-center">
 						<div class="flex-grow-1">
 							<h4 class="m-0"><span class="counter-value" data-target="{{ $teacher }}">0</span></h4>
-							<span class="text-muted mt-3 lh-1 d-block text-truncate">Total Teachers</span>
+							<span class="text-muted mt-3 lh-1 d-block text-truncate">Total Trainers</span>
+						</div>
+						<div class="flex-grow-1 text-end">
+							<i class="fas fa-chalkboard-teacher fa-3x opacity-50"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xl-3 col-md-6">
+			<div class="card card-h-100">
+				<div class="card-body">
+					<div class="d-flex align-items-center">
+						<div class="flex-grow-1">
+							<h4 class="m-0"><span class="counter-value" data-target="{{ $teacher }}">0</span></h4>
+							<span class="text-muted mt-3 lh-1 d-block text-truncate">Total Coordinators</span>
 						</div>
 						<div class="flex-grow-1 text-end">
 							<i class="fas fa-chalkboard-teacher fa-3x opacity-50"></i>
@@ -128,7 +196,7 @@
 	</div><!-- end row-->
 
 	<div class="row">
-		<div class="col-xl-8">
+		<div class="col-lg-12 col-xl-7 col-xxl-8">
 			<!-- card -->
 			<div class="card">
 
@@ -174,7 +242,7 @@
 						        'department' => 'CSE',
 						        'marks' => '90',
 						        'position' => '1st',
-						    ]
+						    ],
 						];
 					@endphp
 
@@ -213,7 +281,7 @@
 		</div>
 		<!-- end row-->
 
-		<div class="col-xl-4">
+		<div class="col-lg-12 col-xl-5 col-xxl-4">
 			<div class="card">
 
 				<div class="card-header">
@@ -251,7 +319,7 @@
 						        'name' => 'Nion Chandra Roy',
 						        'contact' => '01761115624',
 						        'department' => 'CSE',
-						    ]
+						    ],
 						];
 					@endphp
 
