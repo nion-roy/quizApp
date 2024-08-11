@@ -57,7 +57,7 @@ class StudentController extends Controller
   public function edit(Student $student)
   {
     $student = $this->StudentRepository->getById($student->id);
-    return view('super-admin.student.index', compact('student'));
+    return view('super-admin.student.edit', compact('student'));
   }
 
   /**
@@ -82,12 +82,10 @@ class StudentController extends Controller
 
   public function elt_branch_batch($id)
   {
-    if ($id !== 0) {
+    if ($id > 0) {
       $batches = Batch::where('branch_id', $id)->where('status', true)->get();
     }
-
-    // return $id;
-
-    return view('super-admin.student._batch', compact('batches'))->render();
+    $studentBatchId = request()->get('student_batch_id'); // Get the batch ID from the request
+    return view('super-admin.student._batch', compact('batches', 'studentBatchId'))->render();
   }
 }

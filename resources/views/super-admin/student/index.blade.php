@@ -39,8 +39,8 @@
 								<th>#</th>
 								<th>Name</th>
 								<th>Email</th>
-								<th>Designation</th>
-								<th>About</th>
+								<th>Father Name</th>
+								<th>Mother Name</th>
 								<th>Active</th>
 								<th>Status</th>
 								@if (Auth::user()->can('update user') || Auth::user()->can('delete user'))
@@ -68,9 +68,8 @@
 
 									</td>
 									<td>{{ $student->user->email }}</td>
-									<td>{{ $student->designation }}</td>
-									<td>{{ Str::limit($student->about, 60) }}</td>
-
+									<td>{{ $student->father_name }}</td>
+									<td>{{ $student->mother_name }}</td>
 									<td>
 										@if (Cache::has('user-is-online-' . $student->id))
 											<span class="text-success fw-bold">Online</span>

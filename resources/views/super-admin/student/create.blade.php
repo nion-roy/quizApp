@@ -494,22 +494,27 @@
 
 @push('js')
 	<script>
-		$('#branch').on('change', function() {
-			var branchID = $(this).val();
+		$(document).ready(function() {
+			$('#branch').on('change', function() {
+				var branchID = $(this).val();
 
-			// Check if a valid branch is selected
-			if (branchID !== 0) {
+				// Check if a valid branch is selected
 				var url = "/admin/branch-to-batch/" + branchID;
 
-				$.ajax({
-					type: "get",
-					url: url,
-					success: function(response) {
-						console.log(response);
-						$('.batch__lists').html(response);
-					}
-				});
-			}
+				if (branchID > 0) {
+
+					$('.batch__lists').html('<option>Loading...</option>');
+
+					$.ajax({
+						type: "GET",
+						url: url,
+						success: function(response) {
+							$('.batch__lists').html(response);
+						},
+					});
+				}
+
+			}).trigger('change');
 		});
 	</script>
 @endpush
