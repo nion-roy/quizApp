@@ -28,7 +28,7 @@
 					<div class="d-flex align-items-center justify-content-between">
 						<h4 class="card-title">All Students <span class="btn btn-success">{{ getStrPad($students->count()) }}</span></h4>
 						@can('create role')
-							<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.students.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New User</a>
+							<a class="btn btn-success waves-effect waves-light" href="{{ route('admin.students.create') }}"><i class="fa fa-plus-circle me-2"></i> Add New Student</a>
 						@endcan
 					</div>
 				</div>

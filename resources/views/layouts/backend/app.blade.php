@@ -59,6 +59,15 @@
 				overflow: hidden !important;
 				white-space: nowrap !important;
 			} */
+
+
+			.select2-selection.is-invalid {
+				border-color: red !important;
+			}
+
+			/* .form-select.is-invalid {
+				border-color: red !important;
+			} */
 		</style>
 
 

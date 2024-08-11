@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Models\Student;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
+use App\Models\Batch;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
 
 class StudentController extends Controller
@@ -30,7 +31,7 @@ class StudentController extends Controller
    */
   public function create()
   {
-    return view('super-admin.student.index');
+    return view('super-admin.student.create');
   }
 
   /**
@@ -75,5 +76,18 @@ class StudentController extends Controller
   {
     $this->StudentRepository->destroy($student->id);
     return redirect()->back()->with('success', 'You have delete to student successfully.');
+  }
+
+
+
+  public function elt_branch_batch($id)
+  {
+    if ($id !== 0) {
+      $batches = Batch::where('branch_id', $id)->where('status', true)->get();
+    }
+
+    // return $id;
+
+    return view('super-admin.student._batch', compact('batches'))->render();
   }
 }

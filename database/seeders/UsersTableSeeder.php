@@ -54,7 +54,20 @@ class UsersTableSeeder extends Seeder
         'expire'  => '01-01-2026',
         'created_at'  => Carbon::now(),
         'updated_at'  => Carbon::now(),
-      ]
+      ],
+      [
+        'name'    => 'Nion Roy',
+        'slug' => 'nion-roy',
+        'username' => 'nion22',
+        'email'   => 'nion.roy22@gmail.com',
+        'role'  => 'user',
+        'status'  => 1,
+        'image'  => 'user.png',
+        'password'  => Hash::make('12345678'),
+        'expire'  => '01-01-2026',
+        'created_at'  => Carbon::now(),
+        'updated_at'  => Carbon::now(),
+      ],
     ]);
   }
 }

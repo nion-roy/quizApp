@@ -30,7 +30,7 @@
 					<h4 class="card-title m-0">New User Create </h4>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('admin.users.update', $trainer->id) }}" method="POST" enctype="multipart/form-data">
+					<form action="{{ route('admin.trainers.update', $trainer->id) }}" method="POST" enctype="multipart/form-data">
 						@csrf
 						@method('PUT')
 
@@ -142,19 +142,40 @@
 								</div>
 							</div>
 
-							<div class="col-md-6">
-								<div class="form-group mb-3">
-									<label class="form-label" for="status">Status<span class="text-danger">*</span></label>
-									<select name="status" class="form-control form-select @error('status') is-invalid @enderror">
-										<option disabled selected>-- Selected Status --</option>
-										<option value="1" {{ $trainer->user->status == 1 ? 'selected' : '' }}>Active</option>
-										<option value="2" {{ $trainer->user->status == 2 ? 'selected' : '' }}>Pending</option>
-										<option value="3" {{ $trainer->user->status == 3 ? 'selected' : '' }}>Suspend</option>
-										<option value="4" {{ $trainer->user->status == 4 ? 'selected' : '' }}>Blocked</option>
-									</select>
-									@error('status')
-										<div class="text-danger">{{ $message }}</div>
-									@enderror
+							<div class="col-12">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group mb-3">
+											<label class="form-label" for="role">Role<span class="text-danger">*</span></label>
+											<select name="role" class="form-control form-select @error('role') is-invalid @enderror" id="role">
+												<option disabled selected>-- Selected Role --</option>
+												@foreach (getRoles() as $role)
+													@if ($role->name === 'teacher')
+														<option value="{{ $role->id }}" selected>{{ $role->name }}</option>
+													@endif
+												@endforeach
+
+											</select>
+											@error('role')
+												<div class="text-danger">{{ $message }}</div>
+											@enderror
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group mb-3">
+											<label class="form-label" for="status">Status<span class="text-danger">*</span></label>
+											<select name="status" class="form-control form-select @error('status') is-invalid @enderror">
+												<option disabled selected>-- Selected Status --</option>
+												<option value="1" {{ $trainer->user->status == 1 ? 'selected' : '' }}>Active</option>
+												<option value="2" {{ $trainer->user->status == 2 ? 'selected' : '' }}>Pending</option>
+												<option value="3" {{ $trainer->user->status == 3 ? 'selected' : '' }}>Suspend</option>
+												<option value="4" {{ $trainer->user->status == 4 ? 'selected' : '' }}>Blocked</option>
+											</select>
+											@error('status')
+												<div class="text-danger">{{ $message }}</div>
+											@enderror
+										</div>
+									</div>
 								</div>
 							</div>
 

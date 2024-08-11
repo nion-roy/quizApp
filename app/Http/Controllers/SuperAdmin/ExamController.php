@@ -254,18 +254,26 @@ class ExamController extends Controller
   }
 
 
-
   public function elt_exam_results(String $id)
   {
-    $exam = Exam::where('id', $id)->with('examResults')->first();
+    $exam = Exam::findOrFail($id);
+    $answers = ExamResult::with(['question', 'option', 'user'])->where('exam_id', $id)->get()->groupBy('user_id');
 
-    if (!$exam) {
-      return response()->json(['error' => 'Exam not found'], 404);
+    // Initialize an array to store the correct answers count per user
+    $userCorrectCounts = [];
+
+    foreach ($answers as $userId => $userAnswers) {
+      $correctCount = 0;
+
+      foreach ($userAnswers as $answer) {
+        if ($answer->option_id !== null && $answer->question->correct_answer == $answer->option->option) {
+          $correctCount++;
+        }
+      }
+
+      $userCorrectCounts[$userId] = $correctCount;
     }
 
-    $results = $exam->examResults->groupBy('user_id');
-    // return response()->json($results);
-    // Alternatively, you could return a view with the results if needed
-    return view('super-admin.exam.student-result', compact('exam', 'results'));
+    return view('super-admin.exam.student-result', compact('exam', 'answers', 'userCorrectCounts'));
   }
 }

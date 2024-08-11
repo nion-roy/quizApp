@@ -1,24 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'New Question Cerate')
-
-@push('css')
-	<style>
-		#questions:last-child {
-			margin: 0 !important;
-		}
-
-		.correct_answer {
-			background: rgba(25, 135, 84, .05) !important;
-			border-color: rgba(25, 135, 84, .4) !important;
-		}
-
-		.wrong_answer {
-			background: rgba(255, 0, 0, .05) !important;
-			border-color: rgba(255, 0, 0, .4) !important;
-		}
-	</style>
-@endpush
+@section('title', 'Exam Results')
 
 @section('main_content')
 	<!-- start page title -->
@@ -49,10 +31,16 @@
 					<h5>Department of {{ $exam->department->department_name }}</h5>
 					<h5>{{ $exam->exam_name }}</h5>
 					<h5>Course Title: {{ $exam->subject->subject_name }}</h5>
+
 				</div>
 
 
 				<div class="card-body">
+
+					<div class="d-flex align-items-center justify-content-between">
+						<a href="{{ route('admin.exams.index') }}" class="btn btn-danger my-2"> <i class="fa fa-arrow-left me-2"></i>Back</a>
+						<button type="button" class="btn btn-success my-2"> <i class="fa fa-print me-2" onclick="window.print()"></i>Print</button>
+					</div>
 
 					<table class="table table-striped table-bordered align-middle">
 						<thead>
@@ -64,22 +52,18 @@
 							</tr>
 						</thead>
 
-
 						<tbody>
-
 							@php
-								$a = 1;
+								$key = 1;
 							@endphp
-							@foreach ($results as $result)
+							@foreach ($answers as $userId => $results)
 								<tr>
-									<td>{{ $a++ }}</td> 
-									<td>{{ $a++ }}</td> 
-									<td>{{ $a++ }}</td> 
-									<td>{{ $a++ }}</td> 
+									<td>{{ getStrPad($key++) }}</td>
+									<td>{{ $results->first()->user->name }}</td>
+									<td>{{ $results->first()->user->number ?? $results->first()->user->email }}</td>
+									<td>{{ getStrPad($userCorrectCounts[$userId]) }}</td>
 								</tr>
 							@endforeach
-
-
 						</tbody>
 					</table>
 
@@ -93,3 +77,12 @@
 	</div>
 	<!-- end row -->
 @endsection
+
+
+@push('js')
+	<script>
+		function printFun() {
+			alert('ok')
+		}
+	</script>
+@endpush

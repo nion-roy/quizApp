@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'New Question Cerate')
+@section('title', 'Question Details')
 
 @push('css')
 	<style>
@@ -16,12 +16,12 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="page-title-box d-sm-flex align-items-center justify-content-between">
-				<h4 class="mb-sm-0 font-size-18">New Question Create !</h4>
+				<h4 class="mb-sm-0 font-size-18">Question Details !</h4>
 
 				<div class="page-title-right">
 					<ol class="breadcrumb m-0">
 						<li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-						<li class="breadcrumb-item active">New Question Create</li>
+						<li class="breadcrumb-item active">Question Details</li>
 					</ol>
 				</div>
 
@@ -41,11 +41,20 @@
 					<h5>{{ $exam->exam_name }}</h5>
 					<h5>Course Title: {{ $exam->subject->subject_name }}</h5>
 
-					<a href="{{ route('admin.exam-question.download', $exam->id) }}" class="btn btn-success my-2">Question Download</a>
+					<a href="{{ route('admin.exams.index') }}" class="btn btn-danger my-2"> <i class="fa fa-arrow-left me-2"></i>Back</a>
+					<a href="{{ route('admin.exam-question.download', $exam->id) }}" class="btn btn-success my-2"><i class="fa fa-download me-2"></i>Question Download</a>
 
 					<div class="d-flex align-items-center justify-content-between">
-						<span><strong>Total Time: </strong>{{ $exam->exam_time }} mins</span>
+
+						@php
+							$examStart = Carbon\Carbon::parse($exam->exam_start);
+							$examEnd = Carbon\Carbon::parse($exam->exam_end);
+							$totalTime = $examStart->diffInMinutes($examEnd);
+						@endphp
+						<span><strong>Total Time: </strong>{{ $totalTime }} mins</span>
 						<span><strong>Total Marks: </strong>{{ $exam->exam_mark }}</span>
+
+
 					</div>
 
 				</div>

@@ -53,10 +53,12 @@ class Trainer extends Model
 
   public static function updateTrainer($id, $requestData)
   {
-    
+
     $role = Role::where('id', $requestData['role'])->first();
-    
-    $user = new User();
+
+    $trainer = Trainer::findOrFail($id);
+
+    $user = User::findOrFail($trainer->user_id);
     $user->branch_id = $requestData["branch"];
     $user->name = $requestData["name"];
     $user->username = Str::slug($user->name);
@@ -66,12 +68,10 @@ class Trainer extends Model
     $user->image = $requestData["image"] ?? 'user.png';
     $user->password = Hash::make('12345678');
     $user->role_id = $requestData['role'];
-    $user->save();
-    
+    $user->update();
+
     $user->syncRoles($role->name);
-    
-    $trainer = Trainer::findOrFail($id);
-    $trainer->user_id = $user->id;
+
     $trainer->designation = $requestData["designation"];
     $trainer->short_description = $requestData["short_description"];
     $trainer->marketplace = $requestData["marketplace"];
@@ -89,4 +89,13 @@ class Trainer extends Model
     $trainer = User::where('id', $trainer->user_id)->delete();
     return $trainer;
   }
+
+
+
+  //default attribute set in database
+  //  $role = Role::where('name', 'trainer')->first();
+  // protected $attributes = [
+  //   'status' => true,
+  //   'role_id' => $role->id,
+  // ];
 }
