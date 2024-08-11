@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Student;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StudentRequest extends FormRequest
@@ -21,16 +23,21 @@ class StudentRequest extends FormRequest
    */
   public function rules(): array
   {
+    $id = request()->segment(3);
+    if (isset($id)) {
+      $student = Student::findOrFail($id);
+    }
+
     return [
       'branch' => ['required'],
       'batch' => ['required'],
       'group_name' => ['required'],
       'student_name' => ['required'],
       'number' => ['required', 'numeric'],
-      'email' => ['required', 'email'],
+      'email' => ['required', 'email', isset($student) ? 'unique:users,email,' . $student->user_id : 'unique:users,email'],
       'nid_no' => ['nullable', 'numeric'],
       'birth_date' => ['nullable'],
-      'gender' => ['required'] ,
+      'gender' => ['required'],
       'blood_group' => ['required'],
       'computer_skill' => ['required'],
       'profession' => ['required'],
@@ -43,7 +50,7 @@ class StudentRequest extends FormRequest
       'father_name' => ['nullable'],
       'father_number' => ['nullable'],
       'mother_name' => ['nullable'],
-      'mother_number' => ['nullable'], 
+      'mother_number' => ['nullable'],
       'about' => ['nullable'],
       'marketplace' => ['nullable'],
       'linked_in' => ['nullable'],
