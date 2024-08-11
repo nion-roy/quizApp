@@ -44,7 +44,6 @@
 								<th>Department</th>
 								<th>Subject</th>
 								<th>Creation</th>
-								<th>Created</th>
 								<th>Status</th>
 								<th>Action</th>
 							</tr>
@@ -56,12 +55,11 @@
 							@foreach ($questions as $key => $question)
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
-									<td>{{ $question->question_name }}</td>
-									<td>{{ $question->correct_answer }}</td>
+									<td>{{ Str::limit($question->question_name, 70) }}</td>
+									<td>{{ Str::limit($question->correct_answer, 30) }}</td>
 									<td>{{ $question->department->department_name }}</td>
 									<td>{{ $question->subject->subject_name }}</td>
 									<td>{{ $question->user->name }}</td>
-									<td>{{ $question->created_at->format('d-M-Y') }}</td>
 									<td>
 										@if ($question->status == 1)
 											<span class="text-success font-size-18"><i class="fas fa-check-square"></i></span>
@@ -73,7 +71,6 @@
 									<td>
 										<div class="d-flex align-items-center gap-1">
 											<a href="{{ route('admin.questions.edit', $question->id) }}" class="btn btn-success font-size-15 btn-sm"><i class="fa fa-edit"></i></a>
-											<a href="{{ route('admin.questions.show', $question->id) }}" class="btn btn-info font-size-15 btn-sm"><i class="fa fa-eye"></i></a>
 											<form action="{{ route('admin.questions.destroy', $question->id) }}" method="POST">
 												@csrf
 												@method('DELETE')

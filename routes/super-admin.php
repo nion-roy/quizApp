@@ -14,10 +14,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], f
   Route::resource('departments', App\Http\Controllers\SuperAdmin\DepartmentController::class);
   Route::resource('questions', App\Http\Controllers\SuperAdmin\QuestionController::class);
   Route::get('department-wise-subjects/{id}', [App\Http\Controllers\SuperAdmin\QuestionController::class, 'getSubject'])->name('department-wise-subjects');
-
-
+  
+  
   Route::resource('trainers', App\Http\Controllers\SuperAdmin\TrainerController::class);
   Route::resource('students', App\Http\Controllers\SuperAdmin\StudentController::class);
+  Route::get('branch-to-batch/{id}', [App\Http\Controllers\SuperAdmin\StudentController::class, 'elt_branch_batch'])->name('branch-to-batch');
+  
+  
+  
   Route::resource('attendances', App\Http\Controllers\SuperAdmin\AttendanceController::class);
   Route::resource('users', App\Http\Controllers\SuperAdmin\UserController::class);
   Route::resource('roles', App\Http\Controllers\SuperAdmin\RolePermissionController::class);

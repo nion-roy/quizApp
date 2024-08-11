@@ -127,5 +127,22 @@ class RolesPermissionsTableSeeder extends Seeder
     ]);
 
     $userUser->assignRole($userRole);
+
+
+    $userUser = User::firstOrCreate([
+      'email' => 'nion.roy22@gmail.com',
+    ], [
+      'name' => 'Nion Roy',
+      'slug' => 'nion-roy',
+      'username' => 'nion22',
+      'role_id' => 4,
+      'status' => 1,
+      'email' => 'nion.roy22@gmail.com',
+      'password' => Hash::make('12345678'),
+      'created_at' => Carbon::now(),
+      'updated_at' => Carbon::now(),
+    ]);
+
+    $userUser->assignRole($userRole);
   }
 }

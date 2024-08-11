@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 // Str Pad Left Function
 if (!function_exists('getStrPad')) {
   function getStrPad($value)
@@ -58,7 +60,7 @@ if (!function_exists('getPercentage')) {
 if (!function_exists('getExamExist')) {
   function getExamExist($id)
   {
-    $examExist = App\Models\ExamResult::where('exam_id', $id)->where('user_id', auth()->id())->first();
+    $examExist = App\Models\ExamResult::where('exam_id', $id)->where('user_id', Auth::id())->first();
     return $examExist;
   }
 }
@@ -86,6 +88,17 @@ if (!function_exists('getBranches')) {
   }
 }
 // All Branches Get Function
+
+
+// All Batch Get Function
+if (!function_exists('getBatch')) {
+  function getBatch()
+  {
+    $batch = App\Models\Batch::where('status', true)->get();
+    return $batch;
+  }
+}
+// All Batch Get Function
 
 
 // User Role Function

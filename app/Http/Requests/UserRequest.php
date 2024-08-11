@@ -5,14 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TrainerRequest extends FormRequest
+class UserRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
    */
   public function authorize(): bool
   {
-    return true;
+    return false;
   }
 
   /**
@@ -23,21 +23,15 @@ class TrainerRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'branch' => ['required'],
+      'branch_id' => ['nullable'],
       'name' => ['required'],
       'username' => ['nullable'],
       'slug' => ['nullable'],
-      'designation' => ['required'],
-      'email' => ['required'],
-      'short_description' => ['nullable'],
-      'marketplace' => ['nullable'],
-      'about' => ['nullable'],
-      'freelancing_1' => ['nullable'],
-      'freelancing_2' => ['nullable'],
-      'freelancing_3' => ['nullable'],
-      'status' => ['required'],
-      'image' => ['nullable'],
-      'role' => ['nullable'],
+      'number' => ['required'],
+      'email' => ['required', Rule::unique('users')->ignore($this->route('user'))],
+      'otp' => ['nullable'],
+      'password' => ['nullable'],
+      'address' => ['nullable'],
     ];
   }
 }

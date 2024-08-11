@@ -177,25 +177,6 @@
 								</div>
 							</div>
 
-
-							{{-- <div class="row">
-									<div class="col-md-6">
-										<div class="form-group mb-3">
-											<label class="form-label" for="role">Role<span class="text-danger">*</span></label>
-											<select name="role" class="form-control form-select @error('role') is-invalid @enderror" id="role">
-												<option disabled selected>-- Selected Role --</option>
-												@foreach ($roles as $role)
-													<option value="{{ $role->id }}">{{ $role->name }}</option>
-												@endforeach
-											</select>
-											@error('role')
-												<div class="text-danger">{{ $message }}</div>
-											@enderror
-										</div>
-									</div>
-								</div> --}}
-
-
 							<div class="form-group mb-3">
 								<label class="form-label" for="image">User Image</label> <br>
 								<div id="imagePreviewContainer"></div>
