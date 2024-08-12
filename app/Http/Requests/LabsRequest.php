@@ -23,7 +23,9 @@ class LabsRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'lab_name' => ['required', Rule::unique('labs')->ignore($this->route('lab'))],
+      'branch' => ['required'],
+      // 'lab_name' => ['required', Rule::unique('labs')->ignore($this->route('lab'))],
+      'lab_name' => ['required'],
       'min_set' => ['required', 'numeric'],
       'max_set' => ['required', 'numeric'],
     ];

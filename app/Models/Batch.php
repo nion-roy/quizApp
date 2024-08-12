@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Batch extends Model
 {
   use HasFactory;
-  
+
   protected $guarded = [];
 
   public function branch()
@@ -17,9 +17,17 @@ class Batch extends Model
   }
 
 
+  public function department()
+  {
+    return $this->belongsTo(Department::class);
+  }
+
+
   public static function createBatch($requestData)
   {
     $batch = new Batch();
+    $batch->branch_id = $requestData["branch"];
+    $batch->department_id = $requestData["department"];
     $batch->batch = $requestData["batch"];
     $batch->status = $requestData["status"];
     $batch->save();
@@ -29,6 +37,8 @@ class Batch extends Model
   public static function updateBatch($id, $requestData)
   {
     $batch = Batch::findOrFail($id);
+    $batch->branch_id = $requestData["branch"];
+    $batch->department_id = $requestData["department"];
     $batch->batch = $requestData["batch"];
     $batch->status = $requestData["status"];
     $batch->save();

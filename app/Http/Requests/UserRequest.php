@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
       'name' => ['required'],
       'username' => ['nullable'],
       'slug' => ['nullable'],
-      'number' => ['required'],
+      'number' => ['required', 'regex:/^(\+8801|01)[3-9]\d{8}$/'],
       'email' => ['required', Rule::unique('users')->ignore($this->route('user'))],
       'otp' => ['nullable'],
       'password' => ['nullable'],

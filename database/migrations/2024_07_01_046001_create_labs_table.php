@@ -15,7 +15,7 @@ return new class extends Migration
       $table->id();
       $table->foreignId('user_id')->constrained('users');
       $table->foreignId('branch_id')->constrained('branches')->cascadeOnDelete();
-      $table->string('lab_name')->unique();
+      $table->string('lab_name');
       $table->integer('max_set');
       $table->integer('min_set');
       $table->timestamps();

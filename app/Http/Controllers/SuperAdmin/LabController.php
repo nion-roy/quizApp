@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LabsRequest;
 use App\Models\Lab;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LabController extends Controller
 {
@@ -32,6 +33,8 @@ class LabController extends Controller
   public function store(LabsRequest $request)
   {
     $lab = new Lab();
+    $lab->user_id = Auth::id();
+    $lab->branch_id = $request['branch'];
     $lab->lab_name = $request['lab_name'];
     $lab->min_set = $request['min_set'];
     $lab->max_set = $request['max_set'];
@@ -62,6 +65,7 @@ class LabController extends Controller
   public function update(LabsRequest $request, Lab $lab)
   {
     $lab = Lab::findOrFail($lab->id);
+    $lab->branch_id = $request['branch'];
     $lab->lab_name = $request['lab_name'];
     $lab->min_set = $request['min_set'];
     $lab->max_set = $request['max_set'];

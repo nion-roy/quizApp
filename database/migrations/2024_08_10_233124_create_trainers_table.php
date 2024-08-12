@@ -15,12 +15,13 @@ return new class extends Migration
       $table->id();
       $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
       $table->string('designation');
+      $table->text('about')->nullable();
       $table->text('short_description')->nullable();
       $table->text('marketplace')->nullable();
-      $table->text('about')->nullable();
-      $table->mediumText('freelancing_1')->nullable();
-      $table->mediumText('freelancing_2')->nullable();
-      $table->mediumText('freelancing_3')->nullable();
+      $table->mediumText('fiverr')->nullable();
+      $table->mediumText('upwork')->nullable();
+      $table->mediumText('freelancer')->nullable();
+      $table->mediumText('linkedin')->nullable();
       $table->timestamps();
     });
   }

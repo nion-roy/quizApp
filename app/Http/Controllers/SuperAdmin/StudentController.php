@@ -10,7 +10,6 @@ use App\Repositories\Interfaces\StudentRepositoryInterface;
 
 class StudentController extends Controller
 {
-
   protected $StudentRepository;
   public function __construct(StudentRepositoryInterface $StudentRepository)
   {
@@ -85,7 +84,7 @@ class StudentController extends Controller
     if ($id > 0) {
       $batches = Batch::where('branch_id', $id)->where('status', true)->get();
     }
-    $studentBatchId = request()->get('student_batch_id'); // Get the batch ID from the request
+    $studentBatchId = request()->get('student_batch_id');
     return view('super-admin.student._batch', compact('batches', 'studentBatchId'))->render();
   }
 }

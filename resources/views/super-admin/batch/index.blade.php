@@ -39,6 +39,7 @@
 							<tr>
 								<th>#</th>
 								<th>Branch</th>
+								<th>Department</th>
 								<th>Batch Name</th>
 								<th>Create</th>
 								<th>Status</th>
@@ -54,6 +55,7 @@
 								<tr>
 									<td>{{ getStrPad($key + 1) }}</td>
 									<td>{{ $batch->branch->branch_name }}</td>
+									<td>{{ $batch->department->department_name }}</td>
 									<td>{{ $batch->batch }}</td>
 									<td>{{ $batch->created_at->format('d-M-Y') }}</td>
 									<td>

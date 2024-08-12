@@ -71,10 +71,10 @@
 									<td>{{ $student->father_name }}</td>
 									<td>{{ $student->mother_name }}</td>
 									<td>
-										@if (Cache::has('user-is-online-' . $student->id))
+										@if (Cache::has('user-is-online-' . $student->user->id))
 											<span class="text-success fw-bold">Online</span>
 										@else
-											@if ($student->last_activity)
+											@if ($student->user->last_activity)
 												{{ Carbon\Carbon::parse($student->user->last_activity)->diffForHumans() }}
 											@else
 												<span class="text-danger fw-bold">Offline</span>
@@ -95,14 +95,19 @@
 									</td>
 
 									@if (Auth::user()->can('update user') || Auth::user()->can('delete user'))
-										<td class="d-flex align-items-center gap-1">
-											<a href="{{ route('admin.students.edit', $student->id) }}" class="btn btn-success waves-effect"><i class="fa fa-edit"></i></a>
-											<a href="{{ route('admin.students.edit', $student->id) }}" class="btn btn-info waves-effect"><i class="fa fa-eye"></i></a>
-											<form action="{{ route('admin.students.destroy', $student->id) }}" method="POST">
-												@csrf
-												@method('DELETE')
-												<button type="button" class="btn btn-danger delete-button"><i class="fa fa-trash"></i></button>
-											</form>
+										<td width="5%">
+											<div class="btn-group">
+												<button type="button" class="btn btn-danger waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+												<div class="dropdown-menu" style="">
+													<a href="{{ route('admin.students.edit', $student->id) }}" class="dropdown-item">Edit</a>
+													<a href="{{ route('admin.students.edit', $student->id) }}" class="dropdown-item">View</a>
+													<form action="{{ route('admin.students.destroy', $student->id) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="button" class="dropdown-item delete-button">Delete</button>
+													</form>
+												</div>
+											</div>
 										</td>
 									@endif
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Models\Batch;
 use App\Http\Requests\BatchRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Repositories\Interfaces\BatchRepositoryInterface;
 
 class BatchController extends Controller
@@ -75,5 +76,15 @@ class BatchController extends Controller
   {
     $this->BatchRepository->destroy($batch->id);
     return redirect()->back()->with('success', 'You have delete to batch successfully.');
+  }
+
+
+  public function elt_branch_department($id)
+  {
+    $departmentID = request()->get('department_batch_id');
+    $departments = Department::where('branch_id', $id)->where('status', true)->get();
+    $departmentOptions = view('super-admin.batch._department', compact('departments', 'departmentID'))->render();
+
+    return response()->json(['departments' => $departmentOptions]);
   }
 }

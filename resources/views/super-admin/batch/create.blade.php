@@ -39,13 +39,25 @@
 							<div class="col-md-3">
 								<div class="form-group mb-3">
 									<label class="form-label" for="branch">Branch Name <span class="text-danger">*</span></label>
-									<select name="branch" id="branch" class="form-select select2">
+									<select name="branch" id="branch" class="form-select">
 										<option disabled selected>-- Selected Branch --</option>
 										@foreach (getBranches() as $branch)
 											<option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
 										@endforeach
 									</select>
 									@error('branch')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="form-group mb-3">
+									<label class="form-label" for="department">Department <span class="text-danger">*</span></label>
+									<select name="department" id="department" class="form-select department__lists">
+										<option disabled selected>-- Selected Department --</option>
+									</select>
+									@error('department')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
@@ -75,7 +87,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-9 text-end">
+							<div class="col-md-12 text-end">
 								<div class="form-group">
 									<a href="{{ route('admin.batches.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
@@ -91,3 +103,30 @@
 	</div>
 	<!-- end row -->
 @endsection
+
+
+@push('js')
+	<script>
+		$(document).ready(function() {
+			$('#branch').on('change', function() {
+				var branchID = $(this).val();
+				if (branchID) {
+					$('.department__lists').html('<option disabled selected>Loading....</option>');
+					$.ajax({
+						type: "GET",
+						url: "/admin/branch-to-department/" + branchID,
+						success: function(response) {
+							$('.department__lists').html(response.departments);
+						},
+						error: function() {
+							alert('Failed to load data. Please try again.');
+						}
+					});
+				} else {
+					// Reset dropdowns if no branch selected
+					$('.department__lists').html('<option disabled selected>-- Select Department --</option>');
+				}
+			}).trigger('change');
+		});
+	</script>
+@endpush
