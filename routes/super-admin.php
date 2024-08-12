@@ -10,6 +10,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], f
 
   Route::resource('branches', App\Http\Controllers\SuperAdmin\BranchController::class);
   Route::resource('batches', App\Http\Controllers\SuperAdmin\BatchController::class);
+  Route::get('branch-to-department/{id}', [App\Http\Controllers\SuperAdmin\BatchController::class, 'elt_branch_department'])->name('batches.branch.department');
+
   Route::resource('subjects', App\Http\Controllers\SuperAdmin\SubjectController::class);
   Route::resource('departments', App\Http\Controllers\SuperAdmin\DepartmentController::class);
   Route::resource('questions', App\Http\Controllers\SuperAdmin\QuestionController::class);
@@ -27,7 +29,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], f
   Route::resource('roles', App\Http\Controllers\SuperAdmin\RolePermissionController::class);
   Route::resource('permissions', App\Http\Controllers\SuperAdmin\PermissionController::class);
   Route::resource('labs', App\Http\Controllers\SuperAdmin\LabController::class);
+
+
   Route::resource('routines', App\Http\Controllers\SuperAdmin\RoutineController::class);
+  Route::get('branch-to-lab-trainer/{id}', [App\Http\Controllers\SuperAdmin\RoutineController::class, 'elt_branch_batch'])->name('routines.branch-to-batch');
+  Route::get('department-to-batch/{id}', [App\Http\Controllers\SuperAdmin\RoutineController::class, 'elt_department_batch'])->name('routines.department-to-batch');
 
   Route::resource('exams', App\Http\Controllers\SuperAdmin\ExamController::class);
   Route::get('exam-question-search/{id}', [App\Http\Controllers\SuperAdmin\ExamController::class, 'getQuestion'])->name('question-search');

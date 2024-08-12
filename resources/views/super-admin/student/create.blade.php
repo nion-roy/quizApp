@@ -3,6 +3,14 @@
 @section('title', 'New Student Cerate')
 
 
+@push('css')
+	<style>
+		.select2-selection.select2-selection--single.is-invalid {
+			border-color: red !important;
+		}
+	</style>
+@endpush
+
 @section('main_content')
 	<!-- start page title -->
 	<div class="row">
@@ -46,7 +54,7 @@
 							<div class="col-md-6">
 								<div class="form-group mb-3">
 									<label class="form-label" for="branch">Branch Name <span class="text-danger">*</span></label>
-									<select name="branch" id="branch" class="form-select @error('branch') is-invalid @enderror">
+									<select name="branch" id="branch" class="form-select active @error('branch') is-invalid @enderror">
 										<option disabled selected>-- Selected Branch -- </option>
 										@foreach (getBranches() as $branch)
 											<option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>

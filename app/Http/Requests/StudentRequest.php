@@ -26,6 +26,9 @@ class StudentRequest extends FormRequest
     $id = request()->segment(3);
     if (isset($id)) {
       $student = Student::findOrFail($id);
+      $userId = $student->user_id;
+    } else {
+      $userId = null;
     }
 
     return [
@@ -33,24 +36,24 @@ class StudentRequest extends FormRequest
       'batch' => ['required'],
       'group_name' => ['required'],
       'student_name' => ['required'],
-      'number' => ['required', 'numeric'],
-      'email' => ['required', 'email', isset($student) ? 'unique:users,email,' . $student->user_id : 'unique:users,email'],
-      'nid_no' => ['nullable', 'numeric'],
-      'birth_date' => ['nullable'],
+      'number' => ['required', 'numeric','regex:/^(\+8801|01)[3-9]\d{8}$/', Rule::unique('users')->ignore($userId)],
+      'email' => ['required', 'email', Rule::unique('users')->ignore($userId)],
+      'nid_no' => ['required', 'numeric'],
+      'birth_date' => ['required'],
       'gender' => ['required'],
       'blood_group' => ['required'],
       'computer_skill' => ['required'],
       'profession' => ['required'],
-      'religion' => ['nullable'],
-      'disabilities' => ['nullable'],
-      'present_address' => ['nullable'],
-      'permanent_address' => ['nullable'],
-      'education_qualification' => ['nullable'],
-      'pass_year' => ['nullable'],
-      'father_name' => ['nullable'],
-      'father_number' => ['nullable'],
-      'mother_name' => ['nullable'],
-      'mother_number' => ['nullable'],
+      'religion' => ['required'],
+      'disabilities' => ['required'],
+      'present_address' => ['required'],
+      'permanent_address' => ['required'],
+      'education_qualification' => ['required'],
+      'pass_year' => ['required'],
+      'father_name' => ['required'],
+      'father_number' => ['required'],
+      'mother_name' => ['required'],
+      'mother_number' => ['required'],
       'about' => ['nullable'],
       'marketplace' => ['nullable'],
       'linked_in' => ['nullable'],
@@ -59,7 +62,7 @@ class StudentRequest extends FormRequest
       'link_three' => ['nullable'],
       'link_four' => ['nullable'],
       'status' => ['required'],
-      'role' => ['nullable'],
+      'role' => ['required'],
       'image' => ['nullable'],
     ];
   }

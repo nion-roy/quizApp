@@ -27,9 +27,10 @@ class Trainer extends Model
     $user = new User();
     $user->branch_id = $requestData["branch"];
     $user->name = $requestData["name"];
-    $user->username = Str::slug($user->name);
-    $user->slug = Str::slug($user->name);
+    $user->username = Str::slug($user->name) . rand(00, 99);
+    $user->slug = Str::slug($user->username);
     $user->email = $requestData["email"];
+    $user->number = $requestData["number"];
     $user->status = $requestData["status"];
     $user->image = $requestData["image"] ?? 'user.png';
     $user->password = Hash::make('12345678');
@@ -44,9 +45,10 @@ class Trainer extends Model
     $trainer->short_description = $requestData["short_description"];
     $trainer->marketplace = $requestData["marketplace"];
     $trainer->about = $requestData["about"];
-    $trainer->freelancing_1 = $requestData["freelancing_1"];
-    $trainer->freelancing_2 = $requestData["freelancing_2"];
-    $trainer->freelancing_3 = $requestData["freelancing_3"];
+    $trainer->fiverr = $requestData["fiverr"];
+    $trainer->upwork = $requestData["upwork"];
+    $trainer->freelancer = $requestData["freelancer"];
+    $trainer->linkedin = $requestData["linkedin"];
     $trainer->save();
     return $trainer;
   }
@@ -61,9 +63,10 @@ class Trainer extends Model
     $user = User::findOrFail($trainer->user_id);
     $user->branch_id = $requestData["branch"];
     $user->name = $requestData["name"];
-    $user->username = Str::slug($user->name);
-    $user->slug = Str::slug($user->name);
+    $user->username = Str::slug($user->name) . rand(00, 99);
+    $user->slug = Str::slug($user->username);
     $user->email = $requestData["email"];
+    $user->number = $requestData["number"];
     $user->status = $requestData["status"];
     $user->image = $requestData["image"] ?? 'user.png';
     $user->password = Hash::make('12345678');
@@ -76,9 +79,11 @@ class Trainer extends Model
     $trainer->short_description = $requestData["short_description"];
     $trainer->marketplace = $requestData["marketplace"];
     $trainer->about = $requestData["about"];
-    $trainer->freelancing_1 = $requestData["freelancing_1"];
-    $trainer->freelancing_2 = $requestData["freelancing_2"];
-    $trainer->freelancing_3 = $requestData["freelancing_3"];
+    $trainer->fiverr = $requestData["fiverr"];
+    $trainer->upwork = $requestData["upwork"];
+    $trainer->freelancer = $requestData["freelancer"];
+    $trainer->freelancer = $requestData["freelancer"];
+    $trainer->linkedin = $requestData["linkedin"];
     $trainer->save();
     return $trainer;
   }

@@ -23,6 +23,8 @@ class BatchRequest extends FormRequest
   public function rules(): array
   {
     return [
+      'branch' => ['required'],
+      'department' => ['required'],
       'batch' => ['required', 'string', Rule::unique('batches')->ignore($this->route('batch'))],
       'status' => ['required'],
     ];

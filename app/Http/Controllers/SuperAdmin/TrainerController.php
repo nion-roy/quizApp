@@ -47,7 +47,8 @@ class TrainerController extends Controller
    */
   public function show(Trainer $trainer)
   {
-    //
+    $trainer =  $this->TrainerRepository->getById($trainer->id);
+    return view('super-admin.trainer.show', compact('trainer'));
   }
 
   /**

@@ -63,6 +63,7 @@
 												<img src="{{ asset('storage/trainers/' . $trainer->image) }}" alt="{{ $trainer->name }}" class="img-fluid rounded-circle img-thumbnail me-2" style="width: 40px; height: 40px;">
 											@endif
 
+
 											{{ $trainer->user->name }}
 										</div>
 
@@ -72,10 +73,10 @@
 									<td>{{ Str::limit($trainer->about, 60) }}</td>
 
 									<td>
-										@if (Cache::has('user-is-online-' . $trainer->id))
+										@if (Cache::has('user-is-online-' . $trainer->user->id))
 											<span class="text-success fw-bold">Online</span>
 										@else
-											@if ($trainer->last_activity)
+											@if ($trainer->user->last_activity)
 												{{ Carbon\Carbon::parse($trainer->user->last_activity)->diffForHumans() }}
 											@else
 												<span class="text-danger fw-bold">Offline</span>
@@ -96,14 +97,19 @@
 									</td>
 
 									@if (Auth::user()->can('update user') || Auth::user()->can('delete user'))
-										<td class="d-flex align-items-center gap-1">
-											<a href="{{ route('admin.trainers.edit', $trainer->id) }}" class="btn btn-success waves-effect"><i class="fa fa-edit"></i></a>
-											<a href="{{ route('admin.trainers.edit', $trainer->id) }}" class="btn btn-info waves-effect"><i class="fa fa-eye"></i></a>
-											<form action="{{ route('admin.trainers.destroy', $trainer->id) }}" method="POST">
-												@csrf
-												@method('DELETE')
-												<button type="button" class="btn btn-danger delete-button"><i class="fa fa-trash"></i></button>
-											</form>
+										<td width="5%">
+											<div class="btn-group">
+												<button type="button" class="btn btn-danger waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></button>
+												<div class="dropdown-menu" style="">
+													<a href="{{ route('admin.trainers.edit', $trainer->id) }}" class="dropdown-item">Edit</a>
+													<a href="{{ route('admin.trainers.show', $trainer->id) }}" class="dropdown-item">Show</a>
+													<form action="{{ route('admin.trainers.destroy', $trainer->id) }}" method="POST">
+														@csrf
+														@method('DELETE')
+														<button type="button" class="dropdown-item delete-button">Delete</button>
+													</form>
+												</div>
+											</div>
 										</td>
 									@endif
 
@@ -118,4 +124,5 @@
 		<!-- end col -->
 	</div>
 	<!-- end row -->
+
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Trainer;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,19 +23,29 @@ class TrainerRequest extends FormRequest
    */
   public function rules(): array
   {
+
+    $id = request()->segment(3);
+    if (isset($id)) {
+      $trainer = Trainer::findOrFail($id);
+      $userId = $trainer->user_id;
+    } else {
+      $userId = null;
+    }
+
     return [
       'branch' => ['required'],
       'name' => ['required'],
-      'username' => ['nullable'],
       'slug' => ['nullable'],
       'designation' => ['required'],
-      'email' => ['required'],
+      'email' => ['required', Rule::unique('users')->ignore($userId)],
+      'number' => ['nullable', 'regex:/^(\+8801|01)[3-9]\d{8}$/', Rule::unique('users')->ignore($userId)],
+      'about' => ['nullable'],
       'short_description' => ['nullable'],
       'marketplace' => ['nullable'],
-      'about' => ['nullable'],
-      'freelancing_1' => ['nullable'],
-      'freelancing_2' => ['nullable'],
-      'freelancing_3' => ['nullable'],
+      'fiverr' => ['nullable'],
+      'upwork' => ['nullable'],
+      'freelancer' => ['nullable'],
+      'linkedin' => ['nullable'],
       'status' => ['required'],
       'image' => ['nullable'],
       'role' => ['nullable'],

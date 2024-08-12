@@ -72,9 +72,29 @@
 
 							<div class="col-md-6">
 								<div class="form-group mb-3">
+									<label class="form-label" for="number">Contact Number<span class="text-danger">*</span></label>
+									<input type="number" name="number" class="form-control @error('number') is-invalid @enderror" id="number" placeholder="Enter contact number" value="{{ old('number') }}">
+									@error('number')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group mb-3">
 									<label class="form-label" for="email">Email<span class="text-danger">*</span></label>
 									<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter email" value="{{ old('email') }}">
 									@error('email')
+										<div class="text-danger">{{ $message }}</div>
+									@enderror
+								</div>
+							</div>
+
+							<div class="col-12">
+								<div class="form-group mb-3">
+									<label class="form-label" for="about">About Trainer <span class="text-danger">*</span></label>
+									<textarea name="about" class="form-control @error('about') is-invalid @enderror" id="about" cols="30" rows="4" placeholder="Enter about trainer...">{{ old('about') }}</textarea>
+									@error('about')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
@@ -100,11 +120,11 @@
 								</div>
 							</div>
 
-							<div class="col-12">
+							<div class="col-md-6">
 								<div class="form-group mb-3">
-									<label class="form-label" for="about">About Trainer <span class="text-danger">*</span></label>
-									<textarea name="about" class="form-control @error('about') is-invalid @enderror" id="about" cols="30" rows="4" placeholder="Enter about trainer...">{{ old('about') }}</textarea>
-									@error('about')
+									<label class="form-label" for="fiverr">Fiverr <span class="text-danger">*</span></label>
+									<input type="text" name="fiverr" class="form-control @error('fiverr') is-invalid @enderror" id="fiverr" placeholder="Enter fiverr profile link" value="{{ old('fiverr') }}">
+									@error('fiverr')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
@@ -112,9 +132,9 @@
 
 							<div class="col-md-6">
 								<div class="form-group mb-3">
-									<label class="form-label" for="freelancing_1">Freelancing Link 01 <span class="text-danger">*</span></label>
-									<input type="text" name="freelancing_1" class="form-control @error('freelancing_1') is-invalid @enderror" id="freelancing_1" placeholder="Enter freelancing link 01" value="{{ old('freelancing_1') }}">
-									@error('freelancing_1')
+									<label class="form-label" for="upwork">Upwork <span class="text-danger">*</span></label>
+									<input type="text" name="upwork" class="form-control @error('upwork') is-invalid @enderror" id="upwork" placeholder="Enter upwork profile link" value="{{ old('upwork') }}">
+									@error('upwork')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
@@ -122,9 +142,9 @@
 
 							<div class="col-md-6">
 								<div class="form-group mb-3">
-									<label class="form-label" for="freelancing_2">Freelancing Link 02 <span class="text-danger">*</span></label>
-									<input type="text" name="freelancing_2" class="form-control @error('freelancing_2') is-invalid @enderror" id="freelancing_2" placeholder="Enter freelancing link 01" value="{{ old('freelancing_2') }}">
-									@error('freelancing_2')
+									<label class="form-label" for="freelancer">Freelancer <span class="text-danger">*</span></label>
+									<input type="text" name="freelancer" class="form-control @error('freelancer') is-invalid @enderror" id="freelancer" placeholder="Enter freelancer profile link" value="{{ old('freelancer') }}">
+									@error('freelancer')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
@@ -132,9 +152,9 @@
 
 							<div class="col-md-6">
 								<div class="form-group mb-3">
-									<label class="form-label" for="freelancing_3">Freelancing Link 03 <span class="text-danger">*</span></label>
-									<input type="text" name="freelancing_3" class="form-control @error('freelancing_3') is-invalid @enderror" id="freelancing_3" placeholder="Enter freelancing link 01" value="{{ old('freelancing_3') }}">
-									@error('freelancing_3')
+									<label class="form-label" for="linkedin">Linkedin <span class="text-danger">*</span></label>
+									<input type="text" name="linkedin" class="form-control @error('linkedin') is-invalid @enderror" id="linkedin" placeholder="Enter linkedin profile link" value="{{ old('linkedin') }}">
+									@error('linkedin')
 										<div class="text-danger">{{ $message }}</div>
 									@enderror
 								</div>
