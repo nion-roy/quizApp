@@ -28,7 +28,7 @@
 					<h4 class="card-title m-0">New Class Routine Create </h4>
 				</div>
 				<div class="card-body">
-					<form action="{{ route('admin.routines.store') }}" method="POST" enctype="multipart/form-data">
+					<form id="trainer__form" action="{{ route('admin.routines.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 
 						@include('alert-message.alert-message')
@@ -41,7 +41,7 @@
 									<select name="branch" id="branch" class="form-select">
 										<option disabled selected>-- Select Branch --</option>
 										@foreach (getBranches() as $branch)
-											<option value="{{ $branch->id }}">{{ $branch->branch_name }}</option>
+											<option value="{{ $branch->id }}" {{ old('branch') == $branch->id ? 'selected' : '' }}>{{ $branch->branch_name }}</option>
 										@endforeach
 									</select>
 									@error('branch')
@@ -103,13 +103,13 @@
 									<label class="form-label" for="day">Days <span class="text-danger">*</span></label>
 									<select name="day" id="day" class="form-select">
 										<option disabled selected>-- Select Day --</option>
-										<option value="saturday">Saturday</option>
-										<option value="sunday">Sunday</option>
-										<option value="monday">Monday</option>
-										<option value="tuesday">Tuesday</option>
-										<option value="wednesday">Wednesday</option>
-										<option value="thursday">Thursday</option>
-										<option value="friday">Friday</option>
+										<option value="saturday" {{ old('day') == 'saturday' ? 'selected' : '' }}>Saturday</option>
+										<option value="sunday" {{ old('day') == 'sunday' ? 'selected' : '' }}>Sunday</option>
+										<option value="monday" {{ old('day') == 'monday ' ? 'selected' : '' }}>Monday</option>
+										<option value="tuesday" {{ old('day') == 'tuesday' ? 'selected' : '' }}>Tuesday</option>
+										<option value="wednesday" {{ old('day') == 'wednesday' ? 'selected' : '' }}>Wednesday</option>
+										<option value="thursday" {{ old('day') == 'thursday' ? 'selected' : '' }}>Thursday</option>
+										<option value="friday" {{ old('day') == 'friday' ? 'selected' : '' }}>Friday</option>
 									</select>
 									@error('day')
 										<div class="text-danger">{{ $message }}</div>
@@ -145,68 +145,10 @@
 							<div class="col-12">
 								<div class="form-group">
 									<a href="{{ route('admin.routines.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
-									<button type="submit" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-save me-2"></i>Submit Now</button>
+									<button type="submit" class="btn btn-primary waves-effect waves-light w-md submit__btn"><i class="fas fa-save me-2"></i>Submit Now</button>
 								</div>
 							</div>
 						</div>
-
-
-						@push('js')
-							<script>
-								$(document).ready(function() {
-									$('#department').on('change', function() {
-										var departmentID = $(this).val();
-										if (departmentID) {
-											$('.batch__lists').html('<option disabled selected>Loading....</option>');
-											$.ajax({
-												type: "GET",
-												url: "/admin/department-to-batch/" + departmentID,
-												success: function(response) { 
-													$('.batch__lists').html(response.batches);
-												},
-												error: function() {
-													alert('Failed to load data. Please try again.');
-												}
-											});
-										} else {
-											// Reset dropdowns if no branch selected
-											$('.batch__lists').html('<option disabled selected>-- Select Department --</option>');
-										}
-									}).trigger('change');
-								});
-							</script>
-							<script>
-								$(document).ready(function() {
-									$('#branch').on('change', function() {
-										var branchID = $(this).val();
-										if (branchID) {
-											$('.department__lists').html('<option disabled selected>Loading....</option>');
-											$('.lab__lists').html('<option disabled selected>Loading....</option>');
-											$('.trainer__lists').html('<option disabled selected>Loading....</option>');
-											$.ajax({
-												type: "GET",
-												url: "/admin/branch-to-lab-trainer/" + branchID,
-												success: function(response) {
-													$('.department__lists').html(response.departments);
-													$('.lab__lists').html(response.labs);
-													$('.trainer__lists').html(response.trainers);
-												},
-												error: function() {
-													alert('Failed to load data. Please try again.');
-												}
-											});
-										} else {
-											// Reset dropdowns if no branch selected
-											$('.department__lists').html('<option disabled selected>-- Select Department --</option>');
-											$('.lab__lists').html('<option disabled selected>-- Select Lab --</option>');
-											$('.trainer__lists').html('<option disabled selected>-- Select Trainer --</option>');
-										}
-									}).trigger('change');
-								});
-							</script>
-						@endpush
-
-
 					</form>
 				</div>
 			</div>
@@ -215,3 +157,105 @@
 	</div>
 	<!-- end row -->
 @endsection
+
+
+{{-- @push('js')
+	<script>
+		$(document).ready(function() {
+			$('.submit__btn').on('click', function(e) {
+				e.preventDefault(); // Prevent the default form submission
+
+				var formData = new FormData($('#trainer__form')[0]);
+
+				// Clear previous error messages
+				$(".is-invalid").removeClass("is-invalid");
+				$(".invalid-feedback").remove();
+
+				$.ajax({
+					url: "{{ route('admin.routines.store') }}",
+					type: "POST",
+					data: formData,
+					contentType: false, // Important for file uploads
+					processData: false, // Important for file uploads
+					success: function(response) {
+						if (response.success) {
+							alert('Routine created successfully');
+							window.location.href = "{{ route('admin.routines.index') }}";
+						} else {
+							alert('An error occurred');
+						}
+					},
+					error: function(xhr, status, error) {
+						var errors = xhr.responseJSON.errors;
+						$.each(errors, function(key, value) {
+							var inputElement = $("#" + key);
+
+							// Add invalid class to the input/select element
+							inputElement.addClass("is-invalid");
+
+							// Display error message below the input/select element
+							inputElement.after('<span class="invalid-feedback text-danger">' + value[0] + '</span>');
+						});
+					},
+				});
+			});
+		});
+	</script>
+@endpush --}}
+
+
+
+@push('js')
+	<script>
+		$(document).ready(function() {
+			$('#department').on('change', function() {
+				var departmentID = $(this).val();
+				if (departmentID) {
+					$('.batch__lists').html('<option disabled selected>Loading....</option>');
+					$.ajax({
+						type: "GET",
+						url: "/admin/department-to-batch/" + departmentID,
+						success: function(response) {
+							$('.batch__lists').html(response.batches);
+						},
+						error: function() {
+							alert('Failed to load data. Please try again.');
+						}
+					});
+				} else {
+					// Reset dropdowns if no branch selected
+					$('.batch__lists').html('<option disabled selected>-- Select Department --</option>');
+				}
+			}).trigger('change');
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			$('#branch').on('change', function() {
+				var branchID = $(this).val();
+				if (branchID) {
+					$('.department__lists').html('<option disabled selected>Loading....</option>');
+					$('.lab__lists').html('<option disabled selected>Loading....</option>');
+					$('.trainer__lists').html('<option disabled selected>Loading....</option>');
+					$.ajax({
+						type: "GET",
+						url: "/admin/branch-to-lab-trainer/" + branchID,
+						success: function(response) {
+							$('.department__lists').html(response.departments);
+							$('.lab__lists').html(response.labs);
+							$('.trainer__lists').html(response.trainers);
+						},
+						error: function() {
+							alert('Failed to load data. Please try again.');
+						}
+					});
+				} else {
+					// Reset dropdowns if no branch selected
+					$('.department__lists').html('<option disabled selected>-- Select Department --</option>');
+					$('.lab__lists').html('<option disabled selected>-- Select Lab --</option>');
+					$('.trainer__lists').html('<option disabled selected>-- Select Trainer --</option>');
+				}
+			}).trigger('change');
+		});
+	</script>
+@endpush

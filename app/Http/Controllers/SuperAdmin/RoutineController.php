@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use Carbon\Carbon;
 use App\Models\Lab;
 use App\Models\User;
 use App\Models\Batch;
@@ -34,11 +35,12 @@ class RoutineController extends Controller
   /**
    * Store a newly created resource in storage.
    */
+
+
   public function store(Request $request)
   {
-    // return $request;
-
-    $request->validate([
+    // Validate the request data
+    $validData = $request->validate([
       'branch' => 'required',
       'department' => 'required',
       'batch' => 'required',
@@ -49,20 +51,56 @@ class RoutineController extends Controller
       'end_class' => 'required|date_format:H:i|after:start_class',
     ]);
 
+    // Check for existing routine with the same lab, day, and time range
+    $existingRoutineLab = Routine::where('lab_id', $request->lab)
+      ->where('day', $request->day)
+      ->where(function ($query) use ($request) {
+        $query->whereBetween('start_class', [$request->start_class, $request->end_class])
+          ->orWhereBetween('end_class', [$request->start_class, $request->end_class])
+          ->orWhere(function ($query) use ($request) {
+            $query->where('start_class', '<=', $request->start_class)
+              ->where('end_class', '>=', $request->end_class);
+          });
+      })
+      ->exists();
+
+    // Check for existing routine with the same trainer, day, and time range
+    $existingRoutineTrainer = Routine::where('trainer_id', $request->trainer)
+      ->where('day', $request->day)
+      ->where(function ($query) use ($request) {
+        $query->whereBetween('start_class', [$request->start_class, $request->end_class])
+          ->orWhereBetween('end_class', [$request->start_class, $request->end_class])
+          ->orWhere(function ($query) use ($request) {
+            $query->where('start_class', '<=', $request->start_class)
+              ->where('end_class', '>=', $request->end_class);
+          });
+      })
+      ->exists();
+
+    if ($existingRoutineLab) {
+      return redirect()->back()->withError('A routine already exists for the selected lab on ' . $request->day . ' from ' . Carbon::parse($request->start_class)->format('H:i A') . ' to ' . Carbon::parse($request->end_class)->format('H:i A') . '.');
+    }
+
+    if ($existingRoutineTrainer) {
+      return redirect()->back()->withError('The trainer is already scheduled for another class at this time on the selected day.');
+    }
+
+    // Create and save the new routine
     $routine = new Routine();
-    $routine->user_id  =  Auth::id();
-    $routine->branch_id  =  $request->branch;
-    $routine->department_id  =  $request->department;
-    $routine->batch_id  =  $request->batch;
-    $routine->lab_id  =  $request->lab;
-    $routine->trainer_id  =  $request->trainer;
-    $routine->day  =  $request->day;
-    $routine->start_class  =  $request->start_class;
-    $routine->end_class  =  $request->end_class;
+    $routine->user_id  = Auth::id();
+    $routine->branch_id  = $request->branch;
+    $routine->department_id  = $request->department;
+    $routine->batch_id  = $request->batch;
+    $routine->lab_id  = $request->lab;
+    $routine->trainer_id  = $request->trainer;
+    $routine->day  = $request->day;
+    $routine->start_class  = $request->start_class;
+    $routine->end_class  = $request->end_class;
     $routine->save();
 
-    return redirect()->back()->with('success', 'You have create to routine successfully.');
+    return redirect()->back()->with('success', 'Routine created successfully.');
   }
+
 
 
   /**
