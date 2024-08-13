@@ -11,7 +11,8 @@
 
 				<div class="page-title-right">
 					<ol class="breadcrumb m-0">
-						<li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+						<li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+						<li class="breadcrumb-item"><a href="{{ route('admin.class-routines.index') }}">Class Routines</a></li>
 						<li class="breadcrumb-item active">All Routines</li>
 					</ol>
 				</div>
@@ -28,7 +29,7 @@
 					<h4 class="card-title m-0">New Class Routine Create </h4>
 				</div>
 				<div class="card-body">
-					<form id="trainer__form" action="{{ route('admin.routines.store') }}" method="POST" enctype="multipart/form-data">
+					<form id="trainer__form" action="{{ route('admin.class-routines.store') }}" method="POST" enctype="multipart/form-data">
 						@csrf
 
 						@include('alert-message.alert-message')
@@ -98,33 +99,22 @@
 								</div>
 							</div>
 
-							<div class="col-md-6 mb-3">
-								<div class="form-group mb-3">
-									<label class="form-label" for="day">Days <span class="text-danger">*</span></label>
-									<select name="day" id="day" class="form-select">
-										<option disabled selected>-- Select Day --</option>
-										<option value="saturday" {{ old('day') == 'saturday' ? 'selected' : '' }}>Saturday</option>
-										<option value="sunday" {{ old('day') == 'sunday' ? 'selected' : '' }}>Sunday</option>
-										<option value="monday" {{ old('day') == 'monday ' ? 'selected' : '' }}>Monday</option>
-										<option value="tuesday" {{ old('day') == 'tuesday' ? 'selected' : '' }}>Tuesday</option>
-										<option value="wednesday" {{ old('day') == 'wednesday' ? 'selected' : '' }}>Wednesday</option>
-										<option value="thursday" {{ old('day') == 'thursday' ? 'selected' : '' }}>Thursday</option>
-										<option value="friday" {{ old('day') == 'friday' ? 'selected' : '' }}>Friday</option>
-									</select>
-									@error('day')
-										<div class="text-danger">{{ $message }}</div>
-									@enderror
-								</div>
-							</div>
-
-
 							<div class="col-12">
 								<div class="row">
 									<div class="col-md-6 mb-3">
-										<div class="form-group">
-											<label class="form-label" for="start_class">Class Start <span class="text-danger">*</span></label>
-											<input type="time" name="start_class" class="form-control @error('start_class') is-invalid @enderror" id="start_class" placeholder="Enter lab name" value="{{ old('start_class') }}">
-											@error('start_class')
+										<div class="form-group mb-3">
+											<label class="form-label" for="day">Days <span class="text-danger">*</span></label>
+											<select name="day" id="day" class="form-select">
+												<option disabled selected>-- Select Day --</option>
+												<option value="saturday" {{ old('day') == 'saturday' ? 'selected' : '' }}>Saturday</option>
+												<option value="sunday" {{ old('day') == 'sunday' ? 'selected' : '' }}>Sunday</option>
+												<option value="monday" {{ old('day') == 'monday ' ? 'selected' : '' }}>Monday</option>
+												<option value="tuesday" {{ old('day') == 'tuesday' ? 'selected' : '' }}>Tuesday</option>
+												<option value="wednesday" {{ old('day') == 'wednesday' ? 'selected' : '' }}>Wednesday</option>
+												<option value="thursday" {{ old('day') == 'thursday' ? 'selected' : '' }}>Thursday</option>
+												<option value="friday" {{ old('day') == 'friday' ? 'selected' : '' }}>Friday</option>
+											</select>
+											@error('day')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -132,9 +122,14 @@
 
 									<div class="col-md-6 mb-3">
 										<div class="form-group">
-											<label class="form-label" for="end_class">Class End <span class="text-danger">*</span></label>
-											<input type="time" name="end_class" class="form-control @error('end_class') is-invalid @enderror" id="end_class" placeholder="Enter lab name" value="{{ old('end_class') }}">
-											@error('end_class')
+											<label class="form-label" for="time_schedule">Time Schedule <span class="text-danger">*</span></label>
+											<select name="time_schedule" id="time_schedule" class="form-select">
+												<option value="">-- Select Time Schedule --</option>
+												@foreach (getTimeSchedules() as $timeSchedule)
+													<option value="{{ $timeSchedule->id }}" {{ old('time_schedule') == $timeSchedule->id ? 'selected' : '' }}>{{ Carbon\Carbon::parse($timeSchedule->start_class)->format('h:i A') }} To {{ Carbon\Carbon::parse($timeSchedule->end_class)->format('h:i A') }}</option>
+												@endforeach
+											</select>
+											@error('time_schedule')
 												<div class="text-danger">{{ $message }}</div>
 											@enderror
 										</div>
@@ -142,9 +137,9 @@
 								</div>
 							</div>
 
-							<div class="col-12">
+							<div class="col-12 text-end">
 								<div class="form-group">
-									<a href="{{ route('admin.routines.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
+									<a href="{{ route('admin.class-routines.index') }}" class="btn btn-danger waves-effect waves-light w-md"><i class="fa fa-arrow-left me-2"></i>Back Now</a>
 									<button type="submit" class="btn btn-primary waves-effect waves-light w-md submit__btn"><i class="fas fa-save me-2"></i>Submit Now</button>
 								</div>
 							</div>
@@ -159,41 +154,37 @@
 @endsection
 
 
-{{-- @push('js')
+@push('js')
 	<script>
 		$(document).ready(function() {
 			$('.submit__btn').on('click', function(e) {
-				e.preventDefault(); // Prevent the default form submission
+				e.preventDefault();
 
 				var formData = new FormData($('#trainer__form')[0]);
 
-				// Clear previous error messages
 				$(".is-invalid").removeClass("is-invalid");
 				$(".invalid-feedback").remove();
+				$('.alert-danger').remove();
 
 				$.ajax({
-					url: "{{ route('admin.routines.store') }}",
+					url: "{{ route('admin.class-routines.store') }}",
 					type: "POST",
 					data: formData,
-					contentType: false, // Important for file uploads
-					processData: false, // Important for file uploads
+					contentType: false,
+					processData: false,
 					success: function(response) {
 						if (response.success) {
-							alert('Routine created successfully');
-							window.location.href = "{{ route('admin.routines.index') }}";
-						} else {
-							alert('An error occurred');
+							// Redirect to the create page where the success message will be shown
+							window.location.href = "{{ route('admin.class-routines.create') }}";
+						} else if (response.error) {
+							$('#trainer__form').before('<div class="alert alert-danger alert-dismissible fade show"> <strong>Error! </strong>' + response.error + '</div>');
 						}
 					},
 					error: function(xhr, status, error) {
 						var errors = xhr.responseJSON.errors;
 						$.each(errors, function(key, value) {
 							var inputElement = $("#" + key);
-
-							// Add invalid class to the input/select element
 							inputElement.addClass("is-invalid");
-
-							// Display error message below the input/select element
 							inputElement.after('<span class="invalid-feedback text-danger">' + value[0] + '</span>');
 						});
 					},
@@ -201,8 +192,7 @@
 			});
 		});
 	</script>
-@endpush --}}
-
+@endpush
 
 
 @push('js')

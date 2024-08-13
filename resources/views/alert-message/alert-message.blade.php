@@ -16,6 +16,14 @@
 @endif
 
 
+@if ($errors->has('time_schedule'))
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<strong>Error!</strong> {{ $errors->first('time_schedule') }}
+		{{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+	</div>
+@endif
+
+
 <script>
 	window.setTimeout(function() {
 		$(".alert").fadeTo(500, 0).slideUp(500, function() {
