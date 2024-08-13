@@ -31,7 +31,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], f
   Route::resource('labs', App\Http\Controllers\SuperAdmin\LabController::class);
 
 
-  Route::resource('routines', App\Http\Controllers\SuperAdmin\RoutineController::class);
+  Route::resource('time-schedules', App\Http\Controllers\SuperAdmin\TimeScheduleController::class);
+  Route::resource('class-routines', App\Http\Controllers\SuperAdmin\RoutineController::class);
   Route::get('branch-to-lab-trainer/{id}', [App\Http\Controllers\SuperAdmin\RoutineController::class, 'elt_branch_batch'])->name('routines.branch-to-batch');
   Route::get('department-to-batch/{id}', [App\Http\Controllers\SuperAdmin\RoutineController::class, 'elt_department_batch'])->name('routines.department-to-batch');
 

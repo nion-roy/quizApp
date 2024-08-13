@@ -20,8 +20,7 @@ return new class extends Migration
       $table->foreignId('lab_id')->constrained('labs')->cascadeOnDelete();
       $table->foreignId('trainer_id')->constrained('trainers')->cascadeOnDelete();
       $table->string('day');
-      $table->string('start_class');
-      $table->string('end_class');
+      $table->foreignId('time_schedule_id')->constrained('time_schedules')->cascadeOnDelete();
       $table->timestamps();
     });
   }

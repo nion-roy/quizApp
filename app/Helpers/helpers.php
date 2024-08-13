@@ -101,6 +101,17 @@ if (!function_exists('getBatch')) {
 // All Batch Get Function
 
 
+// All Time Schedule Get Function
+if (!function_exists('getTimeSchedules')) {
+  function getTimeSchedules()
+  {
+    $timeSchedule = App\Models\TimeSchedule::where('status', true)->get();
+    return $timeSchedule;
+  }
+}
+// All Time Schedule Get Function
+
+
 // User Role Function
 if (!function_exists('getRoles')) {
   function getRoles()

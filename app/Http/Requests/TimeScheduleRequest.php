@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoutineRequest extends FormRequest
+class TimeScheduleRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -22,13 +23,9 @@ class RoutineRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'branch' => 'required',
-      'department' => 'required',
-      'batch' => 'required',
-      'lab' => 'required',
-      'trainer' => 'required',
-      'day' => 'required',
-      'time_schedule' => 'required'
+      'start_class' => ['required'],
+      'end_class' => ['required'],
+      'status' => ['required'],
     ];
   }
 }

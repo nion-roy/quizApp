@@ -18,7 +18,7 @@ class LabsTableSeeder extends Seeder
       [
         'user_id' => 1,
         'branch_id' => 1,
-        'lab_name' => 'lab 01',
+        'lab_name' => 'Lab 01',
         'min_set' => 10,
         'max_set' => 10,
         'created_at'  => Carbon::now(),
@@ -27,7 +27,7 @@ class LabsTableSeeder extends Seeder
       [
         'user_id' => 1,
         'branch_id' => 1,
-        'lab_name' => 'lab 02',
+        'lab_name' => 'Lab 02',
         'min_set' => 10,
         'max_set' => 10,
         'created_at'  => Carbon::now(),
@@ -36,7 +36,7 @@ class LabsTableSeeder extends Seeder
       [
         'user_id' => 1,
         'branch_id' => 1,
-        'lab_name' => 'lab 03',
+        'lab_name' => 'Lab 03',
         'min_set' => 10,
         'max_set' => 10,
         'created_at'  => Carbon::now(),
@@ -45,7 +45,7 @@ class LabsTableSeeder extends Seeder
       [
         'user_id' => 1,
         'branch_id' => 1,
-        'lab_name' => 'lab 04',
+        'lab_name' => 'Lab 04',
         'min_set' => 10,
         'max_set' => 10,
         'created_at'  => Carbon::now(),
