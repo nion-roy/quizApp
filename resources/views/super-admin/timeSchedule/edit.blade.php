@@ -41,9 +41,6 @@
 						</div>
 
 
-            {{ $timeSchedule->start_class }}
-
-
 						<div class="row align-items-top justify-content-lg-center">
 
 							<div class="col-md-6 col-xl-3 mb-3">

@@ -78,7 +78,7 @@ class TimeScheduleController extends Controller
   {
     $existingTimeSchedule = TimeSchedule::where('start_class', $request->start_class)
       ->where('end_class', $request->end_class)
-      ->where('id', '!=', $timeSchedule->id) // Exclude the current schedule from the check
+      ->where('id', '!=', $timeSchedule->id)
       ->first();
 
     if ($existingTimeSchedule) {

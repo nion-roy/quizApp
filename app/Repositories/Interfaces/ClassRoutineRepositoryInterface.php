@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interfaces;
 
-interface RoutineRepositoryInterface
+interface ClassRoutineRepositoryInterface
 {
   public function getAll();
 
