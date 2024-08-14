@@ -6,7 +6,6 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use App\Repositories\BatchRepository;
 use App\Repositories\BranchRepository;
-use App\Repositories\RoutineRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\SubjectRepository;
 use App\Repositories\TrainerRepository;
@@ -14,16 +13,17 @@ use Illuminate\Support\ServiceProvider;
 use App\Repositories\QuestionRepository;
 use App\Repositories\AttendanceRepository;
 use App\Repositories\DepartmentRepository;
+use App\Repositories\ClassRoutineRepository;
 use App\Repositories\TimeScheduleRepository;
 use App\Repositories\Interfaces\BatchRepositoryInterface;
 use App\Repositories\Interfaces\BranchRepositoryInterface;
-use App\Repositories\Interfaces\RoutineRepositoryInterface;
 use App\Repositories\Interfaces\StudentRepositoryInterface;
 use App\Repositories\Interfaces\SubjectRepositoryInterface;
 use App\Repositories\Interfaces\TrainerRepositoryInterface;
 use App\Repositories\Interfaces\QuestionRepositoryInterface;
 use App\Repositories\Interfaces\AttendanceRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\Interfaces\ClassRoutineRepositoryInterface;
 use App\Repositories\Interfaces\TimeScheduleRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
     $this->app->bind(StudentRepositoryInterface::class, StudentRepository::class);
     $this->app->bind(AttendanceRepositoryInterface::class, AttendanceRepository::class);
     $this->app->bind(TimeScheduleRepositoryInterface::class, TimeScheduleRepository::class);
-    $this->app->bind(RoutineRepositoryInterface::class, RoutineRepository::class);
+    $this->app->bind(ClassRoutineRepositoryInterface::class, ClassRoutineRepository::class);
   }
 
   /**

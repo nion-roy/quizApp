@@ -23,6 +23,12 @@ class Batch extends Model
   }
 
 
+  public function lab()
+  {
+    return $this->belongsTo(Lab::class);
+  }
+
+
   public static function createBatch($requestData)
   {
     $batch = new Batch();

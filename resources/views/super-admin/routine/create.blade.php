@@ -106,13 +106,13 @@
 											<label class="form-label" for="day">Days <span class="text-danger">*</span></label>
 											<select name="day" id="day" class="form-select">
 												<option disabled selected>-- Select Day --</option>
-												<option value="saturday" {{ old('day') == 'saturday' ? 'selected' : '' }}>Saturday</option>
-												<option value="sunday" {{ old('day') == 'sunday' ? 'selected' : '' }}>Sunday</option>
-												<option value="monday" {{ old('day') == 'monday ' ? 'selected' : '' }}>Monday</option>
-												<option value="tuesday" {{ old('day') == 'tuesday' ? 'selected' : '' }}>Tuesday</option>
-												<option value="wednesday" {{ old('day') == 'wednesday' ? 'selected' : '' }}>Wednesday</option>
-												<option value="thursday" {{ old('day') == 'thursday' ? 'selected' : '' }}>Thursday</option>
-												<option value="friday" {{ old('day') == 'friday' ? 'selected' : '' }}>Friday</option>
+												<option value="Saturday" {{ old('day') == 'Saturday' ? 'selected' : '' }}>Saturday</option>
+												<option value="Sunday" {{ old('day') == 'Sunday' ? 'selected' : '' }}>Sunday</option>
+												<option value="Monday" {{ old('day') == 'Monday ' ? 'selected' : '' }}>Monday</option>
+												<option value="Tuesday" {{ old('day') == 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
+												<option value="Wednesday" {{ old('day') == 'Wednesday' ? 'selected' : '' }}>Wednesday</option>
+												<option value="Thursday" {{ old('day') == 'Thursday' ? 'selected' : '' }}>Thursday</option>
+												<option value="Friday" {{ old('day') == 'Friday' ? 'selected' : '' }}>Friday</option>
 											</select>
 											@error('day')
 												<div class="text-danger">{{ $message }}</div>

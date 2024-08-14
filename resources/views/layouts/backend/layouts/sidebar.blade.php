@@ -111,6 +111,8 @@
 
 			<hr class="m-0">
 
+
+
 			<li class="{{ Request::is('admin/exams*') || Request::is('admin/exam-results*') ? 'mm-active' : '' }}">
 				<a href="javascript: void(0);" class="has-arrow {{ Request::is('admin/exams*') || Request::is('admin/exam-results*') ? 'active' : '' }}">
 					<i class="far fa-clone"></i>
